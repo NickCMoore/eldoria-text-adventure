@@ -7,4 +7,8 @@ class Item():
     
     def __str__(self):
         return "{}\n=====\n{}\n".format(self.name, self.description)
+    
+class Sword(Item):
+    def __init__(self):
+        super().__init__(name="Sword", description="A magnificent sword pulsating with elemental energy. It resonates with the power of the elements.")
         
