@@ -22,6 +22,11 @@ class Wizard(Characters):
     def __init__(self, name, description):
         super().__init__(name="Wizard", description="Eldron the Wise is a venerable wizard with a long white beard and a staff adorned with mystical runes.")
 
+class Player:
+    def __init__(self, name, difficulty):
+        self.name = name
+        self.difficulty = difficulty
+
 def choose_difficulty():
     """
     Function for selecting difficulty level
