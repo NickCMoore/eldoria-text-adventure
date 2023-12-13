@@ -11,4 +11,13 @@ class Item():
 class Sword(Item):
     def __init__(self):
         super().__init__(name="Sword", description="A magnificent sword pulsating with elemental energy. It resonates with the power of the elements.")
-        
+
+# Characters
+
+class Characters:
+    def __init__(self, name, description):
+        self.name = name
+
+class Wizard(Characters):
+    def __init__(self, name, description):
+        super().__init__(name="Wizard", description="Eldron the Wise is a venerable wizard with a long white beard and a staff adorned with mystical runes.")
