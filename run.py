@@ -26,6 +26,15 @@ class Player:
     def __init__(self, name, difficulty):
         self.name = name
         self.difficulty = difficulty
+        self.health = self.set_starting_health()
+
+    def set_starting_health(self):
+        if self.difficulty == 1:
+            return 100
+        elif self.difficulty == 2:
+            return 75
+        elif self.difficulty == 3:
+            return 50
 
 def choose_difficulty():
     """
