@@ -22,10 +22,8 @@ class Wizard(Characters):
     def __init__(self, name, description):
         super().__init__(name="Wizard", description="Eldron the Wise is a venerable wizard with a long white beard and a staff adorned with mystical runes.")
 
-
-# Map coordinates
-
-class MapCoordinates:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+# Introduction
+def game_intro():
+    player_name = input("Enter your name: ")
+    difficulty = choose_difficulty()
+    player = Player(player_name, difficulty)
