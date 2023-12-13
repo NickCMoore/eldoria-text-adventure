@@ -24,6 +24,9 @@ class Wizard(Characters):
 
 # Introduction
 def game_intro():
+    print("Welcome to the Eldoria Text Adventure!\n")
     player_name = input("Enter your name: ")
     difficulty = choose_difficulty()
     player = Player(player_name, difficulty)
+
+game_intro()
