@@ -29,6 +29,9 @@ class Player:
         self.health = self.set_starting_health()
 
     def set_starting_health(self):
+        """
+        Set initial health levels for the player
+        """
         if self.difficulty == 1:
             return 100
         elif self.difficulty == 2:
@@ -54,10 +57,22 @@ def choose_difficulty():
 
 # Introduction
 def game_intro():
+    """
+    Function for initial player parameters
+    """
     print("Welcome to the Eldoria Text Adventure!\n")
-    player_name = input("Enter your name: \n")
+
+    while True:
+        player_name = input("Enter your name: \n")
+        if player_name and not player_name.isdigit():
+            break
+        else:
+            raise ValueError("Invalid name. Please enter a name without numbers or that is blank")
+            
     difficulty = choose_difficulty()
     player = Player(player_name, difficulty)
+    print(f"{player_name}, you chose difficulty level {player.difficulty}. Your starting health is {player.health}")
+    
 
 
 
