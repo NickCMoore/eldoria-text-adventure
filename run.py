@@ -146,7 +146,7 @@ def show_leaderboard(player):
     else:
         # Display the leaderboard in a table
         print(f"{Fore.CYAN}{'Rank':<10}{'Player':<20}{'Score':<10}{Style.RESET_ALL}")
-        for rank, row in enumerate(data[1:], start=1):
+        for rank, row in enumerate(data[1:11], start=1):
             player_name, score = row
             if player_name == player.name:  # Highlight player's entry
                 print(f"{Fore.GREEN}{rank:<10}{player_name:<20}{score:<10}{Style.RESET_ALL}")
