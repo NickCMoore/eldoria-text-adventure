@@ -73,7 +73,26 @@ def game_intro():
     player = Player(player_name, difficulty)
     print(f"{player_name}, you chose difficulty level {player.difficulty}. Your starting health is {player.health}")
     
+def crossroads(player):
+    """
+    Function for introducing player path choice at the start of the game
+    """
+    print("The eternal mists clear. You find yourself at a crossroads with three paths diverging in front of you.")
+    print(f"Which will you take {player.name}?")
 
+    while True:
+        print("1. The Forest Path")
+        print("2. The Town Path")
+        print("3. The Desert Path")
+
+        choice = input("Enter the number relating to your chosen path: ")
+
+        if choice in ['1', '2', '3']:
+            handle_path_choice(player, choice)
+            break
+        else:
+            print("Invalid choice. Please enter a valid number.")
 
 
 game_intro()
+
