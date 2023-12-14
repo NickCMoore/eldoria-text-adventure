@@ -275,6 +275,7 @@ def solve_riddle(player):
 def game_over(player):
     print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
     print(f"{player.name}, your final score: {player.health}")
+    time.sleep(2)
 
         # Update the leaderboard with the player's score
     update_leaderboard(player)
