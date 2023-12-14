@@ -135,6 +135,14 @@ def restart_game():
     clear()
     game_intro()
 
+def show_leaderboard():
+    clear()
+    print("\nLEADERBOARD")
+    print("============")
+    
+    # Fetch updated data from the leaderboard worksheet
+    data = leaderboard.get_all_values()
+
 
 def crossroads(player):
     """
@@ -253,6 +261,23 @@ def solve_riddle(player):
                 print(f"{player.name}, you opt to leave the forest for now.")
                 break
 
+
+def game_over(player):
+    print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
+    print(f"{player.name}, your final score: {player.health}")
+    
+    # Display the leaderboard at the end of the game
+    display_leaderboard()
+    
+    # Update the leaderboard with the player's score
+    update_leaderboard(player)
+    
+    # Allow the player to restart the game
+    restart = input("Do you want to play again? (yes/no): ").lower()
+    if restart == "yes":
+        restart_game()
+    else:
+        print("Thanks for playing - see you again soon!")
 
 def main():
     clear()
