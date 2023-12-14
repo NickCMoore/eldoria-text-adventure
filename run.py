@@ -7,6 +7,8 @@ from google.oauth2.service_account import Credentials
 import colorama
 from colorama import Fore, Style
 from images import main_title
+import os
+
 
 colorama.init(autoreset=True)  # Colours auto-reset after being printed
 
@@ -118,11 +120,19 @@ def choose_difficulty():
             print("Invalid choice. Please enter a valid number")
 
 
+def clear():
+    """
+    Clears all the previous text output in the user terminal
+    """
+    os.system("clear")
+
+
 def restart_game():
     """
     Function to restart the game
     """
     print("Restarting the game...\n")
+    clear()
     game_intro()
 
 
@@ -131,9 +141,11 @@ def crossroads(player):
     Function for introducing player path choice at the start of the game
     """
     while True:
+        clear()
         print("The eternal mists clear.")
         print("You find yourself at a crossroads.")
         print("There are three paths diverging in front of you.")
+        clear()
         print(f"Which option do you want to take {player.name}?")
 
         print("1. The Forest Path")
@@ -168,11 +180,14 @@ def crossroads(player):
 
 def handle_path_choice(player, choice):
     if choice == '1':
+        clear()
         print(f"{player.name}, you venture into the mystical forest.")
         forest_riddle(player)
     elif choice == '2':
+        clear()
         print(f"{player.name}, you head into town.")
     elif choice == '3':
+        clear()
         print(f"{player.name}, you enter the scorching desert.")
 
 
@@ -193,6 +208,7 @@ def game_intro():
     player = Player(player_name, difficulty)
     print(f"{player_name}, you chose difficulty level {player.difficulty}.")
     print(f"Your starting health is {player.health}")
+    clear()
     crossroads(player)
 
 
@@ -238,6 +254,11 @@ def solve_riddle(player):
                 break
 
 
-if __name__ == "__main__":
+def main():
+    clear()
     main_title()
     game_intro()
+
+
+if __name__ == "__main__":
+    main()
