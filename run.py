@@ -7,10 +7,25 @@ class Item():
     
     def __str__(self):
         return "{}\n=====\n{}\n".format(self.name, self.description)
-    
 class Sword(Item):
     def __init__(self):
         super().__init__(name="Sword", description="A magnificent sword pulsating with elemental energy. It resonates with the power of the elements.")
+
+class Backpack:
+    def __init__(self):
+        self.items = []
+
+    def add_item(self, item):
+        self.items.append(item)
+        print(f"Added {item.name} to your backpack.")
+
+    def display_inventory(self):
+        if not self.items:
+            print("Your backpack is empty.")
+        else:
+            print("Items in your backpack:")
+            for item in self.items:
+                print(item.name)
 
 # Characters
 
@@ -28,6 +43,7 @@ class Player:
         self.difficulty = difficulty
         self.health = self.set_starting_health()
         self.incorrect_guesses = 0
+        self.inventory = Backpack()
 
     def set_starting_health(self):
         """
