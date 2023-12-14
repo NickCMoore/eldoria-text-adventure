@@ -216,4 +216,3 @@ def solve_riddle(player):
 
 if __name__== "__main__":
     game_intro()
-
