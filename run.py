@@ -27,6 +27,7 @@ class Player:
         self.name = name
         self.difficulty = difficulty
         self.health = self.set_starting_health()
+        self.incorrect_guesses = 0
 
     def set_starting_health(self):
         """
@@ -121,7 +122,7 @@ def forest_riddle(player):
 def solve_riddle(player):
     correct_answer = "an echo"
 
-    while True:
+    for _ in range(3): # Three player attempts allowed
         player_answer = input("Enter your answer: ").lower()
 
         if player_answer == correct_answer:
@@ -133,6 +134,12 @@ def solve_riddle(player):
             print("I am a sound that repeats. What am I?")
 
             player.deduct_health(10) # Deducts 10 health from the player if they get it wrong
+            player.incorrect_guesses += 1
+
+            if player.incorrect_guesses == 3:
+                print(f"{player.name}, you've failed to answer the riddle correctly three times. You have died.")
+                restart_game()
+
 
             retry = input("Do you want to try again? (yes/no): ").lower()
             if retry != "yes":
