@@ -1,3 +1,7 @@
+"""
+Imported dependencies
+"""
+
 import gspread
 from google.oauth2.service_account import Credentials
 import colorama
@@ -22,7 +26,7 @@ leaderboard = SHEET. worksheet('leaderboard')
 
 data = leaderboard.get_all_values()
 
-print(data)
+## print(data)
 
 # Game items
 
@@ -215,4 +219,5 @@ def solve_riddle(player):
                 break
 
 if __name__== "__main__":
+    main_title()
     game_intro()
