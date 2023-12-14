@@ -1,5 +1,11 @@
 import gspread
 from google.oauth2.service_account import Credentials
+import colorama
+from colorama import Fore, Style
+from images import main_title
+
+colorama.init(autoreset=True)  # Colours auto-reset after being printed
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
