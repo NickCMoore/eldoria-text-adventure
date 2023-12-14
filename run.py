@@ -98,6 +98,8 @@ class Player:
         if not self.inventory.items:
             print("Your backpack is empty.")
 
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def choose_difficulty():
     """
@@ -114,14 +116,6 @@ def choose_difficulty():
             return int(choice)
         else:
             print("Invalid choice. Please enter a valid number")
-
-
-def clear_screen():
-    if os.name == 'nt':  # For Windows
-        os.system('clear_screen')
-    else:  # For Unix-like systems (Linux, macOS)
-        os.system('clear')
-
 
 def restart_game():
     """
@@ -163,7 +157,7 @@ def crossroads(player):
     Function for introducing player path choice at the start of the game
     """
     while True:
-        clear_screen()
+        clear_screen() 
         print("The eternal mists clear_screen.")
         print("You find yourself at a crossroads.")
         print("There are three paths diverging in front of you.")
