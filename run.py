@@ -132,7 +132,7 @@ def restart_game():
     game_intro()
 
 
-def show_leaderboard():
+def show_leaderboard(player):
     clear_screen()
     print("\nLEADERBOARD")
     print("============")
@@ -144,11 +144,14 @@ def show_leaderboard():
     if not data:
         print("No leaderboard data available.")
     else:
-        # Display the leaderboard in a tabular format
+        # Display the leaderboard in a table
         print(f"{Fore.CYAN}{'Rank':<10}{'Player':<20}{'Score':<10}{Style.RESET_ALL}")
         for rank, row in enumerate(data, start=1):
             player_name, score = row
-            print(f"{rank:<10}{player_name:<20}{score:<10}")
+            if player_name == player.name:  # Highlight player's entry
+                print(f"{Fore.GREEN}{rank:<10}{player_name:<20}{score:<10}{Style.RESET_ALL}")
+            else:
+                print(f"{rank:<10}{player_name:<20}{score:<10}")
 
 def update_leaderboard(player):
     # Add the player's score to the leaderboard
@@ -230,6 +233,8 @@ def game_intro():
     clear_screen()
     crossroads(player)
 
+    return player
+
 
 def forest_riddle(player):
     print("As you enter the enchanted forest, you encounter a wise old tree.")
@@ -260,7 +265,6 @@ def solve_riddle(player):
 
             player.deduct_health(10)  # Deducts 10 health if incorrect
             player.incorrect_guesses += 1
-       
         if player.incorrect_guesses == 3:
             print(f"{player.name}, unfortunate...")
             print("You failed to answer the riddle correctly three times.")
@@ -278,7 +282,7 @@ def game_over(player):
     print(f"{player.name}, your final score: {player.health}")
     
     # Show the leaderboard at the end of the game
-    show_leaderboard()
+    show_leaderboard(player)
     
     # Update the leaderboard with the player's score
     update_leaderboard(player)
@@ -293,7 +297,7 @@ def game_over(player):
 def main():
     clear_screen()
     main_title()
-    game_intro()
+    player = game_intro()
     game_over(player)
 
 
