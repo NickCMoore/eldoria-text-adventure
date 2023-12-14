@@ -44,6 +44,7 @@ class Player:
         self.health = self.set_starting_health()
         self.incorrect_guesses = 0
         self.inventory = Backpack()
+        self.forest_completed = False
 
     def set_starting_health(self):
         """
@@ -108,15 +109,26 @@ def crossroads(player):
         print("3. The Desert Path")
         print("4. Check Backpack")
 
-        choice = input("Enter the number relating to your chosen path: ")
+        if not player.forest_completed:
+            choice = input("Enter the number relating to your chosen path: ")
+        else:
+            print("The Forest Path is no longer available.")
+            choice = input("Enter the number relating to your chosen path (excluding the Forest Path): ")
 
-        if choice in ['1', '2', '3']:
+        if choice == '1' and not player.forest_completed:
+            handle_path_choice(player, choice)
+        elif choice == '2':
+            handle_path_choice(player, choice)
+        elif choice == '3':
             handle_path_choice(player, choice)
         elif choice == '4':
             break
         else:
             print("Invalid choice. Please enter a valid number.")
 
+        if player.forest_completed and choice == '1':
+            print("The Forest Path is no longer available.")
+            continue
     if choice == '4':
         player.check_backpack()
 
@@ -165,6 +177,7 @@ def solve_riddle(player):
         if player_answer == correct_answer:
             print("The wise old tree nods. You have answered the riddle correctly.")
             player.inventory.add_item(Sword()) # Adds the sword to the player's inventory
+            player.forest_completed = True # Records completion of the forest path
             break
         else:
             print("Incorrect. The wise old tree offers a clue:")
