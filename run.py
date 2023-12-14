@@ -103,6 +103,12 @@ def game_intro():
     
     crossroads(player)
 
+def forest_riddle(player):
+    print("As you enter the enchanted forest, you encounter a wise old tree.")
+    print("The tree speaks with a mystical voice:")
+    print("I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?")
+
+
 if __name__== "__main__":
     game_intro()
 
