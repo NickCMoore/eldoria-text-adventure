@@ -39,6 +39,13 @@ class Player:
         elif self.difficulty == 3:
             return 50
 
+    def deduct_health(self, amount):
+        """
+        Deducts health from the player if they get it wrong
+        """
+        self.health -= amount
+        print(f"{self.name}, you lost {amount} health. Your remaining health is {self.health}.")
+
 def choose_difficulty():
     """
     Function for selecting difficulty level
@@ -124,6 +131,8 @@ def solve_riddle(player):
         else:
             print("Incorrect. The wise old tree offers a clue:")
             print("I am a sound that repeats. What am I?")
+
+            player.deduct_health(10) # Deducts 10 health from the player if they get it wrong
 
             retry = input("Do you want to try again? (yes/no): ").lower()
             if retry != "yes":
