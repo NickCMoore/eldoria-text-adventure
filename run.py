@@ -26,20 +26,24 @@ leaderboard = SHEET. worksheet('leaderboard')
 
 data = leaderboard.get_all_values()
 
-## print(data)
+# print(data)
 
 # Game items
+
 
 class Item():
     def __init__(self, name, description):
         self.name = name
         self.description = description
-    
+
     def __str__(self):
         return "{}\n=====\n{}\n".format(self.name, self.description)
+
+
 class Sword(Item):
     def __init__(self):
-        super().__init__(name="sword", description="A magnificent sword pulsating with elemental energy. It resonates with the power of the elements.")
+        super().__init__(name="sword", description="A magnificent sword")
+
 
 class Backpack:
     def __init__(self):
@@ -47,7 +51,8 @@ class Backpack:
 
     def add_item(self, item):
         self.items.append(item)
-        print(f"Excellent work! A {item.name} has been added to your backpack.")
+        print(f"Excellent work!")
+        print(f"A {item.name} has been added to your backpack.")
 
     def display_inventory(self):
         if not self.items:
@@ -56,7 +61,6 @@ class Backpack:
             print("Items in your backpack:")
             for item in self.items:
                 print(item.name)
-
 
 
 class Player:
@@ -84,7 +88,8 @@ class Player:
         Deducts health from the player if they get it wrong
         """
         self.health -= amount
-        print(f"{self.name}, you lost {amount} health. Your remaining health is {self.health}.")
+        print(f"{self.name}, you lost {amount} health.")
+        print(f"Your remaining health is {self.health}.")
 
     def check_backpack(self):
         """
@@ -94,6 +99,7 @@ class Player:
         self.inventory.display_inventory()
         if not self.inventory.items:
             print("Your backpack is empty.")
+
 
 def choose_difficulty():
     """
@@ -111,6 +117,7 @@ def choose_difficulty():
         else:
             print("Invalid choice. Please enter a valid number")
 
+
 def restart_game():
     """
     Function to restart the game
@@ -118,12 +125,15 @@ def restart_game():
     print("Restarting the game...\n")
     game_intro()
 
+
 def crossroads(player):
     """
     Function for introducing player path choice at the start of the game
     """
     while True:
-        print("The eternal mists clear. You find yourself at a crossroads with three paths diverging in front of you.")
+        print("The eternal mists clear.")
+        print("You find yourself at a crossroads.")
+        print("There are three paths diverging in front of you.")
         print(f"Which option do you want to take {player.name}?")
 
         print("1. The Forest Path")
@@ -135,7 +145,8 @@ def crossroads(player):
             choice = input("Enter the number relating to your chosen path: ")
         else:
             print("The Forest Path is no longer available.")
-            choice = input("Enter the number relating to your chosen path (excluding the Forest Path): ")
+            choice = input("Enter the number relating to your chosen path.")
+            print("This will now exclude the Forest Path): ")
 
         if choice == '1' and not player.forest_completed:
             handle_path_choice(player, choice)
@@ -154,14 +165,16 @@ def crossroads(player):
     if choice == '4':
         player.check_backpack()
 
+
 def handle_path_choice(player, choice):
     if choice == '1':
         print(f"{player.name}, you venture into the mystical forest.")
-        forest_riddle(player)    
+        forest_riddle(player)
     elif choice == '2':
         print(f"{player.name}, you head into town.")
     elif choice == '3':
         print(f"{player.name}, you enter the scorching desert.")
+
 
 # Introduction
 def game_intro():
@@ -175,49 +188,56 @@ def game_intro():
         if player_name and not player_name.isdigit():
             break
         else:
-            raise ValueError("Invalid name. Please enter a name without numbers or that is blank")
-            
+            raise ValueError("Invalid name. No numbers or blanks allowed")
     difficulty = choose_difficulty()
     player = Player(player_name, difficulty)
-    print(f"{player_name}, you chose difficulty level {player.difficulty}. Your starting health is {player.health}")
-    
+    print(f"{player_name}, you chose difficulty level {player.difficulty}.")
+    print(f"Your starting health is {player.health}")
     crossroads(player)
+
 
 def forest_riddle(player):
     print("As you enter the enchanted forest, you encounter a wise old tree.")
     print("The tree speaks with a mystical voice:")
-    print("I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?")
+    print("I speak without a mouth and hear without ears.")
+    print("I have no body, but I come alive with the wind. What am I?")
 
     solve_riddle(player)
+
 
 def solve_riddle(player):
     correct_answer = "an echo"
 
-    for _ in range(3): # Three player attempts allowed
+    for _ in range(3):  # Three player attempts allowed
         player_answer = input("Enter your answer: ").lower()
 
         if player_answer == correct_answer:
-            print("The wise old tree nods. You have answered the riddle correctly.")
-            player.inventory.add_item(Sword()) # Adds the sword to the player's inventory
-            player.forest_completed = True # Records completion of the forest path
+            print("The wise old tree nods.")
+            print("You have answered the riddle correctly.")
+            print("You receive a pulsating sword with elemental energy.")
+            print("It resonates with the power of the elements.")
+            player.inventory.add_item(Sword())  # Adds sword to player backpack
+            player.forest_completed = True  # Records completion of forest path
             break
         else:
             print("Incorrect. The wise old tree offers a clue:")
             print("I am a sound that repeats. What am I?")
 
-            player.deduct_health(10) # Deducts 10 health from the player if they get it wrong
+            player.deduct_health(10)  # Deducts 10 health if incorrect
             player.incorrect_guesses += 1
 
             if player.incorrect_guesses == 3:
-                print(f"{player.name}, you've failed to answer the riddle correctly three times. You have died.")
+                print(f"{player.name}, unfortunate...")
+                print("You failed to answer the riddle correctly three times.")
+                print("You have died.")
                 restart_game()
-
 
             retry = input("Do you want to try again? (yes/no): ").lower()
             if retry != "yes":
-                print(f"{player.name}, you decide to leave the forest for now.")
+                print(f"{player.name}, you opt to leave the forest for now.")
                 break
 
-if __name__== "__main__":
+
+if __name__ == "__main__":
     main_title()
     game_intro()
