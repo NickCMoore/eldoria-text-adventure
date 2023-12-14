@@ -103,5 +103,6 @@ def game_intro():
     
     crossroads(player)
 
-game_intro()
+if __name__== "__main__":
+    game_intro()
 
