@@ -116,11 +116,11 @@ def choose_difficulty():
             print("Invalid choice. Please enter a valid number")
 
 
-def clear():
+def cls():
     """
     Clears all the previous text output in the user terminal
     """
-    os.system("clear")
+    os.system("cls")
 
 
 def restart_game():
@@ -128,12 +128,12 @@ def restart_game():
     Function to restart the game
     """
     print("Restarting the game...\n")
-    clear()
+    cls()
     game_intro()
 
 
 def show_leaderboard():
-    clear()
+    cls()
     print("\nLEADERBOARD")
     print("============")
 
@@ -160,11 +160,11 @@ def crossroads(player):
     Function for introducing player path choice at the start of the game
     """
     while True:
-        clear()
-        print("The eternal mists clear.")
+        cls()
+        print("The eternal mists cls.")
         print("You find yourself at a crossroads.")
         print("There are three paths diverging in front of you.")
-        clear()
+        cls()
         print(f"Which option do you want to take {player.name}?")
 
         print("1. The Forest Path")
@@ -199,14 +199,14 @@ def crossroads(player):
 
 def handle_path_choice(player, choice):
     if choice == '1':
-        clear()
+        cls()
         print(f"{player.name}, you venture into the mystical forest.")
         forest_riddle(player)
     elif choice == '2':
-        clear()
+        cls()
         print(f"{player.name}, you head into town.")
     elif choice == '3':
-        clear()
+        cls()
         print(f"{player.name}, you enter the scorching desert.")
 
 
@@ -227,7 +227,7 @@ def game_intro():
     player = Player(player_name, difficulty)
     print(f"{player_name}, you chose difficulty level {player.difficulty}.")
     print(f"Your starting health is {player.health}")
-    clear()
+    cls()
     crossroads(player)
 
 
@@ -291,7 +291,7 @@ def game_over(player):
         print("Thanks for playing - see you again soon!")
 
 def main():
-    clear()
+    cls()
     main_title()
     game_intro()
     game_over(player)
