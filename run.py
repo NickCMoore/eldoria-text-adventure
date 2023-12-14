@@ -63,6 +63,15 @@ class Player:
         self.health -= amount
         print(f"{self.name}, you lost {amount} health. Your remaining health is {self.health}.")
 
+    def check_backpack(self):
+        """
+        Enable the player to check their backpack
+        """
+        print("Checking your backpack:")
+        self.inventory.display_inventory()
+        if not self.inventory.items:
+            print("Your backpack is empty.")
+
 def choose_difficulty():
     """
     Function for selecting difficulty level
@@ -90,21 +99,26 @@ def crossroads(player):
     """
     Function for introducing player path choice at the start of the game
     """
-    print("The eternal mists clear. You find yourself at a crossroads with three paths diverging in front of you.")
-    print(f"Which will you take {player.name}?")
-
     while True:
+        print("The eternal mists clear. You find yourself at a crossroads with three paths diverging in front of you.")
+        print(f"Which option do you want to take {player.name}?")
+
         print("1. The Forest Path")
         print("2. The Town Path")
         print("3. The Desert Path")
+        print("4. Check Backpack")
 
         choice = input("Enter the number relating to your chosen path: ")
 
         if choice in ['1', '2', '3']:
             handle_path_choice(player, choice)
+        elif choice == '4':
             break
         else:
             print("Invalid choice. Please enter a valid number.")
+
+    if choice == '4':
+        player.check_backpack()
 
 def handle_path_choice(player, choice):
     if choice == '1':
