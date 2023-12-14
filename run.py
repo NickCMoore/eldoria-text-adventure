@@ -27,15 +27,7 @@ class Backpack:
             for item in self.items:
                 print(item.name)
 
-# Characters
 
-class Characters:
-    def __init__(self, name, description):
-        self.name = name
-
-class Wizard(Characters):
-    def __init__(self, name, description):
-        super().__init__(name="Wizard", description="Eldron the Wise is a venerable wizard with a long white beard and a staff adorned with mystical runes.")
 
 class Player:
     def __init__(self, name, difficulty):
