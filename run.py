@@ -63,6 +63,13 @@ def choose_difficulty():
         else:
             print("Invalid choice. Please enter a valid number")
 
+def restart_game():
+    """
+    Function to restart the game
+    """
+    print("Restarting the game...\n")
+    game_intro()
+
 def crossroads(player):
     """
     Function for introducing player path choice at the start of the game
