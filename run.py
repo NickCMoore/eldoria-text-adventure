@@ -9,6 +9,7 @@ from colorama import Fore, Style
 from images import main_title
 import os
 import time
+import sys
 
 
 colorama.init(autoreset=True)  # Colours auto-reset after being printed
@@ -288,6 +289,7 @@ def game_over(player):
         restart_game()
     else:
         print("Thanks for playing - see you again soon!")
+        sys.exit()
 
 def main():
     clear_screen()
