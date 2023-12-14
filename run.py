@@ -78,6 +78,7 @@ def crossroads(player):
 def handle_path_choice(player, choice):
     if choice == '1':
         print(f"{player.name}, you venture into the mystical forest.")
+        forest_riddle(player)    
     elif choice == '2':
         print(f"{player.name}, you head into town.")
     elif choice == '3':
@@ -108,6 +109,26 @@ def forest_riddle(player):
     print("The tree speaks with a mystical voice:")
     print("I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?")
 
+    solve_riddle(player)
+
+def solve_riddle(player):
+    correct_answer = "an echo"
+
+    while True:
+        player_answer = input("Enter your answer: ").lower()
+
+        if player_answer == correct_answer:
+            print("The wise old tree nods. You have answered the riddle correctly.")
+            print(f"{player.name}, you may proceed deeper into the forest.")
+            break
+        else:
+            print("Incorrect. The wise old tree offers a clue:")
+            print("I am a sound that repeats. What am I?")
+
+            retry = input("Do you want to try again? (yes/no): ").lower()
+            if retry != "yes":
+                print(f"{player.name}, you decide to leave the forest for now.")
+                break
 
 if __name__== "__main__":
     game_intro()
