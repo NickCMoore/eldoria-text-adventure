@@ -75,6 +75,14 @@ def crossroads(player):
         else:
             print("Invalid choice. Please enter a valid number.")
 
+def handle_path_choice(player, choice):
+    if choice == '1':
+        print(f"{player.name}, you venture into the mystical forest.")
+    elif choice == '2':
+        print(f"{player.name}, you head into town.")
+    elif choice == '3':
+        print(f"{player.name}, you enter the scorching desert.")
+
 # Introduction
 def game_intro():
     """
