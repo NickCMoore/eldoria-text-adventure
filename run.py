@@ -116,11 +116,11 @@ def choose_difficulty():
             print("Invalid choice. Please enter a valid number")
 
 
-def cls():
-    """
-    Clears all the previous text output in the user terminal
-    """
-    os.system("cls")
+def clear_screen():
+    if os.name == 'nt':  # For Windows
+        os.system('clear_screen')
+    else:  # For Unix-like systems (Linux, macOS)
+        os.system('clear')
 
 
 def restart_game():
@@ -128,12 +128,12 @@ def restart_game():
     Function to restart the game
     """
     print("Restarting the game...\n")
-    cls()
+    clear_screen()
     game_intro()
 
 
 def show_leaderboard():
-    cls()
+    clear_screen()
     print("\nLEADERBOARD")
     print("============")
 
@@ -160,11 +160,11 @@ def crossroads(player):
     Function for introducing player path choice at the start of the game
     """
     while True:
-        cls()
-        print("The eternal mists cls.")
+        clear_screen()
+        print("The eternal mists clear_screen.")
         print("You find yourself at a crossroads.")
         print("There are three paths diverging in front of you.")
-        cls()
+        clear_screen()
         print(f"Which option do you want to take {player.name}?")
 
         print("1. The Forest Path")
@@ -199,14 +199,14 @@ def crossroads(player):
 
 def handle_path_choice(player, choice):
     if choice == '1':
-        cls()
+        clear_screen()
         print(f"{player.name}, you venture into the mystical forest.")
         forest_riddle(player)
     elif choice == '2':
-        cls()
+        clear_screen()
         print(f"{player.name}, you head into town.")
     elif choice == '3':
-        cls()
+        clear_screen()
         print(f"{player.name}, you enter the scorching desert.")
 
 
@@ -227,7 +227,7 @@ def game_intro():
     player = Player(player_name, difficulty)
     print(f"{player_name}, you chose difficulty level {player.difficulty}.")
     print(f"Your starting health is {player.health}")
-    cls()
+    clear_screen()
     crossroads(player)
 
 
@@ -291,7 +291,7 @@ def game_over(player):
         print("Thanks for playing - see you again soon!")
 
 def main():
-    cls()
+    clear_screen()
     main_title()
     game_intro()
     game_over(player)
