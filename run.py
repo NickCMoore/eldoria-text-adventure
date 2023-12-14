@@ -9,7 +9,7 @@ class Item():
         return "{}\n=====\n{}\n".format(self.name, self.description)
 class Sword(Item):
     def __init__(self):
-        super().__init__(name="Sword", description="A magnificent sword pulsating with elemental energy. It resonates with the power of the elements.")
+        super().__init__(name="sword", description="A magnificent sword pulsating with elemental energy. It resonates with the power of the elements.")
 
 class Backpack:
     def __init__(self):
@@ -17,7 +17,7 @@ class Backpack:
 
     def add_item(self, item):
         self.items.append(item)
-        print(f"Added {item.name} to your backpack.")
+        print(f"Excellent work! A {item.name} has been added to your backpack.")
 
     def display_inventory(self):
         if not self.items:
@@ -150,7 +150,7 @@ def solve_riddle(player):
 
         if player_answer == correct_answer:
             print("The wise old tree nods. You have answered the riddle correctly.")
-            print(f"{player.name}, you may proceed deeper into the forest.")
+            player.inventory.add_item(Sword()) # Adds the sword to the player's inventory
             break
         else:
             print("Incorrect. The wise old tree offers a clue:")
