@@ -8,6 +8,7 @@ import colorama
 from colorama import Fore, Style
 from images import main_title
 import os
+import time
 
 
 colorama.init(autoreset=True)  # Colours auto-reset after being printed
@@ -24,14 +25,9 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('eldoria-text-adventure')
 
-leaderboard = SHEET. worksheet('leaderboard')
-
-data = leaderboard.get_all_values()
-
-# print(data)
+leaderboard = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('leaderboard')
 
 # Game items
-
 
 class Item():
     def __init__(self, name, description):
@@ -135,13 +131,28 @@ def restart_game():
     clear()
     game_intro()
 
+
 def show_leaderboard():
     clear()
     print("\nLEADERBOARD")
     print("============")
-    
+
+    time.sleep(2)
     # Fetch updated data from the leaderboard worksheet
-    data = leaderboard.get_all_values()
+    data = SHEET.worksheet('leaderboard').get_all_values()
+
+    if not data:
+        print("No leaderboard data available.")
+    else:
+        # Display the leaderboard in a tabular format
+        print(f"{Fore.CYAN}{'Rank':<10}{'Player':<20}{'Score':<10}{Style.RESET_ALL}")
+        for rank, row in enumerate(data, start=1):
+            player_name, score = row
+            print(f"{rank:<10}{player_name:<20}{score:<10}")
+
+def update_leaderboard(player):
+    # Add the player's score to the leaderboard
+    leaderboard.append_row([player.name, str(player.health)])
 
 
 def crossroads(player):
@@ -249,12 +260,12 @@ def solve_riddle(player):
 
             player.deduct_health(10)  # Deducts 10 health if incorrect
             player.incorrect_guesses += 1
-
-            if player.incorrect_guesses == 3:
-                print(f"{player.name}, unfortunate...")
-                print("You failed to answer the riddle correctly three times.")
-                print("You have died.")
-                restart_game()
+       
+        if player.incorrect_guesses == 3:
+            print(f"{player.name}, unfortunate...")
+            print("You failed to answer the riddle correctly three times.")
+            print("You have died.")
+            game_over(player)
 
             retry = input("Do you want to try again? (yes/no): ").lower()
             if retry != "yes":
@@ -266,8 +277,8 @@ def game_over(player):
     print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
     print(f"{player.name}, your final score: {player.health}")
     
-    # Display the leaderboard at the end of the game
-    display_leaderboard()
+    # Show the leaderboard at the end of the game
+    show_leaderboard()
     
     # Update the leaderboard with the player's score
     update_leaderboard(player)
@@ -283,6 +294,7 @@ def main():
     clear()
     main_title()
     game_intro()
+    game_over(player)
 
 
 if __name__ == "__main__":
