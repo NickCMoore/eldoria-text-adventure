@@ -138,7 +138,7 @@ def show_leaderboard(player):
     print("============")
 
     time.sleep(2)
-    # Fetch updated data from the leaderboard worksheet
+    # Fetch updated data from leaderboard worksheet
     data = SHEET.worksheet('leaderboard').get_all_values()
 
     if not data:
@@ -146,7 +146,7 @@ def show_leaderboard(player):
     else:
         # Display the leaderboard in a table
         print(f"{Fore.CYAN}{'Rank':<10}{'Player':<20}{'Score':<10}{Style.RESET_ALL}")
-        for rank, row in enumerate(data, start=1):
+        for rank, row in enumerate(data[1:], start=1):
             player_name, score = row
             if player_name == player.name:  # Highlight player's entry
                 print(f"{Fore.GREEN}{rank:<10}{player_name:<20}{score:<10}{Style.RESET_ALL}")
@@ -280,12 +280,13 @@ def solve_riddle(player):
 def game_over(player):
     print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
     print(f"{player.name}, your final score: {player.health}")
+
+        # Update the leaderboard with the player's score
+    update_leaderboard(player)
     
     # Show the leaderboard at the end of the game
     show_leaderboard(player)
-    
-    # Update the leaderboard with the player's score
-    update_leaderboard(player)
+
     
     # Allow the player to restart the game
     restart = input("Do you want to play again? (yes/no): ").lower()
