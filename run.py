@@ -206,6 +206,16 @@ def town_choice(player):
     else:
         print("Invalid choice. Please enter a valid number (1, 2, 3, or 4).")
 
+def handle_town_choice(player, choice):
+    if choice == '1':
+        visit_potion_shop(player)
+    elif choice == '2':
+        explore_market_square(player)
+    elif choice == '3':
+        talk_to_mysterious_merchant(player)
+    elif choice == '4':
+        player.check.backpack()
+
 
         
 def handle_path_choice(player, choice):
