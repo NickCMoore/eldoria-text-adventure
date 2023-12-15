@@ -216,6 +216,18 @@ def handle_town_choice(player, choice):
     elif choice == '4':
         player.check.backpack()
 
+def visit_potion_shop(player):
+    print("You enter the Potion Shop and meet the friendly shopkeeper.")
+    print("They offer you a health potion as a gift.")
+
+    # Increase player's health
+    player.health += 20
+    print(f"You gained 20 health. Your total health is now {player.health}.")
+
+    # Add health potion to player's inventory
+    player.inventory.add_item(Item(name="Health Potion", description="A magical potion that restores health."))
+
+
 
         
 def handle_path_choice(player, choice):
