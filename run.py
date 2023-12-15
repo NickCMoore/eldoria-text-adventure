@@ -179,6 +179,15 @@ def crossroads(player):
 
         choice = input("Enter the number relating to your chosen path: ")
 
+        if choice == '1' and player.forest_completed:
+            print("The Forest Path is already completed. Choose another option.")
+            time.sleep(2)
+            continue
+        elif choice == '2' and player.town_completed:
+            print("The Town Path is already completed. Choose another option.")
+            time.sleep(2)
+            continue
+
         if choice.isdigit() and choice in ['1', '2', '3', '4']:
             handle_path_choice(player, choice)
         else:
