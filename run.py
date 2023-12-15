@@ -113,10 +113,10 @@ def choose_difficulty():
 
     while True:
         choice = input("Which level do you choose?\n")
-        if choice in ['1', '2', '3']:
+        if choice.isdigit() and choice in ['1', '2', '3']:
             return int(choice)
         else:
-            print("Invalid choice. Please enter a valid number")
+            print("Invalid choice. Please enter a valid number (1, 2, or 3)")
 
 def restart_game():
     """
@@ -154,9 +154,6 @@ def update_leaderboard(player):
 
 
 def crossroads(player):
-    """
-    Function for introducing player path choice at the start of the game
-    """
     while True:
         clear_screen() 
         print("The eternal mists clear_screen.")
@@ -177,24 +174,17 @@ def crossroads(player):
             choice = input("Enter the number relating to your chosen path.")
             print("This will now exclude the Forest Path): ")
 
-        if choice == '1' and not player.forest_completed:
+        if choice.isdigit() and choice in ['1', '2', '3', '4']:
             handle_path_choice(player, choice)
-        elif choice == '2':
-            handle_path_choice(player, choice)
-        elif choice == '3':
-            handle_path_choice(player, choice)
-        elif choice == '4':
-            break
         else:
-            print("Invalid choice. Please enter a valid number.")
+            print("Invalid choice. Please enter a valid number (1, 2, 3, or 4).")
 
         if player.forest_completed and choice == '1':
             print("The Forest Path is no longer available.")
             continue
     if choice == '4':
         player.check_backpack()
-
-
+        
 def handle_path_choice(player, choice):
     if choice == '1':
         clear_screen()
@@ -274,7 +264,7 @@ def solve_riddle(player):
 
 def game_over(player):
     print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
-    print(f"{player.name}, your final score: {player.health}")
+    print(f"{player.name}, your final score was {player.health}")
     time.sleep(2)
 
         # Update the leaderboard with the player's score
