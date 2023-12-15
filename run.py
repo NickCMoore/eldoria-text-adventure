@@ -182,8 +182,8 @@ def crossroads(player):
         if player.forest_completed and choice == '1':
             print("The Forest Path is no longer available.")
             continue
-    if choice == '4':
-        player.check_backpack()
+        if choice == '4':
+            player.check_backpack()
 
 def town_encounter(player):
     print("You enter the bustling town of Eldoria.")
@@ -236,7 +236,35 @@ def explore_market_square(player):
 
     print("The pickpocket escapes, but you managed to retain most of your belongings.")
 
+def talk_to_mysterious_merchant(player):
+    print(f"{player.name}, you approach the Mysterious Merchant.")
+    print("They offer you a puzzle and a chance to gain a bonus.")
 
+    nums = [2, 7, 11, 15]
+    target = 9
+    
+    print("The Mysterious Merchant presents you with a challenge:")
+    print(f"Find two numbers in the list {nums} that add up to {target}.")
+
+    # Player attempts the puzzle
+    result = find_two_numbers(nums, target)
+
+    # Evaluate player's response
+    if result:
+        print(f"Congratulations, {player.name}! You found the indices {result}. You receive a bonus!")
+    else:
+        print("Sorry, that's not the correct pair. Better luck next time!")
+
+
+def find_two_numbers(nums, target):
+    """
+    Function to find two numbers in a list that add up to the target.
+    """
+    for i in range(len(nums)):
+        for j in range(i + 1, len(nums)):
+            if nums[i] + nums[j] == target:
+                return i, j
+    return None
 
         
 def handle_path_choice(player, choice):
@@ -270,7 +298,6 @@ def game_intro():
     player = Player(player_name, difficulty)
     print(f"{player_name}, you chose difficulty level {player.difficulty}.")
     print(f"Your starting health is {player.health}")
-    clear_screen()
     crossroads(player)
 
     return player
