@@ -10,6 +10,7 @@ from images import main_title
 import os
 import time
 import sys
+import random
 
 
 colorama.init(autoreset=True)  # Colours auto-reset after being printed
@@ -27,6 +28,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('eldoria-text-adventure')
 
 leaderboard = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('leaderboard')
+number_puzzle = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('number_puzzle')
 
 # Game items
 
@@ -310,36 +312,56 @@ def talk_to_mysterious_merchant(player):
     if player.mysterious_merchant_completed:
         print("You have already talked to the Mysterious Merchant.")
         return
+
     print(f"{player.name}, you approach the Mysterious Merchant.")
     print("They offer you a puzzle and a chance to gain a bonus.")
 
-    nums = [2, 7, 11, 15]
-    target = 9
-    
+    # Get four random numbers from the number_puzzle worksheet
+    data = number_puzzle.get_all_values()
+    nums = [int(num) for num in random.choice(data)]
+
+    target = random.randint(1, 1000)
+
     print("The Mysterious Merchant presents you with a challenge:")
     print(f"Find two numbers in the list {nums} that add up to {target}.")
 
-    # Player attempts the puzzle
-    result = find_two_numbers(nums, target)
+    attempts_left = 3
 
-    # Evaluate player's response
-    if result:
-        print(f"Congratulations, {player.name}! You found the indices {result}. You receive a bonus!")
-    else:
-        print("Sorry, that's not the correct pair. Better luck next time!")
+    while attempts_left > 0:
+        player_input = input("Enter your answer as two space-separated numbers (e.g., '3 7'): ")
+
+        result = check_number_puzzle(nums, target, player_input)
+
+        if result:
+            print(f"Congratulations, {player.name}! You found the correct pair. You receive a bonus!")
+            break
+        else:
+            print("Sorry, that's not the correct pair. Try again.")
+            attempts_left -= 1
+
+            if attempts_left > 0:
+                print(f"You have {attempts_left} {'attempts' if attempts_left > 1 else 'attempt'} left.")
+
+    if attempts_left == 0:
+        print(f"{player.name}, you've used all your attempts.")
+        print("The correct answer was not found. Better luck next time!")
 
     player.mysterious_merchant_completed = True
 
 
-def find_two_numbers(nums, target):
+def check_number_puzzle(nums, target, player_input):
     """
-    Function to find two numbers in a list that add up to the target.
+    Function to check if the player's input is correct for the number puzzle.
     """
-    for i in range(len(nums)):
-        for j in range(i + 1, len(nums)):
-            if nums[i] + nums[j] == target:
-                return i, j
-    return None
+    try:
+        num1, num2 = map(int, player_input.split())
+    except ValueError:
+        return False 
+
+    if num1 + num2 == target and num1 in nums and num2 in nums:
+        return True  
+    else:
+        return False  
 
         
 def handle_path_choice(player, choice):
@@ -390,7 +412,7 @@ def forest_riddle(player):
 def solve_riddle(player):
     correct_answer = "an echo"
 
-    for _ in range(3):  # Three player attempts allowed
+    for _ in range(3):
         player_answer = input("Enter your answer: ").lower()
 
         if player_answer == correct_answer:
@@ -398,14 +420,14 @@ def solve_riddle(player):
             print("You have answered the riddle correctly.")
             print("You receive a pulsating sword with elemental energy.")
             print("It resonates with the power of the elements.")
-            player.inventory.add_item(Sword())  # Adds sword to player backpack
-            player.forest_completed = True  # Records completion of forest path
+            player.inventory.add_item(Sword()) 
+            player.forest_completed = True  
             return
         
         print("Incorrect. The wise old tree offers a clue:")
         print("I am a sound that repeats. What am I?")
 
-        player.deduct_health(10)  # Deducts 10 health if incorrect
+        player.deduct_health(10) 
         player.incorrect_guesses += 1
     
     print(f"{player.name}, unfortunate...")
