@@ -70,6 +70,9 @@ class Player:
         self.incorrect_guesses = 0
         self.inventory = Backpack()
         self.forest_completed = False
+        self.potion_shop_completed = False
+        self.market_square_completed = False
+        self.mysterious_merchant_completed = False
 
     def set_starting_health(self):
         """
@@ -207,14 +210,26 @@ def town_encounter(player):
 def handle_town_choice(player, choice):
     if choice == '1':
         visit_potion_shop(player)
+        player.potion_shop_completed = True
     elif choice == '2':
         explore_market_square(player)
+        player.market_square_completed = True
     elif choice == '3':
         talk_to_mysterious_merchant(player)
+        player.mysterious_merchant_completed = True
     elif choice == '4':
         player.check.backpack()
 
+    if player.potion_shop_completed and player.market_square_completed and player.mysterious_merchant_completed:
+        print("You have visited everywhere in town!")
+        input("Press Enter to return to the crossroads...")
+        crossroads(player)
+
 def visit_potion_shop(player):
+    if player.potion_shop_completed:
+        print("You have already visited the Potion Shop.")
+        return
+    
     print("You enter the Potion Shop and meet the friendly shopkeeper.")
     print("They offer you a health potion as a gift.")
 
@@ -225,7 +240,12 @@ def visit_potion_shop(player):
     # Add health potion to player's inventory
     player.inventory.add_item(Item(name="Health Potion", description="A magical potion that restores health."))
 
+    player.potion_shop_completed = True
+
 def explore_market_square(player):
+    if player.market_square_completed:
+        print("You have already explored the Market Square.")
+        return
     print("You explore the Market Square and find various goods.")
     print("While browsing, you encounter a pickpocket!")
 
@@ -234,7 +254,12 @@ def explore_market_square(player):
 
     print("The pickpocket escapes, but you managed to retain most of your belongings.")
 
+    player.market_square_completed = True
+
 def talk_to_mysterious_merchant(player):
+    if player.mysterious_merchant_completed:
+        print("You have already talked to the Mysterious Merchant.")
+        return
     print(f"{player.name}, you approach the Mysterious Merchant.")
     print("They offer you a puzzle and a chance to gain a bonus.")
 
@@ -252,6 +277,8 @@ def talk_to_mysterious_merchant(player):
         print(f"Congratulations, {player.name}! You found the indices {result}. You receive a bonus!")
     else:
         print("Sorry, that's not the correct pair. Better luck next time!")
+
+    player.mysterious_merchant_completed = True
 
 
 def find_two_numbers(nums, target):
