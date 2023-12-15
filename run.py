@@ -159,6 +159,8 @@ def update_leaderboard(player):
     # Add the player's score to the leaderboard
     leaderboard.append_row([player.name, str(player.health)])
 
+# ... (previous code remains unchanged)
+
 def crossroads(player):
     while True:
         clear_screen() 
@@ -179,7 +181,8 @@ def crossroads(player):
     
         print("3. The Desert Path")
         print("4. Check Backpack")
-        print("5. Check Score")  
+        print("5. Check Score")
+        print("6. Quit")  
 
         choice = input("Enter the number relating to your chosen path: ")
 
@@ -191,6 +194,8 @@ def crossroads(player):
             print("The Town Path is already completed. Choose another option.")
             time.sleep(2)
             continue
+        elif choice == '6':
+            quit_game(player)
 
         if choice == '4':
             player.check_backpack()
@@ -200,11 +205,29 @@ def crossroads(player):
         elif choice.isdigit() and choice in ['1', '2', '3']:
             handle_path_choice(player, choice)
         else:
-            print("Invalid choice. Please enter a valid number (1, 2, 3, 4, or 5).")
+            print("Invalid choice. Please enter a valid number (1, 2, 3, 4, 5, or 6).")
 
         if player.forest_completed and choice == '1':
             print("The Forest Path is no longer available.")
             continue
+
+def quit_game(player):
+    print("Quitting the game...")
+    update_leaderboard(player)
+    show_leaderboard(player)
+    sys.exit()
+
+    print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
+    print(f"{player.name}, your final score was {player.health}")
+    time.sleep(2)
+
+    # Allow the player to restart the game
+    restart = input("Do you want to play again? (yes/no): ").lower()
+    if restart == "yes":
+        restart_game()
+    else:
+        print("Thanks for playing - see you again soon!")
+        sys.exit()
 
 
 def town_encounter(player):
@@ -385,27 +408,6 @@ def solve_riddle(player):
         print("The Forest Path is now disabled (completed).")
         input("Press Enter to return to the crossroads...")
         player.forest_completed = True
-
-
-def game_over(player):
-    print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
-    print(f"{player.name}, your final score was {player.health}")
-    time.sleep(2)
-
-        # Update the leaderboard with the player's score
-    update_leaderboard(player)
-    
-    # Show the leaderboard at the end of the game
-    show_leaderboard(player)
-
-    
-    # Allow the player to restart the game
-    restart = input("Do you want to play again? (yes/no): ").lower()
-    if restart == "yes":
-        restart_game()
-    else:
-        print("Thanks for playing - see you again soon!")
-        sys.exit()
 
 def main():
     clear_screen()
