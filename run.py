@@ -7,6 +7,7 @@ from google.oauth2.service_account import Credentials
 import colorama
 from colorama import Fore, Style
 from images import main_title
+
 import os
 import time
 import sys
@@ -27,8 +28,8 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('eldoria-text-adventure')
 
-leaderboard = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('leaderboard')
-number_puzzle = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('number_puzzle')
+LEADERBOARD = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('leaderboard')
+NUMBER_PUZZLE = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('number_puzzle')
 
 # Game items
 
@@ -48,6 +49,9 @@ class Item:
 
 
 class Sword(Item):
+    """
+    Class representing a generic item.
+    """
     def __init__(self):
         """
         Initialize sword item.
@@ -56,6 +60,9 @@ class Sword(Item):
 
 
 class Backpack:
+    """
+    Class representing a backpack.
+    """
     def __init__(self):
         """
         Initialize backpack.
@@ -83,6 +90,9 @@ class Backpack:
 
 
 class Player:
+    """
+    Class representing a player.
+    """
     def __init__(self, name, difficulty):
         """
         Initialize a player.
