@@ -200,7 +200,7 @@ def update_leaderboard(player):
     """
     Adds the player's score to the leaderboard.
     """
-    leaderboard.append_row([player.name, str(player.health)])
+    LEADERBOARD.append_row([player.name, str(player.health)])
 
 def crossroads(player):
     """
@@ -369,7 +369,7 @@ def talk_to_mysterious_merchant(player):
     print("They offer you a puzzle and a chance to gain a bonus.")
 
     # Get four random numbers from the number_puzzle worksheet
-    data = number_puzzle.get_all_values()
+    data = NUMBER_PUZZLE.get_all_values()
     nums = [int(num) for num in random.choice(data)]
 
     target = random.randint(1, 1000)
