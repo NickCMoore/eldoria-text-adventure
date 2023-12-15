@@ -70,6 +70,7 @@ class Player:
         self.incorrect_guesses = 0
         self.inventory = Backpack()
         self.forest_completed = False
+        self.town_completed = False
         self.potion_shop_completed = False
         self.market_square_completed = False
         self.mysterious_merchant_completed = False
@@ -155,27 +156,28 @@ def update_leaderboard(player):
     # Add the player's score to the leaderboard
     leaderboard.append_row([player.name, str(player.health)])
 
-
 def crossroads(player):
     while True:
         clear_screen() 
         print("The eternal mists clear_screen.")
         print("You find yourself at a crossroads.")
         print("There are three paths diverging in front of you.")
-        clear_screen()
-        print(f"Which option do you want to take {player.name}?")
 
-        print("1. The Forest Path")
-        print("2. The Town Path")
+        # Display forest path status
+        if player.forest_completed:
+            print("1. The Forest Path (Completed)")
+        else:
+            print("1. The Forest Path")
+
+        if not player.town_completed:
+            print("2. The Town Path")
+        else:
+            print("2. The Town Path (Completed)")
+    
         print("3. The Desert Path")
         print("4. Check Backpack")
 
-        if not player.forest_completed:
-            choice = input("Enter the number relating to your chosen path: ")
-        else:
-            print("The Forest Path is no longer available.")
-            choice = input("Enter the number relating to your chosen path.")
-            print("This will now exclude the Forest Path): ")
+        choice = input("Enter the number relating to your chosen path: ")
 
         if choice.isdigit() and choice in ['1', '2', '3', '4']:
             handle_path_choice(player, choice)
@@ -187,6 +189,8 @@ def crossroads(player):
             continue
         if choice == '4':
             player.check_backpack()
+
+
 
 def town_encounter(player):
     print("You enter the bustling town of Eldoria.")
@@ -223,6 +227,7 @@ def handle_town_choice(player, choice):
     if player.potion_shop_completed and player.market_square_completed and player.mysterious_merchant_completed:
         print("You have visited everywhere in town!")
         input("Press Enter to return to the crossroads...")
+        player.town_completed = True
         crossroads(player)
 
 def visit_potion_shop(player):
@@ -350,23 +355,21 @@ def solve_riddle(player):
             print("It resonates with the power of the elements.")
             player.inventory.add_item(Sword())  # Adds sword to player backpack
             player.forest_completed = True  # Records completion of forest path
-            break
-        else:
-            print("Incorrect. The wise old tree offers a clue:")
-            print("I am a sound that repeats. What am I?")
+            return
+        
+        print("Incorrect. The wise old tree offers a clue:")
+        print("I am a sound that repeats. What am I?")
 
-            player.deduct_health(10)  # Deducts 10 health if incorrect
-            player.incorrect_guesses += 1
-        if player.incorrect_guesses == 3:
-            print(f"{player.name}, unfortunate...")
-            print("You failed to answer the riddle correctly three times.")
-            print("You have died.")
-            game_over(player)
+        player.deduct_health(10)  # Deducts 10 health if incorrect
+        player.incorrect_guesses += 1
+    
+    print(f"{player.name}, unfortunate...")
+    print("You failed to answer the riddle correctly three times.")
 
-            retry = input("Do you want to try again? (yes/no): ").lower()
-            if retry != "yes":
-                print(f"{player.name}, you opt to leave the forest for now.")
-                break
+    if not player.forest_completed:
+        print("The Forest Path is now disabled (completed).")
+        input("Press Enter to return to the crossroads...")
+        player.forest_completed = True
 
 
 def game_over(player):
