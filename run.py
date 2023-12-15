@@ -217,20 +217,24 @@ def crossroads(player):
 
 
 def quit_game(player):
-    print("Quitting the game...")
-    update_leaderboard(player)
-    show_leaderboard(player)
-    print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
-    print(f"{player.name}, your final score was {player.health}")
-    time.sleep(2)
+    if not (player.forest_completed and player.town_completed) or \
+            (not player.forest_completed and not player.town_completed):
+        print("You need to complete at least two paths to appear on the leaderboard.")
+    else:
+        print("Quitting the game...")
+        update_leaderboard(player)
+        show_leaderboard(player)
+        print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
+        print(f"{player.name}, your final score was {player.health}")
+        time.sleep(2)
 
     # Allow the player to restart the game
-    restart = input("Do you want to play again? (yes/no): ").lower()
-    if restart == "yes":
-        restart_game()
+    continue_playing = input("Do you want to continue playing? (yes/no): ").lower()
+    if continue_playing == "yes":
+        # If yes, return to the crossroads
+        crossroads(player)
     else:
-        print("Thanks for playing - see you again soon!")
-        return True
+        sys.exit()
 
 
 def town_encounter(player):
