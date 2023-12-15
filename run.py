@@ -188,17 +188,19 @@ def crossroads(player):
             time.sleep(2)
             continue
 
-        if choice.isdigit() and choice in ['1', '2', '3', '4']:
+        if choice == '4':
+            player.check_backpack()
+        elif choice == '5':
+            print(f"Your current score is: {player.health}")
+            input("Press Enter to continue...")
+        elif choice.isdigit() and choice in ['1', '2', '3']:
             handle_path_choice(player, choice)
         else:
-            print("Invalid choice. Please enter a valid number (1, 2, 3, or 4).")
+            print("Invalid choice. Please enter a valid number (1, 2, 3, 4, or 5).")
 
         if player.forest_completed and choice == '1':
             print("The Forest Path is no longer available.")
             continue
-        if choice == '4':
-            player.check_backpack()
-
 
 
 def town_encounter(player):
