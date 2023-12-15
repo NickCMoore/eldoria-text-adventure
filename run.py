@@ -146,9 +146,12 @@ def show_leaderboard(player):
     if not data:
         print("No leaderboard data available.")
     else:
-        # Display the leaderboard in a table
+        # Sort the data by score in descending order
+        sorted_data = sorted(data[1:], key=lambda x: int(x[1]), reverse=True)
+
+        # Display the top 10 scores in a table
         print(f"{Fore.CYAN}{'Rank':<10}{'Player':<20}{'Score':<10}{Style.RESET_ALL}")
-        for rank, row in enumerate(data[1:11], start=1):
+        for rank, row in enumerate(sorted_data[:10], start=1):
             player_name, score = row
             if player_name == player.name:  # Highlight player's entry
                 print(f"{Fore.GREEN}{rank:<10}{player_name:<20}{score:<10}{Style.RESET_ALL}")
@@ -195,7 +198,8 @@ def crossroads(player):
             time.sleep(2)
             continue
         elif choice == '6':
-            quit_game(player)
+            if quit_game(player):
+                break  # Exit the loop if the game should exit
 
         if choice == '4':
             player.check_backpack()
@@ -211,12 +215,11 @@ def crossroads(player):
             print("The Forest Path is no longer available.")
             continue
 
+
 def quit_game(player):
     print("Quitting the game...")
     update_leaderboard(player)
     show_leaderboard(player)
-    sys.exit()
-
     print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
     print(f"{player.name}, your final score was {player.health}")
     time.sleep(2)
@@ -227,7 +230,7 @@ def quit_game(player):
         restart_game()
     else:
         print("Thanks for playing - see you again soon!")
-        sys.exit()
+        return True
 
 
 def town_encounter(player):
@@ -413,8 +416,6 @@ def main():
     clear_screen()
     main_title()
     player = game_intro()
-    game_over(player)
-
 
 if __name__ == "__main__":
     main()
