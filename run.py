@@ -227,6 +227,15 @@ def visit_potion_shop(player):
     # Add health potion to player's inventory
     player.inventory.add_item(Item(name="Health Potion", description="A magical potion that restores health."))
 
+def explore_market_square(player):
+    print("You explore the Market Square and find various goods.")
+    print("While browsing, you encounter a pickpocket!")
+
+    # Deduct health for the encounter
+    player.deduct_health(15)
+
+    print("The pickpocket escapes, but you managed to retain most of your belongings.")
+
 
 
         
