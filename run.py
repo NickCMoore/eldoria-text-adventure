@@ -190,21 +190,19 @@ def town_encounter(player):
     print("People are going about their daily lives, and various shops line the streets.")
     print("As you explore, you come across a mysterious merchant offering you a choice.")
 
-    town_choice(player)
+    while True:
+        print("What will you do in the town?")
+        print("1. Visit the Potion Shop")
+        print("2. Explore the Market Square")
+        print("3. Talk to the Mysterious Merchant")
+        print("4. Check Backpack")
 
-def town_choice(player):
-    print("What will you do in the town?")
-    print("1. Visit the Potion Shop")
-    print("2. Explore the Market Square")
-    print("3. Talk to the Mysterious Merchant")
-    print("4. Check Backpack")
+        choice = input("Enter the number relating to your choice: ")
 
-    choice = input("Enter the number relating to your choice: ")
-
-    if choice.isdigit() and choice in ['1', '2', '3', '4']:
-        handle_town_choice(player, choice)
-    else:
-        print("Invalid choice. Please enter a valid number (1, 2, 3, or 4).")
+        if choice.isdigit() and choice in ['1', '2', '3', '4']:
+            handle_town_choice(player, choice)
+        else:
+            print("Invalid choice. Please enter a valid number (1, 2, 3, or 4).")
 
 def handle_town_choice(player, choice):
     if choice == '1':
