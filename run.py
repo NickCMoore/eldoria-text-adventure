@@ -99,9 +99,12 @@ class Player:
         Enable the player to check their backpack
         """
         print("Checking your backpack:")
-        self.inventory.display_inventory()
         if not self.inventory.items:
             print("Your backpack is empty.")
+        else:
+            self.inventory.display_inventory()
+
+        time.sleep(2)
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -176,6 +179,7 @@ def crossroads(player):
     
         print("3. The Desert Path")
         print("4. Check Backpack")
+        print("5. Check Score")  
 
         choice = input("Enter the number relating to your chosen path: ")
 
@@ -233,7 +237,7 @@ def handle_town_choice(player, choice):
         talk_to_mysterious_merchant(player)
         player.mysterious_merchant_completed = True
     elif choice == '4':
-        player.check.backpack()
+        player.check_backpack()
 
     if player.potion_shop_completed and player.market_square_completed and player.mysterious_merchant_completed:
         print("You have visited everywhere in town!")
