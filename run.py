@@ -13,14 +13,14 @@ import sys
 import random
 
 
-colorama.init(autoreset=True)  # Colours auto-reset after being printed
+colorama.init(autoreset=True)
 
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
-    ]
+]
 
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
@@ -32,30 +32,48 @@ number_puzzle = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('number_
 
 # Game items
 
-class Item():
+class Item:
     def __init__(self, name, description):
+        """
+        Initialize an item.
+        """
         self.name = name
         self.description = description
 
     def __str__(self):
+        """
+        String of the item.
+        """
         return "{}\n=====\n{}\n".format(self.name, self.description)
 
 
 class Sword(Item):
     def __init__(self):
+        """
+        Initialize sword item.
+        """
         super().__init__(name="sword", description="A magnificent sword")
 
 
 class Backpack:
     def __init__(self):
+        """
+        Initialize backpack.
+        """
         self.items = []
 
     def add_item(self, item):
+        """
+        Add an item to the backpack.
+        """
         self.items.append(item)
         print(f"Excellent work!")
         print(f"A {item.name} has been added to your backpack.")
 
     def display_inventory(self):
+        """
+        Display the items in the backpack.
+        """
         if not self.items:
             print("Your backpack is empty.")
         else:
@@ -66,6 +84,9 @@ class Backpack:
 
 class Player:
     def __init__(self, name, difficulty):
+        """
+        Initialize a player.
+        """
         self.name = name
         self.difficulty = difficulty
         self.health = self.set_starting_health()
@@ -79,7 +100,7 @@ class Player:
 
     def set_starting_health(self):
         """
-        Set initial health levels for the player
+        Set initial health levels for the player based on difficulty.
         """
         if self.difficulty == 1:
             return 100
@@ -90,7 +111,7 @@ class Player:
 
     def deduct_health(self, amount):
         """
-        Deducts health from the player if they get it wrong
+        Deduct health from the player if they get it wrong.
         """
         self.health -= amount
         print(f"{self.name}, you lost {amount} health.")
@@ -98,7 +119,7 @@ class Player:
 
     def check_backpack(self):
         """
-        Enable the player to check their backpack
+        Enable the player to check their backpack.
         """
         print("Checking your backpack:")
         if not self.inventory.items:
@@ -109,11 +130,14 @@ class Player:
         time.sleep(2)
 
 def clear_screen():
+    """
+    Clears the console screen based on the operating system.
+    """
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def choose_difficulty():
     """
-    Function for selecting difficulty level
+    Prompts the user to choose a difficulty level and returns the selected level as an integer.
     """
     print("Choose your difficulty:")
     print("1. Easy")
@@ -129,14 +153,16 @@ def choose_difficulty():
 
 def restart_game():
     """
-    Function to restart the game
+    Restarts the game by clearing the screen and calling the game_intro function.
     """
     print("Restarting the game...\n")
     clear_screen()
     game_intro()
 
-
 def show_leaderboard(player):
+    """
+    Displays the leaderboard with the top 10 scores.
+    """
     clear_screen()
     print("\nLEADERBOARD")
     print("============")
@@ -161,19 +187,21 @@ def show_leaderboard(player):
                 print(f"{rank:<10}{player_name:<20}{score:<10}")
 
 def update_leaderboard(player):
-    # Add the player's score to the leaderboard
+    """
+    Adds the player's score to the leaderboard.
+    """
     leaderboard.append_row([player.name, str(player.health)])
 
-# ... (previous code remains unchanged)
-
 def crossroads(player):
+    """
+    Manages the player's choices at the crossroads, allowing them to choose paths, check the backpack, check the score, or quit the game.
+    """
     while True:
         clear_screen() 
         print("The eternal mists clear_screen.")
         print("You find yourself at a crossroads.")
         print("There are three paths diverging in front of you.")
 
-        # Display forest path status
         if player.forest_completed:
             print("1. The Forest Path (Completed)")
         else:
@@ -201,7 +229,7 @@ def crossroads(player):
             continue
         elif choice == '6':
             if quit_game(player):
-                break  # Exit the loop if the game should exit
+                break 
 
         if choice == '4':
             player.check_backpack()
@@ -217,8 +245,10 @@ def crossroads(player):
             print("The Forest Path is no longer available.")
             continue
 
-
 def quit_game(player):
+    """
+    Quits the game and updates the leaderboard if the player has completed at least two paths.
+    """
     if not (player.forest_completed and player.town_completed) or \
             (not player.forest_completed and not player.town_completed):
         print("You need to complete at least two paths to appear on the leaderboard.")
@@ -230,16 +260,16 @@ def quit_game(player):
         print(f"{player.name}, your final score was {player.health}")
         time.sleep(2)
 
-    # Allow the player to restart the game
     continue_playing = input("Do you want to continue playing? (yes/no): ").lower()
     if continue_playing == "yes":
-        # If yes, return to the crossroads
         crossroads(player)
     else:
         sys.exit()
 
-
 def town_encounter(player):
+    """
+    Simulates an encounter in the town, allowing the player to make choices and progress in the game.
+    """
     print("You enter the bustling town of Eldoria.")
     print("People are going about their daily lives, and various shops line the streets.")
     print("As you explore, you come across a mysterious merchant offering you a choice.")
@@ -259,6 +289,9 @@ def town_encounter(player):
             print("Invalid choice. Please enter a valid number (1, 2, 3, or 4).")
 
 def handle_town_choice(player, choice):
+    """
+    Handles the player's choices in the town, updating the game state accordingly.
+    """
     if choice == '1':
         visit_potion_shop(player)
         player.potion_shop_completed = True
@@ -278,6 +311,9 @@ def handle_town_choice(player, choice):
         crossroads(player)
 
 def visit_potion_shop(player):
+    """
+    Simulates the player visiting the Potion Shop in the town, providing a health potion as a gift.
+    """
     if player.potion_shop_completed:
         print("You have already visited the Potion Shop.")
         return
@@ -295,6 +331,9 @@ def visit_potion_shop(player):
     player.potion_shop_completed = True
 
 def explore_market_square(player):
+    """
+    Simulates the player exploring the Market Square in the town and encountering a pickpocket.
+    """
     if player.market_square_completed:
         print("You have already explored the Market Square.")
         return
@@ -309,6 +348,9 @@ def explore_market_square(player):
     player.market_square_completed = True
 
 def talk_to_mysterious_merchant(player):
+    """
+    Simulates the player talking to the Mysterious Merchant in the town, presenting a puzzle and offering a bonus for solving it.
+    """
     if player.mysterious_merchant_completed:
         print("You have already talked to the Mysterious Merchant.")
         return
@@ -348,10 +390,9 @@ def talk_to_mysterious_merchant(player):
 
     player.mysterious_merchant_completed = True
 
-
 def check_number_puzzle(nums, target, player_input):
     """
-    Function to check if the player's input is correct for the number puzzle.
+    Checks if the player's input is correct for the number puzzle.
     """
     try:
         num1, num2 = map(int, player_input.split())
@@ -363,8 +404,10 @@ def check_number_puzzle(nums, target, player_input):
     else:
         return False  
 
-        
 def handle_path_choice(player, choice):
+    """
+    Handles the player's choice of paths (forest, town, desert) and progresses the game accordingly.
+    """
     if choice == '1' and not player.forest_completed:
         clear_screen()
         print(f"{player.name}, you venture into the mystical forest.")
@@ -377,11 +420,9 @@ def handle_path_choice(player, choice):
         clear_screen()
         print(f"{player.name}, you enter the scorching desert.")
 
-
-# Introduction
 def game_intro():
     """
-    Function for initial player parameters
+    Initializes the game, prompts the user for their name and difficulty level, and starts the game.
     """
     print("Welcome to the Eldoria Text Adventure!\n")
 
@@ -399,8 +440,10 @@ def game_intro():
 
     return player
 
-
 def forest_riddle(player):
+    """
+    Simulates the player encountering a riddle in the enchanted forest and handles the player's attempts to solve it.
+    """
     print("As you enter the enchanted forest, you encounter a wise old tree.")
     print("The tree speaks with a mystical voice:")
     print("I speak without a mouth and hear without ears.")
@@ -408,8 +451,10 @@ def forest_riddle(player):
 
     solve_riddle(player)
 
-
 def solve_riddle(player):
+    """
+    Simulates the player attempting to solve the riddle presented in the enchanted forest.
+    """
     correct_answer = "an echo"
 
     for _ in range(3):
@@ -445,3 +490,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
