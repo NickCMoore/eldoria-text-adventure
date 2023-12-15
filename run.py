@@ -184,6 +184,13 @@ def crossroads(player):
             continue
     if choice == '4':
         player.check_backpack()
+
+def town_encounter(player):
+    print("You enter the bustling town of Eldoria.")
+    print("People are going about their daily lives, and various shops line the streets.")
+    print("As you explore, you come across a mysterious merchant offering you a choice.")
+
+    town_choice(player)
         
 def handle_path_choice(player, choice):
     if choice == '1' and not player.forest_completed:
