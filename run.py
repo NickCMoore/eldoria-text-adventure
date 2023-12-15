@@ -186,13 +186,14 @@ def crossroads(player):
         player.check_backpack()
         
 def handle_path_choice(player, choice):
-    if choice == '1':
+    if choice == '1' and not player.forest_completed:
         clear_screen()
         print(f"{player.name}, you venture into the mystical forest.")
         forest_riddle(player)
     elif choice == '2':
         clear_screen()
         print(f"{player.name}, you head into town.")
+        town_encounter(player)
     elif choice == '3':
         clear_screen()
         print(f"{player.name}, you enter the scorching desert.")
