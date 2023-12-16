@@ -448,6 +448,12 @@ def desert_path(player):
 
         choice = input("Enter the number relating to your chosen action: ")
 
+        if choice == '6':
+            if quit_game(player):
+                break 
+
+
+
 
 
 def game_intro():
