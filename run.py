@@ -430,6 +430,15 @@ def handle_path_choice(player, choice):
         clear_screen()
         print(f"{player.name}, you enter the scorching desert.")
 
+def desert_path(player):
+    """
+    Player has to traverse a scorching desert
+    """
+    print(f"{player.name}, you enter the scorching desert.")
+    print("The sun beats down mercilessly as you traverse the vast expanse of sand.")
+
+
+
 def game_intro():
     """
     Initializes the game, prompts the user for their name and difficulty level, and starts the game.
