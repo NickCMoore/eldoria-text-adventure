@@ -462,6 +462,17 @@ def desert_path(player):
         else:
             print("Invalid choice. Please enter a valid number (1, 2, 3, 4, 5, or 6).")
 
+def handle_desert_choice(player, choice):
+    """
+    Handles the player's choices in the desert, updating the game state accordingly.
+    """
+    if choice == '1':
+        search_for_oasis(player)
+    elif choice == '2':
+        navigate_sand_dunes(player)
+    elif choice == '3':
+        rest_in_shade(player)
+
 
 
 
