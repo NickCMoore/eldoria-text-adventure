@@ -473,6 +473,21 @@ def handle_desert_choice(player, choice):
     elif choice == '3':
         rest_in_shade(player)
 
+def search_for_oasis(player):
+    """
+    Player searches for an oasis in the desert.
+    """
+    print("You decide to search for an oasis to quench your thirst.")
+    oasis_chance = random.randint(1, 10)
+
+    if oasis_chance <= 7:
+        print("You discover a hidden oasis and replenish your water supply.")
+        print("You feel refreshed.")
+        player.health += 10
+    else:
+        print("Unfortunately, you couldn't find an oasis, and the scorching heat takes a toll on you.")
+        player.deduct_health(15)
+
 
 
 
