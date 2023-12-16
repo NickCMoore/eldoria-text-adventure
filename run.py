@@ -450,7 +450,17 @@ def desert_path(player):
 
         if choice == '6':
             if quit_game(player):
-                break 
+                break
+
+        if choice == '4':
+            player.check_backpack()
+        elif choice == '5':
+            print(f"Your current score is: {player.health}")
+            input("Press Enter to continue...")
+        elif choice.isdigit() and choice in ['1', '2', '3']:
+            handle_desert_choice(player, choice)
+        else:
+            print("Invalid choice. Please enter a valid number (1, 2, 3, 4, 5, or 6).")
 
 
 
