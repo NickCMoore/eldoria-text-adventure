@@ -208,7 +208,7 @@ def crossroads(player):
     """
     while True:
         clear_screen() 
-        print("The eternal mists clear_screen.")
+        print("The eternal mists clear...")
         print("You find yourself at a crossroads.")
         print("There are three paths diverging in front of you.")
 
@@ -475,8 +475,12 @@ def solve_riddle(player):
             print("You have answered the riddle correctly.")
             print("You receive a pulsating sword with elemental energy.")
             print("It resonates with the power of the elements.")
+            print("You decide to return to the crossroads")
             player.inventory.add_item(Sword()) 
             player.forest_completed = True  
+
+            time.sleep(4)
+
             return
         
         print("Incorrect. The wise old tree offers a clue:")
@@ -490,6 +494,9 @@ def solve_riddle(player):
 
     if not player.forest_completed:
         print("The Forest Path is now disabled (completed).")
+
+        time.sleep(4)
+
         input("Press Enter to return to the crossroads...")
         player.forest_completed = True
 
