@@ -437,6 +437,17 @@ def desert_path(player):
     print(f"{player.name}, you enter the scorching desert.")
     print("The sun beats down mercilessly as you traverse the vast expanse of sand.")
 
+    while True:
+        print("What will you do in the desert?")
+        print("1. Search for an oasis")
+        print("2. Navigate the sand dunes")
+        print("3. Rest in the shade of a rock")
+        print("4. Check Backpack")
+        print("5. Check Score")
+        print("6. Quit")
+
+        choice = input("Enter the number relating to your chosen action: ")
+
 
 
 def game_intro():
