@@ -30,6 +30,7 @@ SHEET = GSPREAD_CLIENT.open('eldoria-text-adventure')
 
 LEADERBOARD = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('leaderboard')
 NUMBER_PUZZLE = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('number_puzzle')
+WORD_PUZZLE = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('word_puzzle')
 
 # Game items
 
@@ -602,9 +603,8 @@ def fetch_word_puzzle():
     """
     Fetches a word puzzle from the 'word_puzzle' worksheet in Google Sheets.
     """
-    word_puzzle_worksheet = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('word_puzzle')
 
-    data = word_puzzle_worksheet.get_all_values()
+    data = WORD_PUZZLE.get_all_values()
 
     data_without_header = data[1:]
 
