@@ -429,6 +429,7 @@ def handle_path_choice(player, choice):
     elif choice == '3':
         clear_screen()
         print(f"{player.name}, you enter the scorching desert.")
+        desert_path(player)
 
 def desert_path(player):
     """
@@ -488,6 +489,18 @@ def search_for_oasis(player):
         print("Unfortunately, you couldn't find an oasis, and the scorching heat takes a toll on you.")
         player.deduct_health(15)
 
+def navigate_sand_dunes(player):
+    """
+    Recreates the player going on their journey through the sand dunes
+    """
+    print("You choose to navigate the arduous sand dunes")
+
+    if obstacle_chance <= 5:
+        print("You encounter a mirage and end up wasting time.")
+    else:
+        print("You come across a mysterious inscription partially uncovered in the sand")
+
+        word_puzzle = fetch_word_puzzle()
 
 
 
