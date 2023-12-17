@@ -110,6 +110,7 @@ class Player:
         self.oasis_completed = False
         self.shade_completed = False 
         self.sand_dunes_completed = False
+        self.desert_completed = False
 
     def set_starting_health(self):
         """
