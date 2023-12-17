@@ -498,17 +498,26 @@ def navigate_sand_dunes(player):
     else:
         print("You come across a mysterious inscription partially uncovered in the sand...")
 
-        word_puzzle = fetch_word_puzzle()
+        difficulty_word_count = {
+            1: 3,
+            2: 5,
+            3: float('inf')
+        }
 
-        print(f"Unscramble the letters to form a word: {word_puzzle['Scrambled Word']}")
-        player_input = input("Your answer: ").lower()
+        word_puzzles = [fetch_word_puzzle() for _ in range(difficulty_word_count[player.difficulty])]
 
-        if player_input == word_puzzle['Word']:
-            print("Congratulations! You solved the word puzzle and gained +10 health")
-            player.health += 10
-        else:
-            print("Sorry, that's not the right answer. The stone inscription falls on your foot and you lose -10 health")
-            player.deduct_health(15)
+        for word_puzzle in word_puzzles:
+            print(f"Unscramble the letters to form a word: {word_puzzle['Scrambled Word']}")
+            player_input = input("Your answer: ").lower()
+
+            if player_input == word_puzzle['Word']:
+                print("Congratulations! You solved the word puzzle and gained +10 health")
+                player.health += 10
+            else:
+                print("Sorry, that's not the right answer. The stone inscription falls on your foot and you lose -10 health")
+                player.deduct_health(15)
+
+        print("Congratulations! You successfully navigated the sand dunes.")
 
 def fetch_word_puzzle():
     """
