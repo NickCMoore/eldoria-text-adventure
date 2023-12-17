@@ -221,8 +221,12 @@ def crossroads(player):
             print("2. The Town Path")
         else:
             print("2. The Town Path (Completed)")
+
+        if not player.desert_completed:
+            print("3. The Desert Path")
+        else:
+            print("3. The Desert Path (Completed)")
     
-        print("3. The Desert Path")
         print("4. Check Backpack")
         print("5. Check Score")
         print("6. Quit")  
@@ -235,6 +239,10 @@ def crossroads(player):
             continue
         elif choice == '2' and player.town_completed:
             print("The Town Path is already completed. Choose another option.")
+            time.sleep(2)
+            continue
+        elif choice == '3' and player.desert_completed:
+            print("The Desert Path is already completed. Choose another option.")
             time.sleep(2)
             continue
         elif choice == '6':
@@ -500,6 +508,9 @@ def handle_desert_choice(player, choice):
         print("You decide to return to the crossroads.")
         input("Press Enter to continue to the crossroads...")
         crossroads(player)
+
+    input("Press Enter to continue to the crossroads...")
+    crossroads(player)
 
 def search_for_oasis(player):
     """
