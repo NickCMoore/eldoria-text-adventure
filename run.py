@@ -445,16 +445,16 @@ def desert_path(player):
             print("1. Search for an oasis (Completed)")
         else:
             print("1. Search for an oasis")
-        
-        if player.shade_completed:
-            print("3. Rest in the shade of a rock (Completed)")
-        else:
-            print("3. Rest in the shade of a rock")
 
         if player.sand_dunes_completed:
             print("2. Navigate the sand dunes (Completed)")
         else:
             print("2. Navigate the sand dunes")
+
+        if player.shade_completed:
+            print("3. Rest in the shade of a rock (Completed)")
+        else:
+            print("3. Rest in the shade of a rock")
 
         print("4. Check Backpack")
         print("5. Check Score")
