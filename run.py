@@ -502,6 +502,16 @@ def navigate_sand_dunes(player):
 
         word_puzzle = fetch_word_puzzle()
 
+        print(f"Unscramble the letters to form a word: {word_puzzle['Scrambled Word']}")
+        player_input = input("Your answer: ").lower()
+
+        if player_input == word_puzzle['Word']:
+            print("Congratulations! You solved the word puzzle and gained +10 health")
+            player.health +- 10
+        else:
+            print("Sorry, that's not the right answer. The stone inscription falls on your foot and you lose -10 health")
+            player.deduct_health(15)
+
 
 
 
