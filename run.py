@@ -495,10 +495,6 @@ def handle_desert_choice(player, choice):
         if quit_game(player):
             return
 
-    if player.sand_dunes_completed and choice == '2':
-        print("The Sand Dunes option is no longer available.")
-        return
-
 def search_for_oasis(player):
     """
     Player searches for an oasis in the desert.
@@ -510,9 +506,12 @@ def search_for_oasis(player):
         print("You discover a hidden oasis and replenish your water supply.")
         print("You feel refreshed.")
         player.health += 10
+        player.oasis_completed = True
+        print(f"Your health has increased by 10. Your total health is now {player.health}.")
     else:
         print("Unfortunately, you couldn't find an oasis, and the scorching heat takes a toll on you.")
         player.deduct_health(15)
+        player.oasis_completed = True 
 
 def navigate_sand_dunes(player):
     """
@@ -532,6 +531,8 @@ def navigate_sand_dunes(player):
             3: float('inf')
         }
 
+        failed_attempts = 0
+
         word_puzzles = [fetch_word_puzzle() for _ in range(difficulty_word_count[player.difficulty])]
 
         for word_puzzle in word_puzzles:
@@ -544,6 +545,12 @@ def navigate_sand_dunes(player):
             else:
                 print("Sorry, that's not the right answer. The stone inscription falls on your foot and you lose -10 health")
                 player.deduct_health(15)
+                failed_attempts += 1
+
+            if failed_attempts >= 3:
+                print("You failed the word puzzle three times. Unlucky.")
+                player.sand_dunes_completed = True
+                input("Press Enter to continue...")
                 return
 
         print("Congratulations! You successfully navigated the sand dunes.")
