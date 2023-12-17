@@ -340,11 +340,9 @@ def visit_potion_shop(player):
     print("You enter the Potion Shop and meet the friendly shopkeeper.")
     print("They offer you a health potion as a gift.")
 
-    # Increase player's health
     player.health += 20
     print(f"You gained 20 health. Your total health is now {player.health}.")
 
-    # Add health potion to player's inventory
     player.inventory.add_item(Item(name="Health Potion", description="A magical potion that restores health."))
 
     player.potion_shop_completed = True
@@ -359,7 +357,6 @@ def explore_market_square(player):
     print("You explore the Market Square and find various goods.")
     print("While browsing, you encounter a pickpocket!")
 
-    # Deduct health for the encounter
     player.deduct_health(15)
 
     print("The pickpocket escapes, but you managed to retain most of your belongings.")
@@ -377,7 +374,6 @@ def talk_to_mysterious_merchant(player):
     print(f"{player.name}, you approach the Mysterious Merchant.")
     print("They offer you a puzzle and a chance to gain a bonus.")
 
-    # Get four random numbers from the number_puzzle worksheet
     data = NUMBER_PUZZLE.get_all_values()
     nums = [int(num) for num in random.choice(data)]
 
@@ -465,6 +461,14 @@ def desert_path(player):
         else:
             print("3. Rest in the shade of a rock")
 
+        if player.sand_dunes_completed and player.shade_completed and player.oasis_completed:
+            print("Congratulations! You have completed all paths in the desert.")
+            print("You decide to return to the crossroads.")
+            player.desert_completed = True 
+            crossroads(player)
+            input("Press Enter to continue...")
+            time.sleep(4)
+
         print("4. Check Backpack")
         print("5. Check Score")
         print("6. Quit")
@@ -490,7 +494,8 @@ def handle_desert_choice(player, choice):
     Handles the player's choices in the desert, updating the game state accordingly.
     """
     if choice == '1':
-        search_for_oasis(player)
+        if not player.oasis_completed:
+            search_for_oasis(player)
     elif choice == '2':
         navigate_sand_dunes(player)
     elif choice == '3':
@@ -503,15 +508,21 @@ def handle_desert_choice(player, choice):
     elif choice == '6':
         if quit_game(player):
             return
-            
+
+    if player.sand_dunes_completed and choice == '2':
+        print("The Sand Dunes option is no longer available.")
+        return
+
+    if player.oasis_completed and choice == '1':
+        print("The Search for an Oasis option is now disabled.")
+        return
+
     if player.oasis_completed and player.sand_dunes_completed and player.shade_completed:
-        print("You have completed all of your travels in the desert.")
+        print("You have completed all paths in the desert.")
         print("You decide to return to the crossroads.")
-        input("Press Enter to continue to the crossroads...")
+        player.desert_completed = True
         crossroads(player)
 
-    input("Press Enter to continue to the crossroads...")
-    crossroads(player)
 
 def search_for_oasis(player):
     """
@@ -539,8 +550,6 @@ def navigate_sand_dunes(player):
     obstacle_chance = random.randint(1, 10)
 
     if obstacle_chance <= 5:
-        print("You encounter a mirage and end up wasting time.")
-    else:
         print("You come across a mysterious inscription partially uncovered in the sand...")
 
         difficulty_word_count = {
@@ -548,8 +557,6 @@ def navigate_sand_dunes(player):
             2: 5,
             3: float('inf')
         }
-
-        failed_attempts = 0
 
         word_puzzles = [fetch_word_puzzle() for _ in range(difficulty_word_count[player.difficulty])]
 
@@ -561,17 +568,14 @@ def navigate_sand_dunes(player):
                 print("Congratulations! You solved the word puzzle and gained +10 health")
                 player.health += 10
             else:
-                print("Sorry, that's not the right answer. The stone inscription falls on your foot and you lose -10 health")
+                print("Sorry, that's not the right answer. The stone inscription falls on your foot, and you lose -10 health")
                 player.deduct_health(15)
-                failed_attempts += 1
-
-            if failed_attempts >= 3:
-                print("You failed the word puzzle three times. Unlucky.")
                 player.sand_dunes_completed = True
-                input("Press Enter to continue...")
-                return
 
         print("Congratulations! You successfully navigated the sand dunes.")
+    else:
+        print("You encounter a mirage and end up wasting time.")
+
 
 def rest_in_shade(player):
     """
