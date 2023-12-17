@@ -260,9 +260,15 @@ def crossroads(player):
         else:
             print("Invalid choice. Please enter a valid number (1, 2, 3, 4, 5, or 6).")
 
-        if player.forest_completed and choice == '1':
-            print("The Forest Path is no longer available.")
-            continue
+        if player.forest_completed and player.town_completed and player.desert_completed:
+            print("Congratulations! You have completed all paths.")
+            update_leaderboard(player)
+            show_leaderboard(player)
+            print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
+            print(f"{player.name}, your final score was {player.health}")
+            time.sleep(2)
+            sys.exit()
+
 
 def quit_game(player):
     """
