@@ -494,6 +494,7 @@ def navigate_sand_dunes(player):
     Recreates the player going on their journey through the sand dunes
     """
     print("You choose to navigate the arduous sand dunes")
+    obstacle_chance = random.randint(1, 10)
 
     if obstacle_chance <= 5:
         print("You encounter a mirage and end up wasting time.")
