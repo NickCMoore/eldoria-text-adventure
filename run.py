@@ -89,7 +89,6 @@ class Backpack:
             for item in self.items:
                 print(item.name)
 
-
 class Player:
     """
     Class representing a player.
@@ -113,6 +112,7 @@ class Player:
         self.sand_dunes_completed = False
         self.desert_completed = False
 
+
     def set_starting_health(self):
         """
         Set initial health levels for the player based on difficulty.
@@ -124,6 +124,7 @@ class Player:
         elif self.difficulty == 3:
             return 50
 
+
     def deduct_health(self, amount):
         """
         Deduct health from the player if they get it wrong.
@@ -131,6 +132,7 @@ class Player:
         self.health -= amount
         print(f"{self.name}, you lost {amount} health.")
         print(f"Your remaining health is {self.health}.")
+
 
     def check_backpack(self):
         """
@@ -144,11 +146,13 @@ class Player:
 
         time.sleep(2)
 
+
 def clear_screen():
     """
     Clears the console screen based on the operating system.
     """
     os.system('cls' if os.name == 'nt' else 'clear')
+
 
 def choose_difficulty():
     """
@@ -166,6 +170,7 @@ def choose_difficulty():
         else:
             print("Invalid choice. Please enter a valid number (1, 2, or 3)")
 
+
 def restart_game():
     """
     Restarts the game by clearing the screen and calling the game_intro function.
@@ -173,6 +178,7 @@ def restart_game():
     print("Restarting the game...\n")
     clear_screen()
     game_intro()
+
 
 def show_leaderboard(player):
     """
@@ -198,11 +204,13 @@ def show_leaderboard(player):
             else:
                 print(f"{rank:<10}{player_name:<20}{score:<10}")
 
+
 def update_leaderboard(player):
     """
     Adds the player's score to the leaderboard.
     """
     LEADERBOARD.append_row([player.name, str(player.health)])
+
 
 def crossroads(player):
     """
@@ -292,6 +300,7 @@ def quit_game(player):
     else:
         sys.exit()
 
+
 def town_encounter(player):
     """
     Simulates an encounter in the town, allowing the player to make choices and progress in the game.
@@ -313,6 +322,7 @@ def town_encounter(player):
             handle_town_choice(player, choice)
         else:
             print("Invalid choice. Please enter a valid number (1, 2, 3, or 4).")
+
 
 def handle_town_choice(player, choice):
     """
@@ -336,6 +346,7 @@ def handle_town_choice(player, choice):
         player.town_completed = True
         crossroads(player)
 
+
 def visit_potion_shop(player):
     """
     Simulates the player visiting the Potion Shop in the town, providing a health potion as a gift.
@@ -354,6 +365,7 @@ def visit_potion_shop(player):
 
     player.potion_shop_completed = True
 
+
 def explore_market_square(player):
     """
     Simulates the player exploring the Market Square in the town and encountering a pickpocket.
@@ -369,6 +381,7 @@ def explore_market_square(player):
     print("The pickpocket escapes, but you managed to retain most of your belongings.")
 
     player.market_square_completed = True
+
 
 def talk_to_mysterious_merchant(player):
     """
@@ -412,6 +425,7 @@ def talk_to_mysterious_merchant(player):
 
     player.mysterious_merchant_completed = True
 
+
 def check_number_puzzle(nums, target, player_input):
     """
     Checks if the player's input is correct for the number puzzle.
@@ -425,6 +439,7 @@ def check_number_puzzle(nums, target, player_input):
         return True  
     else:
         return False  
+
 
 def handle_path_choice(player, choice):
     """
@@ -442,6 +457,7 @@ def handle_path_choice(player, choice):
         clear_screen()
         print(f"{player.name}, you enter the scorching desert.")
         desert_path(player)
+
 
 def desert_path(player):
     """
@@ -496,6 +512,7 @@ def desert_path(player):
         else:
             print("Invalid choice. Please enter a valid number (1, 2, 3, 4, 5, or 6).")
 
+
 def handle_desert_choice(player, choice):
     """
     Handles the player's choices in the desert, updating the game state accordingly.
@@ -549,6 +566,7 @@ def search_for_oasis(player):
         player.deduct_health(15)
         player.oasis_completed = True 
 
+
 def navigate_sand_dunes(player):
     """
     Recreates the player going on their journey through the sand dunes
@@ -599,6 +617,7 @@ def rest_in_shade(player):
 
     input("Press Enter to continue...")
 
+
 def fetch_word_puzzle():
     """
     Fetches a word puzzle from the 'word_puzzle' worksheet in Google Sheets.
@@ -633,6 +652,7 @@ def game_intro():
 
     return player
 
+
 def forest_riddle(player):
     """
     Simulates the player encountering a riddle in the enchanted forest and handles the player's attempts to solve it.
@@ -643,6 +663,7 @@ def forest_riddle(player):
     print("I have no body, but I come alive with the wind. What am I?")
 
     solve_riddle(player)
+
 
 def solve_riddle(player):
     """
@@ -683,10 +704,12 @@ def solve_riddle(player):
         input("Press Enter to return to the crossroads...")
         player.forest_completed = True
 
+
 def main():
     clear_screen()
     main_title()
     player = game_intro()
+
 
 if __name__ == "__main__":
     main()
