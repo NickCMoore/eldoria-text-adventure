@@ -437,9 +437,22 @@ def desert_path(player):
 
     while True:
         print("What will you do in the desert?")
-        print("1. Search for an oasis")
-        print("2. Navigate the sand dunes")
-        print("3. Rest in the shade of a rock")
+
+        if player.oasis_completed:
+            print("1. Search for an oasis (Completed)")
+        else:
+            print("1. Search for an oasis")
+        
+        if player.shade_completed:
+            print("3. Rest in the shade of a rock (Completed)")
+        else:
+            print("3. Rest in the shade of a rock")
+
+        if player.sand_dunes_completed:
+            print("2. Navigate the sand dunes (Completed)")
+        else:
+            print("2. Navigate the sand dunes")
+            
         print("4. Check Backpack")
         print("5. Check Score")
         print("6. Quit")
@@ -480,7 +493,7 @@ def handle_desert_choice(player, choice):
             return
 
     if player.sand_dunes_completed and choice == '2':
-        print("The Sand Dunes option is no longer available (completed).")
+        print("The Sand Dunes option is no longer available.")
         return
 
 def search_for_oasis(player):
