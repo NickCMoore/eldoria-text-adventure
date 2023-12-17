@@ -496,7 +496,7 @@ def navigate_sand_dunes(player):
     if obstacle_chance <= 5:
         print("You encounter a mirage and end up wasting time.")
     else:
-        print("You come across a mysterious inscription partially uncovered in the sand")
+        print("You come across a mysterious inscription partially uncovered in the sand...")
 
         word_puzzle = fetch_word_puzzle()
 
