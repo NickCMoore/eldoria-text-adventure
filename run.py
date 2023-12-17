@@ -513,6 +513,18 @@ def navigate_sand_dunes(player):
             print("Sorry, that's not the right answer. The stone inscription falls on your foot and you lose -10 health")
             player.deduct_health(15)
 
+def fetch_word_puzzle():
+    """
+    Fetches a word puzzle from the 'word_puzzle' worksheet in Google Sheets.
+    """
+    word_puzzle_worksheet = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('word_puzzle')
+
+    data = word_puzzle_worksheet.get_all_records()
+
+    random_word_puzzle = random.choice(data)
+
+    return random_word_puzzle
+
 
 
 
