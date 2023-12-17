@@ -107,6 +107,9 @@ class Player:
         self.potion_shop_completed = False
         self.market_square_completed = False
         self.mysterious_merchant_completed = False
+        self.oasis_completed = False
+        self.shade_completed = False 
+        self.sand_dunes_completed = False
 
     def set_starting_health(self):
         """
@@ -452,7 +455,7 @@ def desert_path(player):
             print("2. Navigate the sand dunes (Completed)")
         else:
             print("2. Navigate the sand dunes")
-            
+
         print("4. Check Backpack")
         print("5. Check Score")
         print("6. Quit")
