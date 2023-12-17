@@ -548,6 +548,21 @@ def navigate_sand_dunes(player):
 
         print("Congratulations! You successfully navigated the sand dunes.")
 
+def rest_in_shade(player):
+    """
+    Simulates the player resting in the shade to regain health.
+    """
+    print("You find a comfortable spot in the shade and rest for a while.")
+    print("The cool shade revitalizes you, and you regain 15 health.")
+
+    player.health += 15
+
+    print(f"Your total health is now {player.health}.")
+    
+    player.shade_completed = True
+
+    input("Press Enter to continue...")
+
 def fetch_word_puzzle():
     """
     Fetches a word puzzle from the 'word_puzzle' worksheet in Google Sheets.
