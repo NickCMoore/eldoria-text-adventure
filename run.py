@@ -470,6 +470,18 @@ def handle_desert_choice(player, choice):
         navigate_sand_dunes(player)
     elif choice == '3':
         rest_in_shade(player)
+    elif choice == '4':
+        player.check_backpack()
+    elif choice == '5':
+        print(f"Your current score is: {player.health}")
+        input("Press Enter to continue...")
+    elif choice == '6':
+        if quit_game(player):
+            return
+
+    if player.sand_dunes_completed and choice == '2':
+        print("The Sand Dunes option is no longer available (completed).")
+        return
 
 def search_for_oasis(player):
     """
@@ -516,6 +528,7 @@ def navigate_sand_dunes(player):
             else:
                 print("Sorry, that's not the right answer. The stone inscription falls on your foot and you lose -10 health")
                 player.deduct_health(15)
+                return
 
         print("Congratulations! You successfully navigated the sand dunes.")
 
