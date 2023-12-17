@@ -173,7 +173,10 @@ def choose_difficulty():
         if choice.isdigit() and choice in ['1', '2', '3']:
             return int(choice)
         else:
-            print("Invalid choice. Please enter a valid number (1, 2, or 3)")
+            if not choice:
+                print("Please enter a value.")
+            else:
+                print("Invalid choice. Please enter a valid number (1, 2, or 3)")
 
 
 def restart_game():
@@ -247,33 +250,31 @@ def crossroads(player):
         print("5. Check Score")
         print("6. Quit")
 
-        choice = input("Enter the number relating to your chosen path: ")
+        while True:
+            choice = input("Enter the number relating to your chosen path: ")
 
-        if choice == '1' and player.forest_completed:
-            print("The Forest Path is already completed. Choose another option.")
-            time.sleep(2)
-            continue
-        elif choice == '2' and player.town_completed:
-            print("The Town Path is already completed. Choose another option.")
-            time.sleep(2)
-            continue
-        elif choice == '3' and player.desert_completed:
-            print("The Desert Path is already completed. Choose another option.")
-            time.sleep(2)
-            continue
-        elif choice == '6':
-            if quit_game(player):
-                break
+            if choice == '1' and player.forest_completed:
+                print("The Forest Path is already completed. Choose another option.")
+            elif choice == '2' and player.town_completed:
+                print("The Town Path is already completed. Choose another option.")
+            elif choice == '3' and player.desert_completed:
+                print("The Desert Path is already completed. Choose another option.")
+            elif choice == '6':
+                if quit_game(player):
+                    return
 
-        if choice == '4':
-            player.check_backpack()
-        elif choice == '5':
-            print(f"Your current score is: {player.health}")
-            input("Press Enter to continue...")
-        elif choice.isdigit() and choice in ['1', '2', '3']:
-            handle_path_choice(player, choice)
-        else:
-            print("Invalid choice. Please enter a valid number (1, 2, 3, 4, 5, or 6).")
+            elif choice == '4':
+                player.check_backpack()
+            elif choice == '5':
+                print(f"Your current score is: {player.health}")
+                input("Press Enter to continue...")
+            elif choice.isdigit() and choice in ['1', '2', '3']:
+                handle_path_choice(player, choice)
+            else:
+                print("Invalid choice. Please enter a valid number (1, 2, 3, 4, 5, or 6).")
+                continue
+
+            break
 
         if player.forest_completed and player.town_completed and player.desert_completed:
             print("Congratulations! You have completed all paths.")
@@ -283,6 +284,7 @@ def crossroads(player):
             print(f"{player.name}, your final score was {player.health}")
             time.sleep(2)
             sys.exit()
+
 
 
 def quit_game(player):
@@ -300,12 +302,16 @@ def quit_game(player):
         print(f"{player.name}, your final score was {player.health}")
         time.sleep(2)
 
-    continue_playing = input(
-        "Do you want to continue playing? (yes/no): ").lower()
-    if continue_playing == "yes":
-        crossroads(player)
-    else:
-        sys.exit()
+    while True:
+        continue_playing = input(
+            "Do you want to continue playing? (yes/no): ").lower()
+        if continue_playing == "yes":
+            crossroads(player)
+        elif continue_playing == "no":
+            sys.exit()
+        else:
+            print("Invalid choice. Please enter 'yes' or 'no'.")
+
 
 
 def town_encounter(player):
@@ -346,12 +352,16 @@ def handle_town_choice(player, choice):
         player.mysterious_merchant_completed = True
     elif choice == '4':
         player.check_backpack()
+    else:
+        print("Invalid choice. Please enter a valid number (1, 2, 3, or 4).")
+        return
 
     if player.potion_shop_completed and player.market_square_completed and player.mysterious_merchant_completed:
         print("You have visited everywhere in town!")
         input("Press Enter to return to the crossroads...")
         player.town_completed = True
         crossroads(player)
+
 
 
 def visit_potion_shop(player):
@@ -416,25 +426,31 @@ def talk_to_mysterious_merchant(player):
         player_input = input(
             "Enter your answer as two space-separated numbers (e.g., '3 7'): ")
 
-        result = check_number_puzzle(nums, target, player_input)
+        try:
+            num1, num2 = map(int, player_input.split())
+            result = check_number_puzzle(nums, target, player_input)
 
-        if result:
-            print(
-                f"Congratulations, {player.name}! You found the correct pair. You receive a bonus!")
-            break
-        else:
-            print("Sorry, that's not the correct pair. Try again.")
-            attempts_left -= 1
-
-            if attempts_left > 0:
+            if result:
                 print(
-                    f"You have {attempts_left} {'attempts' if attempts_left > 1 else 'attempt'} left.")
+                    f"Congratulations, {player.name}! You found the correct pair. You receive a bonus!")
+                break
+            else:
+                print("Sorry, that's not the correct pair. Try again.")
+                attempts_left -= 1
+
+                if attempts_left > 0:
+                    print(
+                        f"You have {attempts_left} {'attempts' if attempts_left > 1 else 'attempt'} left.")
+        except ValueError:
+            print("Invalid input format. Please enter two space-separated numbers.")
+            attempts_left -= 1
 
     if attempts_left == 0:
         print(f"{player.name}, you've used all your attempts.")
         print("The correct answer was not found. Better luck next time!")
 
     player.mysterious_merchant_completed = True
+
 
 
 def check_number_puzzle(nums, target, player_input):
@@ -446,7 +462,7 @@ def check_number_puzzle(nums, target, player_input):
     except ValueError:
         return False
 
-    if num1 + num2 == target and num1 in nums and num2 in nums:
+    if num1 != num2 and num1 in nums and num2 in nums and num1 + num2 == target:
         return True
     else:
         return False
@@ -468,6 +484,7 @@ def handle_path_choice(player, choice):
         clear_screen()
         print(f"{player.name}, you enter the scorching desert.")
         desert_path(player)
+
 
 
 def desert_path(player):
@@ -519,9 +536,19 @@ def desert_path(player):
             print(f"Your current score is: {player.health}")
             input("Press Enter to continue...")
         elif choice.isdigit() and choice in ['1', '2', '3']:
-            handle_desert_choice(player, choice)
+            if choice == '1' and player.oasis_completed:
+                print("You have already searched for an oasis. Choose another option.")
+            elif choice == '2' and player.sand_dunes_completed:
+                print("You have already navigated the sand dunes. Choose another option.")
+            elif choice == '3' and player.shade_completed:
+                print("You have already rested in the shade of a rock. Choose another option.")
+            else:
+                # Add logic to handle the chosen desert path based on the choice parameter
+                # You can call other functions or perform actions based on the player's choice
+                pass
         else:
             print("Invalid choice. Please enter a valid number (1, 2, 3, 4, 5, or 6).")
+
 
 
 def handle_desert_choice(player, choice):
@@ -601,21 +628,29 @@ def navigate_sand_dunes(player):
         for word_puzzle in word_puzzles:
             print(
                 f"Unscramble the letters to form a word: {word_puzzle['Scrambled Word']}")
-            player_input = input("Your answer: ").lower()
+            
+            while True:
+                player_input = input("Your answer: ").lower()
 
-            if player_input == word_puzzle['Word']:
-                print(
-                    "Congratulations! You solved the word puzzle and gained +10 health")
-                player.health += 10
-            else:
-                print(
-                    "Sorry, that's not the right answer. The stone inscription falls on your foot, and you lose -10 health")
-                player.deduct_health(15)
-                player.sand_dunes_completed = True
+                if player_input == word_puzzle['Word']:
+                    print(
+                        "Congratulations! You solved the word puzzle and gained +10 health")
+                    player.health += 10
+                    break 
+                else:
+                    print(
+                        "Sorry, that's not the right answer. Try again.")
+
+                    player.deduct_health(15)
+                    player.sand_dunes_completed = True
+                    if player.sand_dunes_completed:
+                        print("You successfully navigated the sand dunes.")
+                        break 
 
         print("Congratulations! You successfully navigated the sand dunes.")
     else:
         print("You encounter a mirage and end up wasting time.")
+
 
 
 def rest_in_shade(player):
@@ -656,10 +691,12 @@ def game_intro():
 
     while True:
         player_name = input("Enter your name: \n")
+
         if player_name and not player_name.isdigit():
             break
         else:
-            raise ValueError("Invalid name. No numbers or blanks allowed")
+            print("Invalid name. Please enter a valid name without numbers.")
+    
     difficulty = choose_difficulty()
     player = Player(player_name, difficulty)
     print(f"{player_name}, you chose difficulty level {player.difficulty}.")
@@ -669,56 +706,59 @@ def game_intro():
     return player
 
 
+
 def forest_riddle(player):
-    """
-    Simulates the player encountering a riddle in the enchanted forest and handles the player's attempts to solve it.
-    """
-    print("As you enter the enchanted forest, you encounter a wise old tree.")
-    print("The tree speaks with a mystical voice:")
-    print("I speak without a mouth and hear without ears.")
-    print("I have no body, but I come alive with the wind. What am I?")
-
-    solve_riddle(player)
-
-
-def solve_riddle(player):
     """
     Simulates the player attempting to solve the riddle presented in the enchanted forest.
     """
-    correct_answer = "an echo"
+    print("As you venture deeper into the mystical forest, you encounter a wise old tree.")
+    print("The tree speaks in a whisper, presenting you with a riddle:")
 
-    for _ in range(3):
-        player_answer = input("Enter your answer: ").lower()
+    riddle = "I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?"
+    print(riddle)
 
-        if player_answer == correct_answer:
-            print("The wise old tree nods.")
-            print("You have answered the riddle correctly.")
-            print("You receive a pulsating sword with elemental energy.")
-            print("It resonates with the power of the elements.")
-            print("You decide to return to the crossroads")
-            player.inventory.add_item(Sword())
+    max_attempts = 3
+
+    for attempt in range(1, max_attempts + 1):
+        while True:
+            try:
+                player_answer = input("Enter your answer: ").lower()
+                if not player_answer:
+                    raise ValueError("Please enter a word (not a number or blank).")
+                break
+            except ValueError as e:
+                print(f"Error: {e}")
+
+        if player_answer == "an echo":
+            print("The wise old tree nods in approval.")
+            print("Congratulations! You have answered the riddle correctly.")
+            print("The forest path is now open for you.")
             player.forest_completed = True
+            break
+        else:
+            print("The wise old tree shakes its branches.")
+            print("Incorrect. The forest path remains a mystery.")
+            player.deduct_health(10)
 
-            time.sleep(4)
+            if attempt < max_attempts:
+                print("The wise old tree offers a clue:")
+                print("I am a sound that repeats. What am I?")
+                print(f"You have {max_attempts - attempt} {'attempts' if max_attempts - attempt > 1 else 'attempt'} left.")
+            else:
+                print(f"{player.name}, unfortunate...")
+                print("You failed to answer the riddle correctly three times.")
 
-            return
+                if not player.forest_completed:
+                    print("The Forest Path is now disabled (completed).")
 
-        print("Incorrect. The wise old tree offers a clue:")
-        print("I am a sound that repeats. What am I?")
+                    time.sleep(2)
 
-        player.deduct_health(10)
-        player.incorrect_guesses += 1
-
-    print(f"{player.name}, unfortunate...")
-    print("You failed to answer the riddle correctly three times.")
-
-    if not player.forest_completed:
-        print("The Forest Path is now disabled (completed).")
-
-        time.sleep(4)
-
-        input("Press Enter to return to the crossroads...")
-        player.forest_completed = True
+                    input("Press Enter to return to the crossroads.")
+            if attempt < max_attempts:
+                continue
+            else:
+                player.forest_completed = True
+                break
 
 
 def main():
