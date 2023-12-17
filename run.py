@@ -178,20 +178,17 @@ def show_leaderboard(player):
     print("============")
 
     time.sleep(2)
-    # Fetch updated data from leaderboard worksheet
     data = SHEET.worksheet('leaderboard').get_all_values()
 
     if not data:
         print("No leaderboard data available.")
     else:
-        # Sort the data by score in descending order
         sorted_data = sorted(data[1:], key=lambda x: int(x[1]), reverse=True)
 
-        # Display the top 10 scores in a table
         print(f"{Fore.CYAN}{'Rank':<10}{'Player':<20}{'Score':<10}{Style.RESET_ALL}")
         for rank, row in enumerate(sorted_data[:10], start=1):
             player_name, score = row
-            if player_name == player.name:  # Highlight player's entry
+            if player_name == player.name: 
                 print(f"{Fore.GREEN}{rank:<10}{player_name:<20}{score:<10}{Style.RESET_ALL}")
             else:
                 print(f"{rank:<10}{player_name:<20}{score:<10}")
@@ -508,7 +505,7 @@ def navigate_sand_dunes(player):
 
         if player_input == word_puzzle['Word']:
             print("Congratulations! You solved the word puzzle and gained +10 health")
-            player.health +- 10
+            player.health += 10
         else:
             print("Sorry, that's not the right answer. The stone inscription falls on your foot and you lose -10 health")
             player.deduct_health(15)
@@ -519,13 +516,13 @@ def fetch_word_puzzle():
     """
     word_puzzle_worksheet = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('word_puzzle')
 
-    data = word_puzzle_worksheet.get_all_records()
+    data = word_puzzle_worksheet.get_all_values()
 
-    random_word_puzzle = random.choice(data)
+    data_without_header = data[1:]
 
-    return random_word_puzzle
+    random_word_puzzle = random.choice(data_without_header)
 
-
+    return {'Scrambled Word': random_word_puzzle[0], 'Word': random_word_puzzle[1]}
 
 
 def game_intro():
