@@ -28,11 +28,15 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('eldoria-text-adventure')
 
-LEADERBOARD = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('leaderboard')
-NUMBER_PUZZLE = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('number_puzzle')
-WORD_PUZZLE = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('word_puzzle')
+LEADERBOARD = GSPREAD_CLIENT.open(
+    'eldoria-text-adventure').worksheet('leaderboard')
+NUMBER_PUZZLE = GSPREAD_CLIENT.open(
+    'eldoria-text-adventure').worksheet('number_puzzle')
+WORD_PUZZLE = GSPREAD_CLIENT.open(
+    'eldoria-text-adventure').worksheet('word_puzzle')
 
 # Game items
+
 
 class Item:
     def __init__(self, name, description):
@@ -53,6 +57,7 @@ class Sword(Item):
     """
     Class representing a generic item.
     """
+
     def __init__(self):
         """
         Initialize sword item.
@@ -64,6 +69,7 @@ class Backpack:
     """
     Class representing a backpack.
     """
+
     def __init__(self):
         """
         Initialize backpack.
@@ -89,10 +95,12 @@ class Backpack:
             for item in self.items:
                 print(item.name)
 
+
 class Player:
     """
     Class representing a player.
     """
+
     def __init__(self, name, difficulty):
         """
         Initialize a player.
@@ -108,10 +116,9 @@ class Player:
         self.market_square_completed = False
         self.mysterious_merchant_completed = False
         self.oasis_completed = False
-        self.shade_completed = False 
+        self.shade_completed = False
         self.sand_dunes_completed = False
         self.desert_completed = False
-
 
     def set_starting_health(self):
         """
@@ -124,7 +131,6 @@ class Player:
         elif self.difficulty == 3:
             return 50
 
-
     def deduct_health(self, amount):
         """
         Deduct health from the player if they get it wrong.
@@ -132,7 +138,6 @@ class Player:
         self.health -= amount
         print(f"{self.name}, you lost {amount} health.")
         print(f"Your remaining health is {self.health}.")
-
 
     def check_backpack(self):
         """
@@ -199,8 +204,9 @@ def show_leaderboard(player):
         print(f"{Fore.CYAN}{'Rank':<10}{'Player':<20}{'Score':<10}{Style.RESET_ALL}")
         for rank, row in enumerate(sorted_data[:10], start=1):
             player_name, score = row
-            if player_name == player.name: 
-                print(f"{Fore.GREEN}{rank:<10}{player_name:<20}{score:<10}{Style.RESET_ALL}")
+            if player_name == player.name:
+                print(
+                    f"{Fore.GREEN}{rank:<10}{player_name:<20}{score:<10}{Style.RESET_ALL}")
             else:
                 print(f"{rank:<10}{player_name:<20}{score:<10}")
 
@@ -217,7 +223,7 @@ def crossroads(player):
     Manages the player's choices at the crossroads, allowing them to choose paths, check the backpack, check the score, or quit the game.
     """
     while True:
-        clear_screen() 
+        clear_screen()
         print("The eternal mists clear...")
         print("You find yourself at a crossroads.")
         print("There are three paths diverging in front of you.")
@@ -236,10 +242,10 @@ def crossroads(player):
             print("3. The Desert Path")
         else:
             print("3. The Desert Path (Completed)")
-    
+
         print("4. Check Backpack")
         print("5. Check Score")
-        print("6. Quit")  
+        print("6. Quit")
 
         choice = input("Enter the number relating to your chosen path: ")
 
@@ -257,7 +263,7 @@ def crossroads(player):
             continue
         elif choice == '6':
             if quit_game(player):
-                break 
+                break
 
         if choice == '4':
             player.check_backpack()
@@ -294,7 +300,8 @@ def quit_game(player):
         print(f"{player.name}, your final score was {player.health}")
         time.sleep(2)
 
-    continue_playing = input("Do you want to continue playing? (yes/no): ").lower()
+    continue_playing = input(
+        "Do you want to continue playing? (yes/no): ").lower()
     if continue_playing == "yes":
         crossroads(player)
     else:
@@ -354,14 +361,15 @@ def visit_potion_shop(player):
     if player.potion_shop_completed:
         print("You have already visited the Potion Shop.")
         return
-    
+
     print("You enter the Potion Shop and meet the friendly shopkeeper.")
     print("They offer you a health potion as a gift.")
 
     player.health += 20
     print(f"You gained 20 health. Your total health is now {player.health}.")
 
-    player.inventory.add_item(Item(name="Health Potion", description="A magical potion that restores health."))
+    player.inventory.add_item(
+        Item(name="Health Potion", description="A magical potion that restores health."))
 
     player.potion_shop_completed = True
 
@@ -405,19 +413,22 @@ def talk_to_mysterious_merchant(player):
     attempts_left = 3
 
     while attempts_left > 0:
-        player_input = input("Enter your answer as two space-separated numbers (e.g., '3 7'): ")
+        player_input = input(
+            "Enter your answer as two space-separated numbers (e.g., '3 7'): ")
 
         result = check_number_puzzle(nums, target, player_input)
 
         if result:
-            print(f"Congratulations, {player.name}! You found the correct pair. You receive a bonus!")
+            print(
+                f"Congratulations, {player.name}! You found the correct pair. You receive a bonus!")
             break
         else:
             print("Sorry, that's not the correct pair. Try again.")
             attempts_left -= 1
 
             if attempts_left > 0:
-                print(f"You have {attempts_left} {'attempts' if attempts_left > 1 else 'attempt'} left.")
+                print(
+                    f"You have {attempts_left} {'attempts' if attempts_left > 1 else 'attempt'} left.")
 
     if attempts_left == 0:
         print(f"{player.name}, you've used all your attempts.")
@@ -433,12 +444,12 @@ def check_number_puzzle(nums, target, player_input):
     try:
         num1, num2 = map(int, player_input.split())
     except ValueError:
-        return False 
+        return False
 
     if num1 + num2 == target and num1 in nums and num2 in nums:
-        return True  
+        return True
     else:
-        return False  
+        return False
 
 
 def handle_path_choice(player, choice):
@@ -487,7 +498,7 @@ def desert_path(player):
         if player.sand_dunes_completed and player.shade_completed and player.oasis_completed:
             print("Congratulations! You have completed all paths in the desert.")
             print("You decide to return to the crossroads.")
-            player.desert_completed = True 
+            player.desert_completed = True
             crossroads(player)
             input("Press Enter to continue...")
             time.sleep(4)
@@ -560,11 +571,12 @@ def search_for_oasis(player):
         print("You feel refreshed.")
         player.health += 10
         player.oasis_completed = True
-        print(f"Your health has increased by 10. Your total health is now {player.health}.")
+        print(
+            f"Your health has increased by 10. Your total health is now {player.health}.")
     else:
         print("Unfortunately, you couldn't find an oasis, and the scorching heat takes a toll on you.")
         player.deduct_health(15)
-        player.oasis_completed = True 
+        player.oasis_completed = True
 
 
 def navigate_sand_dunes(player):
@@ -583,17 +595,21 @@ def navigate_sand_dunes(player):
             3: float('inf')
         }
 
-        word_puzzles = [fetch_word_puzzle() for _ in range(difficulty_word_count[player.difficulty])]
+        word_puzzles = [fetch_word_puzzle() for _ in range(
+            difficulty_word_count[player.difficulty])]
 
         for word_puzzle in word_puzzles:
-            print(f"Unscramble the letters to form a word: {word_puzzle['Scrambled Word']}")
+            print(
+                f"Unscramble the letters to form a word: {word_puzzle['Scrambled Word']}")
             player_input = input("Your answer: ").lower()
 
             if player_input == word_puzzle['Word']:
-                print("Congratulations! You solved the word puzzle and gained +10 health")
+                print(
+                    "Congratulations! You solved the word puzzle and gained +10 health")
                 player.health += 10
             else:
-                print("Sorry, that's not the right answer. The stone inscription falls on your foot, and you lose -10 health")
+                print(
+                    "Sorry, that's not the right answer. The stone inscription falls on your foot, and you lose -10 health")
                 player.deduct_health(15)
                 player.sand_dunes_completed = True
 
@@ -612,7 +628,7 @@ def rest_in_shade(player):
     player.health += 15
 
     print(f"Your total health is now {player.health}.")
-    
+
     player.shade_completed = True
 
     input("Press Enter to continue...")
@@ -680,19 +696,19 @@ def solve_riddle(player):
             print("You receive a pulsating sword with elemental energy.")
             print("It resonates with the power of the elements.")
             print("You decide to return to the crossroads")
-            player.inventory.add_item(Sword()) 
-            player.forest_completed = True  
+            player.inventory.add_item(Sword())
+            player.forest_completed = True
 
             time.sleep(4)
 
             return
-        
+
         print("Incorrect. The wise old tree offers a clue:")
         print("I am a sound that repeats. What am I?")
 
-        player.deduct_health(10) 
+        player.deduct_health(10)
         player.incorrect_guesses += 1
-    
+
     print(f"{player.name}, unfortunate...")
     print("You failed to answer the riddle correctly three times.")
 
@@ -713,4 +729,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
