@@ -494,6 +494,12 @@ def handle_desert_choice(player, choice):
     elif choice == '6':
         if quit_game(player):
             return
+            
+    if player.oasis_completed and player.sand_dunes_completed and player.shade_completed:
+        print("You have completed all of your travels in the desert.")
+        print("You decide to return to the crossroads.")
+        input("Press Enter to continue to the crossroads...")
+        crossroads(player)
 
 def search_for_oasis(player):
     """
