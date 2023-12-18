@@ -180,7 +180,8 @@ def game_intro(gspread_client):
     player = Player(player_name, difficulty, gspread_client)
     print(f"\nWelcome, {player.name}! You are about to embark on an epic adventure in the mystical realm of Eldoria.")
     print("Your goal is to explore different paths, solve challenges, and earn points.")
-    print("Be cautious! Your health is crucial, and incorrect choices may lead to deductions...")
+    print("Be cautious! Your health is crucial.")
+    print("Incorrect choices may lead to deductions...")
     print(f"\nYou chose your difficulty level {player.difficulty}.")
     print(f"Your starting health is {player.health}.")
     input("Press Enter to begin your journey...\n")
@@ -254,13 +255,13 @@ def crossroads(player):
             break
 
 
-def restart_game():
+def restart_game(gspread_client):
     """
     Restarts the game by clearing the screen and calling the game_intro function.
     """
     print("Restarting the game...\n")
     clear_screen()
-    game_intro()
+    game_intro(gspread_client)
 
 
 def update_leaderboard(player):
@@ -279,7 +280,7 @@ def show_leaderboard(player):
     print("============")
 
     time.sleep(2)
-    data = SHEET.worksheet('leaderboard').get_all_values()
+    data = LEADERBOARD.get_all_values()
 
     if not data:
         print("No leaderboard data available.")
@@ -296,7 +297,7 @@ def show_leaderboard(player):
                 print(f"{rank:<10}{player_name:<20}{score:<10}")
 
 
-def quit_game(player):
+def quit_game(player, gspread_client):
     """
     Quits the game and updates the leaderboard if the player has completed at least two paths.
     """
@@ -315,7 +316,7 @@ def quit_game(player):
         continue_playing = input(
             "Do you want to continue playing? (yes/no): ").lower()
         if continue_playing == "yes":
-            crossroads(player)
+            restart_game()
         elif continue_playing == "no":
             sys.exit()
         else:
@@ -358,52 +359,40 @@ def forest_riddle(player):
         ("The more you feed me, the stronger I get. What am I?", "fire")
     ]
 
+    max_attempts = 3
+    attempts = 0
+
     for riddle, answer in riddles:
         print(riddle)
 
-        max_attempts = 3
-
-        for attempt in range(1, max_attempts + 1):
-            while True:
-                try:
-                    player_answer = input("Enter your answer: ").lower()
-                    if not player_answer:
-                        raise ValueError(
-                            "Please enter a word (not a number or blank).")
-                    break
-                except ValueError as e:
-                    print(f"Error: {e}")
+        while attempts < max_attempts:
+            player_answer = input("Enter your answer: ").lower()
 
             if player_answer == answer:
                 print("The wise old tree nods in approval.")
                 print("Congratulations! You have answered the riddle correctly.")
                 player.forest_completed = True
                 player.health += 10
-                print(
-                    f"You earned 10 points. Your total score is now {player.health}.")
-                break
+                print(f"You earned 10 points. Your total score is now {player.health}.")
+                return
             else:
                 print("The wise old tree shakes its branches.")
                 print("Incorrect. The forest path remains a mystery.")
                 player.deduct_health(10)
 
-                if attempt < max_attempts:
-                    print(
-                        f"You have {max_attempts - attempt} {'attempts' if max_attempts - attempt > 1 else 'attempt'} left.")
+                attempts += 1
+                if attempts < max_attempts:
+                    print(f"You have {max_attempts - attempts} {'attempts' if max_attempts - attempts > 1 else 'attempt'} left.")
                 else:
                     print(f"{player.name}, unfortunate...")
                     print("You failed to answer the riddle correctly three times.")
+                    print("The Forest Path is now disabled (completed).")
 
-                    if not player.forest_completed:
-                        print("The Forest Path is now disabled (completed).")
-
-                        time.sleep(2)
-
-                        input("Press Enter to return to the crossroads.")
-
+                    time.sleep(2)
+                    input("Press Enter to return to the crossroads.")
+                    return 
 
 # Town Path functions
-
 def town_encounter(player):
     """
     Simulates an encounter in the town, allowing the player to make choices and progress in the game.
