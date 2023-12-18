@@ -217,16 +217,4 @@ The frontend terminal should now be connected and deployed to Heroku.
 
 This application was created as part of Portfolio Project 3 for the Full Stack Software Development Diploma at the Code Institute. I express my gratitude to my mentor, Jack Wachira, for his ongoing support provided not only during this project but throughout the entire course. I also extend my thanks to the Slack community and everyone at the Code Institute for their assistance and encouragement.
 
-
-
-
-
-
-
-
-
-
-
-
-
 [Back to top](<#contents>)

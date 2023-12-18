@@ -20,7 +20,7 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
 ]
 
-# Google credentials 
+# Google credentials
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
@@ -38,67 +38,36 @@ WORD_PUZZLE = GSPREAD_CLIENT.open(
 # Custom code for items and game logic
 class Item:
     def __init__(self, name, description):
-        """
-        Initialise items
-        """
-        self.name = name
-        self.description = description
+        self._name = name
+        self._description = description
 
     def __str__(self):
-        """
-        String of the item.
-        """
-        return "{}\n=====\n{}\n".format(self.name, self.description)
-
+        return f"{self._name}\n=====\n{self._description}\n"
 
 class Sword(Item):
-    """
-    Class representing a generic item.
-    """
-
     def __init__(self):
-        """
-        Initialise sword item.
-        """
         super().__init__(name="sword", description="A magnificent sword")
 
-
 class Backpack:
-    """
-    Class representing a backpack.
-    """
-
     def __init__(self):
-        """
-        Initialise backpack.
-        """
-        self.items = []
+        self._items = []
 
     def add_item(self, item):
-        """
-        Add an item to the backpack.
-        """
-        self.items.append(item)
-        print(f"Excellent work!")
-        print(f"A {item.name} has been added to your backpack.")
+        self._items.append(item)
+        print(f"Excellent work!\nA {item._name} has been added to your backpack.")
 
     def display_inventory(self):
-        """
-        Display the items in the backpack.
-        """
-        if not self.items:
+        if not self._items:
             print("Your backpack is empty.")
         else:
             print("Items in your backpack:")
-            for item in self.items:
-                print(item.name)
-
+            for item in self._items:
+                print(item)
 
 class Player:
     """
     Class representing a player.
     """
-
     def __init__(self, name, difficulty):
         """
         Initialise a player.
@@ -108,15 +77,7 @@ class Player:
         self.health = self.set_starting_health()
         self.incorrect_guesses = 0
         self.inventory = Backpack()
-        self.forest_completed = False
-        self.town_completed = False
-        self.potion_shop_completed = False
-        self.market_square_completed = False
-        self.mysterious_merchant_completed = False
-        self.oasis_completed = False
-        self.shade_completed = False
-        self.sand_dunes_completed = False
-        self.desert_completed = False
+        self.initialise_paths()
 
     def set_starting_health(self):
         """
@@ -128,6 +89,17 @@ class Player:
             return 75
         elif self.difficulty == 3:
             return 50
+        
+    def initialise_paths(self):
+        self.forest_completed = False
+        self.town_completed = False
+        self.potion_shop_completed = False
+        self.market_square_completed = False
+        self.mysterious_merchant_completed = False
+        self.oasis_completed = False
+        self.shade_completed = False
+        self.sand_dunes_completed = False
+        self.desert_completed = False
 
     def deduct_health(self, amount):
         """
@@ -142,11 +114,7 @@ class Player:
         Enable the player to check their backpack.
         """
         print("Checking your backpack:")
-        if not self.inventory.items:
-            print("Your backpack is empty.")
-        else:
-            self.inventory.display_inventory()
-
+        self.inventory.display_inventory()
         time.sleep(2)
 
 
