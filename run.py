@@ -178,7 +178,8 @@ def game_intro(gspread_client):
 
     difficulty = choose_difficulty()
     player = Player(player_name, difficulty, gspread_client)
-    print(f"\nWelcome, {player.name}! You are about to embark on an epic adventure in the mystical realm of Eldoria.")
+    print(
+        f"\nWelcome, {player.name}! You are about to embark on an epic adventure in the mystical realm of Eldoria.")
     print("Your goal is to explore different paths, solve challenges, and earn points.")
     print("Be cautious! Your health is crucial.")
     print("Incorrect choices may lead to deductions...")
@@ -323,8 +324,6 @@ def quit_game(player, gspread_client):
             print("Invalid choice. Please enter 'yes' or 'no'.")
 
 # Path functions
-
-
 def handle_path_choice(player, choice):
     """
     Handles the player's choice of paths (forest, town, desert) and progresses the game accordingly.
@@ -352,11 +351,11 @@ def forest_riddle(player):
     print("The tree speaks in a whisper, presenting you with a riddle:")
 
     riddles = [
-        ("I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?", "an echo"),
+        ("I have keys but no locks. I have space but no room. You can enter, but you can't go inside. What am I?", "a keyboard"),
+        ("I can fly without wings. I can cry without eyes. Wherever I go, darkness follows me. What am I?", "a cloud"),
         ("The more you take, the more you leave behind. What am I?", "footsteps"),
-        ("The person who makes it, sells it. The person who buys it never uses it. What is it?", "a coffin"),
-        ("The beginning of eternity, the end of time and space. The beginning of every end, the end of every place. What am I?", "the letter 'e'"),
-        ("The more you feed me, the stronger I get. What am I?", "fire")
+        ("What has a heart that doesn't beat?", "an artichoke"),
+        ("I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?", "an echo")
     ]
 
     max_attempts = 3
@@ -373,7 +372,8 @@ def forest_riddle(player):
                 print("Congratulations! You have answered the riddle correctly.")
                 player.forest_completed = True
                 player.health += 10
-                print(f"You earned 10 points. Your total score is now {player.health}.")
+                print(
+                    f"You earned 10 points. Your total score is now {player.health}.")
                 return
             else:
                 print("The wise old tree shakes its branches.")
@@ -382,7 +382,8 @@ def forest_riddle(player):
 
                 attempts += 1
                 if attempts < max_attempts:
-                    print(f"You have {max_attempts - attempts} {'attempts' if max_attempts - attempts > 1 else 'attempt'} left.")
+                    print(
+                        f"You have {max_attempts - attempts} {'attempts' if max_attempts - attempts > 1 else 'attempt'} left.")
                 else:
                     print(f"{player.name}, unfortunate...")
                     print("You failed to answer the riddle correctly three times.")
@@ -390,9 +391,11 @@ def forest_riddle(player):
 
                     time.sleep(2)
                     input("Press Enter to return to the crossroads.")
-                    return 
+                    return
 
 # Town Path functions
+
+
 def town_encounter(player):
     """
     Simulates an encounter in the town, allowing the player to make choices and progress in the game.
