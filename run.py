@@ -23,6 +23,7 @@ SCOPE = [
 # Google credentials
 CREDS = Credentials.from_service_account_file('creds.json')
 
+
 def authorise_gspread():
     """
     Exception raised in event Google Sheets cannot be accessed.
@@ -34,6 +35,7 @@ def authorise_gspread():
     except Exception as e:
         print(f"Error authorizing Google Sheets API: {e}")
         return None
+
 
 GSPREAD_CLIENT = authorise_gspread()
 # Google Sheets worksheets
@@ -533,14 +535,12 @@ def check_number_puzzle(nums, target, player_input):
     except ValueError:
         return False
 
-    if num1 != num2 and num1 in nums and num2 in nums and num1 + num2 == target:
+    if num1 in nums and num2 in nums and num1 + num2 == target:
         return True
     else:
         return False
 
 # Desert Path functions
-
-
 def desert_path(player):
     """
     Player has to traverse a scorching desert
@@ -565,13 +565,14 @@ def desert_path(player):
         else:
             print("3. Rest in the shade of a rock")
 
-        if player.sand_dunes_completed and player.shade_completed and player.oasis_completed:
+        if player.oasis_completed and player.sand_dunes_completed and player.shade_completed:
             print("Congratulations! You have completed all paths in the desert.")
             print("You decide to return to the crossroads.")
             player.desert_completed = True
             crossroads(player)
             input("Press Enter to continue...")
             time.sleep(4)
+            break
 
         print("4. Check Backpack")
         print("5. Check Score")
@@ -610,6 +611,7 @@ def desert_path(player):
             print("You decide to return to the crossroads.")
             player.desert_completed = True
             crossroads(player)
+            break
 
 
 def search_for_oasis(player):
