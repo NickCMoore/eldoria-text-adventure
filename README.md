@@ -2,27 +2,29 @@
 
 Eldoria Text Adventure is an interactive and mythical journey where the player takes on the role of an adventurer exploring the enchanting realms of Eldoria. This text-based game combines storytelling, puzzle-solving, and decision-making.
 
+![Responsive design](assets/images/screen-mockup.png)
+
 ### Project purpose
 
 The purpose of the game is to meet the goals of several specific audiences:
 
-**Gaming Enthusiasts**
+**Gaming Enthusiasts:**
 
 Goal - Offer an entertaining and immersive experience in the mythical world of Eldoria, appealing to those who enjoy engaging narratives and decision-based gameplay.
 
-**Strategy Gamers and Puzzle Solvers**
+**Strategy Gamers and Puzzle Solvers:**
 
 Goal - Challenge players with strategic decision-making and puzzle-solving elements, encouraging critical thinking and strategic planning.
 
-**Story-Driven Gamers**
+**Story-Driven Gamers:**
 
 Goal - Provide a dynamic storytelling experience with multiple outcomes, ensuring each playthrough offers a unique and unpredictable adventure.
 
-**Software Developers**
+**Software Developers:**
 
 Goal - Integrate Google Sheets for easy customisation of puzzles, leaderboards and game data, appealing to developers and game designers.
 
-**Puzzle Enthusiasts**
+**Puzzle Enthusiasts:**
 
 Goal - Enhance the educational value of the game with puzzles, riddles, and challenges, offering an engaging platform for players to improve their problem-solving skills.
 
@@ -31,7 +33,6 @@ It is built using Python and runs through the Code institute mock terminal on He
 
 Welcome to <a href="https://eldoria-text-adventure-b67c4e715670.herokuapp.com/" target="_blank" rel="noopener">Eldoria Text Adventure</a>
 
-![Responsive design](assets/images/screen-mockup.png)
 
 # Contents
 
@@ -50,6 +51,17 @@ Welcome to <a href="https://eldoria-text-adventure-b67c4e715670.herokuapp.com/" 
 
 
 # User Experience (UX)
+
+## User Stories
+
+- As a user, I want to easily navigate through the game, understanding where I am and the available options at any given point.
+- As a user, I want puzzle-solving elements to be intuitive and enjoyable.
+- As a user, I want immediate feedback on my choices and actions in the game.
+- As a user, I want to track my progress in the game and see how my choices impact the overall storyline.
+- As a user, I want the game's story to be presented in an engaging and immersive way.
+- As a user, I want the ability to customise aspects of the game, such as difficulty levels, name or player inventory.
+- As a user, I want the game to adapt to different screen sizes and devices.
+- As a user, I want visually appealing graphics and designs that enhance the overall gaming experience.
 
 ## Game Design
 
