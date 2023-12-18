@@ -178,8 +178,12 @@ def game_intro(gspread_client):
 
     difficulty = choose_difficulty()
     player = Player(player_name, difficulty, gspread_client)
-    print(f"{player_name}, you chose difficulty level {player.difficulty}.")
-    print(f"Your starting health is {player.health}")
+    print(f"\nWelcome, {player.name}! You are about to embark on an epic adventure in the mystical realm of Eldoria.")
+    print("Your goal is to explore different paths, solve challenges, and earn points.")
+    print("Be cautious! Your health is crucial, and incorrect choices may lead to deductions...")
+    print(f"\nYou chose your difficulty level {player.difficulty}.")
+    print(f"Your starting health is {player.health}.")
+    input("Press Enter to begin your journey...\n")
     crossroads(player)
 
     return player
