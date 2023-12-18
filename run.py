@@ -62,6 +62,11 @@ class Sword(Item):
         super().__init__(name="sword", description="A magnificent sword")
 
 
+class Helmet(Item):
+    def __init__(self):
+        super().__init__(name="helmet", description="A sturdy helmet for protection")
+
+
 class Shield(Item):
     def __init__(self):
         super().__init__(name="shield", description="A protective shield")
@@ -480,7 +485,7 @@ def explore_market_square(player):
 
 def talk_to_mysterious_merchant(player):
     """
-    Simulates the player talking to the Mysterious Merchant in the town, presenting a puzzle and offering a bonus for solving it.
+    Simulates the player talking to the Mysterious Merchant in the town, presenting a puzzle and offering a helmet as a bonus for solving it.
     """
     if player.mysterious_merchant_completed:
         print("You have already talked to the Mysterious Merchant.")
@@ -508,7 +513,11 @@ def talk_to_mysterious_merchant(player):
 
             if result:
                 print(
-                    f"Congratulations, {player.name}! You found the correct pair. You receive a bonus!")
+                    f"Congratulations, {player.name}! You found the correct pair. You receive a helmet as a bonus!")
+                # Add a helmet to the player's inventory
+                helmet = Helmet()
+                player.inventory.add_item(helmet)
+                print(f"A {helmet._name} has been added to your backpack.")
                 break
             else:
                 print("Sorry, that's not the correct pair. Try again.")
@@ -517,13 +526,14 @@ def talk_to_mysterious_merchant(player):
                 if attempts_left > 0:
                     print(
                         f"You have {attempts_left} {'attempts' if attempts_left > 1 else 'attempt'} left.")
+                else:
+                    print(f"{player.name}, you've used all your attempts.")
+                    print("The correct answer was not found. Better luck next time!")
+                    player.mysterious_merchant_completed = True
+                    return
         except ValueError:
             print("Invalid input format. Please enter two space-separated numbers.")
             attempts_left -= 1
-
-    if attempts_left == 0:
-        print(f"{player.name}, you've used all your attempts.")
-        print("The correct answer was not found. Better luck next time!")
 
     player.mysterious_merchant_completed = True
 
