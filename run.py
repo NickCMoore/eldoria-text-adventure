@@ -351,12 +351,12 @@ def forest_riddle(player):
     print("The tree speaks in a whisper, presenting you with a riddle:")
 
     riddles = [
-        ("I have keys but no locks. I have space but no room. You can enter, but you can't go inside. What am I?", "a keyboard"),
-        ("I can fly without wings. I can cry without eyes. Wherever I go, darkness follows me. What am I?", "a cloud"),
-        ("The more you take, the more you leave behind. What am I?", "footsteps"),
-        ("What has a heart that doesn't beat?", "an artichoke"),
-        ("I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?", "an echo")
-    ]
+    ("What has keys but can't open locks?", "piano"),
+    ("I'm tall when I'm young and short when I'm old. What am I?", "candle"),
+    ("I have a heart that doesn't beat. What am I?", "artichoke"),
+    ("I fly without wings. I cry without eyes. Wherever I go, darkness follows me. What am I?", "cloud"),
+    ("The more you take, the more you leave behind. What am I?", "footsteps")
+]
 
     max_attempts = 3
     attempts = 0
