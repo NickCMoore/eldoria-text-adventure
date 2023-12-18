@@ -149,6 +149,17 @@ Expand dialogue options and create branching dialogues based on player choices.
 
  Develop multiple endings based on the player's choices throughout the game, providing a variety of outcomes and story resolutions.
 
+ # Technologies used
+
+The following technologies were used in the development of the app:
+
+Python: Implemented for content creation and structural elements.
+Gitpod: Utilized for app deployment.
+GitHub: Served as the code repository for the website.
+Heroku: Chosen as the hosting platform for the game.
+Diagrams.net: Employed to design the game layout and create a comprehensive flowchart.
+Visual Studio Code (VSCode): Used as the primary integrated development environment (IDE) for coding and project management.
+
 
 
 
