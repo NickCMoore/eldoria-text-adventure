@@ -160,6 +160,59 @@ Heroku: Chosen as the hosting platform for the game.
 Diagrams.net: Employed to design the game layout and create a comprehensive flowchart.
 Visual Studio Code (VSCode): Used as the primary integrated development environment (IDE) for coding and project management.
 
+# Testing
+
+# Deployment
+
+Code Institute supplied a template for showcasing the terminal view of this backend application in web browser. This enhancement aims to make the project more accessible to a wider audience.
+
+You can access the live deployed application at <a href="https://eldoria-text-adventure-b67c4e715670.herokuapp.com/" target="_blank" rel="noopener">Eldoria Text Adventure</a>
+
+## Local Deployment
+
+VSCode was used to write the code for this project.
+
+To make a local copy of this repository, you can clone the project by typing the follow into your IDE terminal:
+
+git clone https://github.com/nickcmoore/eldoria-text-adventure.git
+
+Alternatively, if using Gitpod, you can click below to create your own workspace using this repository.
+
+Open in Gitpod
+
+## Heroku Deployment
+
+This project uses Heroku, a platform as a service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud.
+
+Deployment steps are as follows, after account setup:
+
+- Select New in the top-right corner of your Heroku Dashboard, and select Create new app from the dropdown menu.
+- Your app name must be unique, and then choose a region closest to you (EU or USA), and finally, select Create App.
+- From the new app Settings, click Reveal Config Vars, and set the value of KEY to PORT, and the value to 8000 then select add.
+- Further down, to support dependencies, select Add Buildpack.
+- The order of the buildpacks is important, select Python first, then Node.js second. (if they are not in this order, you can drag them to rearrange them)
+- Heroku needs two additional files in order to deploy properly.
+    - requirements.txt
+    - Procfile
+
+You can install this project's requirements (where applicable) using: pip3 install -r requirements.txt. If you have your own packages that have been installed, then the requirements file needs updated using: pip3 freeze --local > requirements.txt
+
+The Procfile can be created with the following command: echo web: node index.js > Procfile
+
+For Heroku deployment, follow these steps to connect your GitHub repository to the newly created app:
+
+- In the Terminal/CLI, connect to Heroku using this command: heroku login -i
+- Set the remote for Heroku: heroku git:remote -a <app_name> (replace app_name with your app, without the angle-brackets)
+- After performing the standard Git add, commit, and push to GitHub, you can now type: git push heroku main
+
+The frontend terminal should now be connected and deployed to Heroku.
+
+
+
+
+
+
+
 
 
 
