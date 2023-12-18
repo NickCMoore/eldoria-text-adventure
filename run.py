@@ -262,7 +262,6 @@ def crossroads(player):
             elif choice == '6':
                 if quit_game(player):
                     return
-
             elif choice == '4':
                 player.check_backpack()
             elif choice == '5':
@@ -274,17 +273,16 @@ def crossroads(player):
                 print("Invalid choice. Please enter a valid number (1, 2, 3, 4, 5, or 6).")
                 continue
 
-            break
+            if player.forest_completed and player.town_completed and player.desert_completed:
+                print("Congratulations! You have completed all paths.")
+                update_leaderboard(player)
+                show_leaderboard(player)
+                print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
+                print(f"{player.name}, your final score was {player.health}")
+                time.sleep(2)
+                sys.exit()
 
-        if player.forest_completed and player.town_completed and player.desert_completed:
-            print("Congratulations! You have completed all paths.")
-            update_leaderboard(player)
-            show_leaderboard(player)
-            print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
-            print(f"{player.name}, your final score was {player.health}")
-            time.sleep(2)
-            sys.exit()
-
+            break  
 
 
 def quit_game(player):
@@ -491,9 +489,6 @@ def desert_path(player):
     """
     Player has to traverse a scorching desert
     """
-    print(f"{player.name}, you enter the scorching desert.")
-    print("The sun beats down mercilessly as you traverse the vast expanse of sand.")
-
     while True:
         print("What will you do in the desert?")
 
@@ -526,6 +521,8 @@ def desert_path(player):
 
         choice = input("Enter the number relating to your chosen action: ")
 
+        handle_desert_choice(player, choice)
+
         if choice == '6':
             if quit_game(player):
                 break
@@ -543,12 +540,9 @@ def desert_path(player):
             elif choice == '3' and player.shade_completed:
                 print("You have already rested in the shade of a rock. Choose another option.")
             else:
-                # Add logic to handle the chosen desert path based on the choice parameter
-                # You can call other functions or perform actions based on the player's choice
                 pass
         else:
             print("Invalid choice. Please enter a valid number (1, 2, 3, 4, 5, or 6).")
-
 
 
 def handle_desert_choice(player, choice):
@@ -559,9 +553,11 @@ def handle_desert_choice(player, choice):
         if not player.oasis_completed:
             search_for_oasis(player)
     elif choice == '2':
-        navigate_sand_dunes(player)
+        if not player.sand_dunes_completed:
+            navigate_sand_dunes(player)
     elif choice == '3':
-        rest_in_shade(player)
+        if not player.shade_completed:
+            rest_in_shade(player)
     elif choice == '4':
         player.check_backpack()
     elif choice == '5':
@@ -584,6 +580,7 @@ def handle_desert_choice(player, choice):
         print("You decide to return to the crossroads.")
         player.desert_completed = True
         crossroads(player)
+
 
 
 def search_for_oasis(player):
