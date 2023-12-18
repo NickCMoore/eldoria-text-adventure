@@ -1,32 +1,33 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# **_Eldoria Text Adventure_**
 
-Welcome Nick Moore,
+Eldoria Text Adventure is an interactive and mythical journey where the player takes on the role of an adventurer exploring the enchanting realms of Eldoria. This text-based game combines storytelling, puzzle-solving, and decision-making.
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **March 14, 2023**
+It is built using Python and runs through the Code institute mock terminal on Heroku.
 
-## Reminders
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
+Welcome to <a href="https://eldoria-text-adventure-b67c4e715670.herokuapp.com/" target="_blank" rel="noopener">Eldoria Text Adventure</a>
 
-## Creating the Heroku app
+![Responsive design](assets/images/screen-mockup.png)
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+# Contents
 
-1. `heroku/python`
-2. `heroku/nodejs`
+* [**User Experience UX**](<#user-experience-ux>)
+    * [Game Design](<#game-design>)
+    * [Flowchart](<#flowchart>)
+* [**Current Features**](<#current-features>)
+* [**Future Features**](<#future-features>)
+* [**Technologies Used**](<#technologies-used>)
+* [**Testing**](<#testing>)
+* [**Deployment**](<#deployment>)
+* [**Credits**](<#credits>)
+    * [**Content**](<#content>)
+    * [**Media**](<#media>)
+*  [**Acknowledgements**](<#acknowledgements>)
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+# User Experience (UX)
 
-Connect your GitHub repository and deploy as normal.
+## Game Design
 
-## Constraints
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
----
-
-Happy coding!
+[Back to top](<#contents>)

@@ -13,7 +13,7 @@ from images import main_title
 
 colorama.init(autoreset=True)
 
-# Code for Google Sheets integration
+# Google Sheets API integration
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
