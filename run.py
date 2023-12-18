@@ -22,10 +22,20 @@ SCOPE = [
 
 # Google credentials
 CREDS = Credentials.from_service_account_file('creds.json')
-SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('eldoria-text-adventure')
 
+def authorise_gspread():
+    """
+    Exception raised in event Google Sheets cannot be accessed.
+    """
+    try:
+        SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+        GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+        return GSPREAD_CLIENT
+    except Exception as e:
+        print(f"Error authorizing Google Sheets API: {e}")
+        return None
+
+GSPREAD_CLIENT = authorise_gspread()
 # Google Sheets worksheets
 LEADERBOARD = GSPREAD_CLIENT.open(
     'eldoria-text-adventure').worksheet('leaderboard')
@@ -73,7 +83,7 @@ class Player:
     Class representing a player.
     """
 
-    def __init__(self, name, difficulty):
+    def __init__(self, name, difficulty, gspread_client):
         """
         Initialise a player.
         """
@@ -150,7 +160,7 @@ def choose_difficulty():
                 print("Invalid choice. Please enter a valid number (1, 2, or 3)")
 
 
-def game_intro():
+def game_intro(gspread_client):
     """
     Initialises the game, prompts the user for their name and difficulty level, and starts the game.
     """
@@ -165,7 +175,7 @@ def game_intro():
             print("Invalid name. Please enter a valid name without numbers.")
 
     difficulty = choose_difficulty()
-    player = Player(player_name, difficulty)
+    player = Player(player_name, difficulty, gspread_client)
     print(f"{player_name}, you chose difficulty level {player.difficulty}.")
     print(f"Your starting health is {player.health}")
     crossroads(player)
@@ -701,7 +711,12 @@ def fetch_word_puzzle():
 def main():
     clear_screen()
     main_title()
-    player = game_intro()
+    gspread_client = authorise_gspread()
+    if gspread_client is None:
+        print("Exiting the game due to authorisation error.")
+        sys.exit()
+
+    player = game_intro(gspread_client)
 
 
 if __name__ == "__main__":
