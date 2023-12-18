@@ -144,47 +144,27 @@ def choose_difficulty():
             else:
                 print("Invalid choice. Please enter a valid number (1, 2, or 3)")
 
-
-def restart_game():
+def game_intro():
     """
-    Restarts the game by clearing the screen and calling the game_intro function.
+    Initialises the game, prompts the user for their name and difficulty level, and starts the game.
     """
-    print("Restarting the game...\n")
-    clear_screen()
-    game_intro()
+    print("Welcome to the Eldoria Text Adventure!\n")
 
+    while True:
+        player_name = input("Enter your name: \n")
 
-def show_leaderboard(player):
-    """
-    Displays the leaderboard with the top 10 scores.
-    """
-    clear_screen()
-    print("\nLEADERBOARD")
-    print("============")
+        if player_name and not player_name.isdigit():
+            break
+        else:
+            print("Invalid name. Please enter a valid name without numbers.")
 
-    time.sleep(2)
-    data = SHEET.worksheet('leaderboard').get_all_values()
+    difficulty = choose_difficulty()
+    player = Player(player_name, difficulty)
+    print(f"{player_name}, you chose difficulty level {player.difficulty}.")
+    print(f"Your starting health is {player.health}")
+    crossroads(player)
 
-    if not data:
-        print("No leaderboard data available.")
-    else:
-        sorted_data = sorted(data[1:], key=lambda x: int(x[1]), reverse=True)
-
-        print(f"{Fore.CYAN}{'Rank':<10}{'Player':<20}{'Score':<10}{Style.RESET_ALL}")
-        for rank, row in enumerate(sorted_data[:10], start=1):
-            player_name, score = row
-            if player_name == player.name:
-                print(
-                    f"{Fore.GREEN}{rank:<10}{player_name:<20}{score:<10}{Style.RESET_ALL}")
-            else:
-                print(f"{rank:<10}{player_name:<20}{score:<10}")
-
-
-def update_leaderboard(player):
-    """
-    Adds the player's score to the leaderboard.
-    """
-    LEADERBOARD.append_row([player.name, str(player.health)])
+    return player
 
 
 def crossroads(player):
@@ -252,6 +232,48 @@ def crossroads(player):
             break
 
 
+def restart_game():
+    """
+    Restarts the game by clearing the screen and calling the game_intro function.
+    """
+    print("Restarting the game...\n")
+    clear_screen()
+    game_intro()
+
+
+def update_leaderboard(player):
+    """
+    Adds the player's score to the leaderboard.
+    """
+    LEADERBOARD.append_row([player.name, str(player.health)])
+
+
+def show_leaderboard(player):
+    """
+    Displays the leaderboard with the top 10 scores.
+    """
+    clear_screen()
+    print("\nLEADERBOARD")
+    print("============")
+
+    time.sleep(2)
+    data = SHEET.worksheet('leaderboard').get_all_values()
+
+    if not data:
+        print("No leaderboard data available.")
+    else:
+        sorted_data = sorted(data[1:], key=lambda x: int(x[1]), reverse=True)
+
+        print(f"{Fore.CYAN}{'Rank':<10}{'Player':<20}{'Score':<10}{Style.RESET_ALL}")
+        for rank, row in enumerate(sorted_data[:10], start=1):
+            player_name, score = row
+            if player_name == player.name:
+                print(
+                    f"{Fore.GREEN}{rank:<10}{player_name:<20}{score:<10}{Style.RESET_ALL}")
+            else:
+                print(f"{rank:<10}{player_name:<20}{score:<10}")
+
+
 def quit_game(player):
     """
     Quits the game and updates the leaderboard if the player has completed at least two paths.
@@ -277,7 +299,7 @@ def quit_game(player):
         else:
             print("Invalid choice. Please enter 'yes' or 'no'.")
 
-
+# Path functions
 def town_encounter(player):
     """
     Simulates an encounter in the town, allowing the player to make choices and progress in the game.
@@ -645,29 +667,6 @@ def fetch_word_puzzle():
     random_word_puzzle = random.choice(data_without_header)
 
     return {'Scrambled Word': random_word_puzzle[0], 'Word': random_word_puzzle[1]}
-
-
-def game_intro():
-    """
-    Initialises the game, prompts the user for their name and difficulty level, and starts the game.
-    """
-    print("Welcome to the Eldoria Text Adventure!\n")
-
-    while True:
-        player_name = input("Enter your name: \n")
-
-        if player_name and not player_name.isdigit():
-            break
-        else:
-            print("Invalid name. Please enter a valid name without numbers.")
-
-    difficulty = choose_difficulty()
-    player = Player(player_name, difficulty)
-    print(f"{player_name}, you chose difficulty level {player.difficulty}.")
-    print(f"Your starting health is {player.health}")
-    crossroads(player)
-
-    return player
 
 
 def forest_riddle(player):
