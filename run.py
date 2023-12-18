@@ -1,7 +1,4 @@
-"""
-Imported dependencies
-"""
-
+# External libraries
 import os
 import sys
 import time
@@ -16,7 +13,7 @@ from images import main_title
 
 colorama.init(autoreset=True)
 
-
+# Code for Google Sheets integration
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -38,7 +35,7 @@ WORD_PUZZLE = GSPREAD_CLIENT.open(
     'eldoria-text-adventure').worksheet('word_puzzle')
 
 
-# Game items
+# Custom code for items and game logic
 class Item:
     def __init__(self, name, description):
         """

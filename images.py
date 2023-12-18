@@ -1,8 +1,9 @@
+# External libraries
 import pyfiglet
 import colorama
 from colorama import Fore, Style
 
-
+# Custom code for start screen graphics
 def main_title():
     game_title = pyfiglet.figlet_format("Realms of Eldoria", font="standard",
                                         justify="center", width=90)
