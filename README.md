@@ -82,37 +82,47 @@ As the app was developed for the terminal environment, extensive design elements
 ## Game Introduction
 
 Description: Welcomes players to the Eldoria Text Adventure.
+
 User Interaction: Prompts users to enter their name and choose a difficulty level.
+
 Purpose: Sets the stage for the adventure and gathers initial player input.
 
 ## Crossroads
 
 Description: Presents players with the crossroads, allowing them to choose different paths.
+
 User Interaction: Players can choose paths, check their backpack, view their score, or quit the game.
+
 Purpose: Serves as a central hub for navigation and decision-making, linking to various game elements.
 
 ## Town Path
 
 Description: Simulates the player's encounter in the bustling town of Eldoria.
+
 User Interaction: Offers choices to visit the following areas:
 - Potion Shop - Provides a health potion as a gift, impacting the player's health.
 - Explore the Market Square - Presents encounters, such as encountering a pickpocket, impacting the player's health
 - Talk to the Mysterious Merchant - Presents a puzzle for the player to solve, offering a bonus upon successful completion.
+
 Purpose: Introduces town-specific encounters, decisions, and puzzles.
 
 ## Desert Path
 
 Description: Simulates the player's journey through the scorching desert.
+
 User Interaction: Allows the player to choose actions such:
 - Search for an oasis - Players make decisions impacting their health and progress.
 - Navigate sand dunes - Player has to solve a word puzzle.
 - Rest in the shade - Player's health recovers.
+
 Purpose: Presents a unique environment with distinct challenges and decisions.
 
 ## Game Over
 
 Description: Displays when the player completes all paths or decides to quit the game.
+
 User Interaction: Prompts the player to decide whether to continue playing or exit the game.
+
 Purpose: Wraps up the game, showcases the final score, and potentially updates the leaderboard.
 
 ## Leaderboard
@@ -120,6 +130,24 @@ Purpose: Wraps up the game, showcases the final score, and potentially updates t
 Description: Displays the leaderboard with the top 10 scores.
 User Interaction: Allows players to view their final score and compare it with other players.
 Purpose: Recognises player achievements and provides a competitive aspect to the game.
+
+# Future Features
+
+## Expand story paths
+
+Introduce new story paths, locations, and characters to further improve the player's adventure.
+
+## Add further character customisation
+
+Allow players to customise their character's appearance, traits, or abilities at the beginning of the game.
+
+## More interactive dialogue
+
+Expand dialogue options and create branching dialogues based on player choices.
+
+## Additional endings
+
+ Develop multiple endings based on the player's choices throughout the game, providing a variety of outcomes and story resolutions.
 
 
 
