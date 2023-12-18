@@ -346,56 +346,59 @@ def forest_riddle(player):
     print("As you venture deeper into the mystical forest, you encounter a wise old tree.")
     print("The tree speaks in a whisper, presenting you with a riddle:")
 
-    riddle = "I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?"
-    print(riddle)
+    riddles = [
+        ("I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?", "an echo"),
+        ("The more you take, the more you leave behind. What am I?", "footsteps"),
+        ("The person who makes it, sells it. The person who buys it never uses it. What is it?", "a coffin"),
+        ("The beginning of eternity, the end of time and space. The beginning of every end, the end of every place. What am I?", "the letter 'e'"),
+        ("The more you feed me, the stronger I get. What am I?", "fire")
+    ]
 
-    max_attempts = 3
+    for riddle, answer in riddles:
+        print(riddle)
 
-    for attempt in range(1, max_attempts + 1):
-        while True:
-            try:
-                player_answer = input("Enter your answer: ").lower()
-                if not player_answer:
-                    raise ValueError(
-                        "Please enter a word (not a number or blank).")
-                break
-            except ValueError as e:
-                print(f"Error: {e}")
+        max_attempts = 3
 
-        if player_answer == "an echo":
-            print("The wise old tree nods in approval.")
-            print("Congratulations! You have answered the riddle correctly.")
-            print("The forest path is now open for you.")
-            player.forest_completed = True
-            break
-        else:
-            print("The wise old tree shakes its branches.")
-            print("Incorrect. The forest path remains a mystery.")
-            player.deduct_health(10)
+        for attempt in range(1, max_attempts + 1):
+            while True:
+                try:
+                    player_answer = input("Enter your answer: ").lower()
+                    if not player_answer:
+                        raise ValueError(
+                            "Please enter a word (not a number or blank).")
+                    break
+                except ValueError as e:
+                    print(f"Error: {e}")
 
-            if attempt < max_attempts:
-                print("The wise old tree offers a clue:")
-                print("I am a sound that repeats. What am I?")
-                print(
-                    f"You have {max_attempts - attempt} {'attempts' if max_attempts - attempt > 1 else 'attempt'} left.")
-            else:
-                print(f"{player.name}, unfortunate...")
-                print("You failed to answer the riddle correctly three times.")
-
-                if not player.forest_completed:
-                    print("The Forest Path is now disabled (completed).")
-
-                    time.sleep(2)
-
-                    input("Press Enter to return to the crossroads.")
-            if attempt < max_attempts:
-                continue
-            else:
+            if player_answer == answer:
+                print("The wise old tree nods in approval.")
+                print("Congratulations! You have answered the riddle correctly.")
                 player.forest_completed = True
+                player.health += 10
+                print(
+                    f"You earned 10 points. Your total score is now {player.health}.")
                 break
+            else:
+                print("The wise old tree shakes its branches.")
+                print("Incorrect. The forest path remains a mystery.")
+                player.deduct_health(10)
+
+                if attempt < max_attempts:
+                    print(
+                        f"You have {max_attempts - attempt} {'attempts' if max_attempts - attempt > 1 else 'attempt'} left.")
+                else:
+                    print(f"{player.name}, unfortunate...")
+                    print("You failed to answer the riddle correctly three times.")
+
+                    if not player.forest_completed:
+                        print("The Forest Path is now disabled (completed).")
+
+                        time.sleep(2)
+
+                        input("Press Enter to return to the crossroads.")
+
 
 # Town Path functions
-
 
 def town_encounter(player):
     """
@@ -541,6 +544,8 @@ def check_number_puzzle(nums, target, player_input):
         return False
 
 # Desert Path functions
+
+
 def desert_path(player):
     """
     Player has to traverse a scorching desert
