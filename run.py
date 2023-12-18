@@ -44,9 +44,11 @@ class Item:
     def __str__(self):
         return f"{self._name}\n=====\n{self._description}\n"
 
+
 class Sword(Item):
     def __init__(self):
         super().__init__(name="sword", description="A magnificent sword")
+
 
 class Backpack:
     def __init__(self):
@@ -54,7 +56,8 @@ class Backpack:
 
     def add_item(self, item):
         self._items.append(item)
-        print(f"Excellent work!\nA {item._name} has been added to your backpack.")
+        print(
+            f"Excellent work!\nA {item._name} has been added to your backpack.")
 
     def display_inventory(self):
         if not self._items:
@@ -64,10 +67,12 @@ class Backpack:
             for item in self._items:
                 print(item)
 
+
 class Player:
     """
     Class representing a player.
     """
+
     def __init__(self, name, difficulty):
         """
         Initialise a player.
@@ -89,7 +94,7 @@ class Player:
             return 75
         elif self.difficulty == 3:
             return 50
-        
+
     def initialise_paths(self):
         self.forest_completed = False
         self.town_completed = False
@@ -143,6 +148,7 @@ def choose_difficulty():
                 print("Please enter a value.")
             else:
                 print("Invalid choice. Please enter a valid number (1, 2, or 3)")
+
 
 def game_intro():
     """
@@ -300,6 +306,8 @@ def quit_game(player):
             print("Invalid choice. Please enter 'yes' or 'no'.")
 
 # Path functions
+
+
 def handle_path_choice(player, choice):
     """
     Handles the player's choice of paths (forest, town, desert) and progresses the game accordingly.
@@ -316,6 +324,7 @@ def handle_path_choice(player, choice):
         clear_screen()
         print(f"{player.name}, you enter the scorching desert.")
         desert_path(player)
+
 
 # Forest Path
 def forest_riddle(player):
@@ -374,6 +383,8 @@ def forest_riddle(player):
                 break
 
 # Town Path functions
+
+
 def town_encounter(player):
     """
     Simulates an encounter in the town, allowing the player to make choices and progress in the game.
@@ -393,35 +404,26 @@ def town_encounter(player):
         choice = input("Enter the number relating to your choice: ")
 
         if choice.isdigit() and choice in ['1', '2', '3', '4']:
-            handle_town_choice(player, choice)
+            if choice == '1':
+                visit_potion_shop(player)
+                player.potion_shop_completed = True
+            elif choice == '2':
+                explore_market_square(player)
+                player.market_square_completed = True
+            elif choice == '3':
+                talk_to_mysterious_merchant(player)
+                player.mysterious_merchant_completed = True
+            elif choice == '4':
+                player.check_backpack()
         else:
             print("Invalid choice. Please enter a valid number (1, 2, 3, or 4).")
 
-
-def handle_town_choice(player, choice):
-    """
-    Handles the player's choices in the town, updating the game state accordingly.
-    """
-    if choice == '1':
-        visit_potion_shop(player)
-        player.potion_shop_completed = True
-    elif choice == '2':
-        explore_market_square(player)
-        player.market_square_completed = True
-    elif choice == '3':
-        talk_to_mysterious_merchant(player)
-        player.mysterious_merchant_completed = True
-    elif choice == '4':
-        player.check_backpack()
-    else:
-        print("Invalid choice. Please enter a valid number (1, 2, 3, or 4).")
-        return
-
-    if player.potion_shop_completed and player.market_square_completed and player.mysterious_merchant_completed:
-        print("You have visited everywhere in town!")
-        input("Press Enter to return to the crossroads...")
-        player.town_completed = True
-        crossroads(player)
+        if player.potion_shop_completed and player.market_square_completed and player.mysterious_merchant_completed:
+            print("You have visited everywhere in town!")
+            input("Press Enter to return to the crossroads...")
+            player.town_completed = True
+            crossroads(player)
+            break
 
 
 def visit_potion_shop(player):
@@ -526,7 +528,9 @@ def check_number_puzzle(nums, target, player_input):
     else:
         return False
 
-#Desert Path functions
+# Desert Path functions
+
+
 def desert_path(player):
     """
     Player has to traverse a scorching desert
@@ -565,67 +569,37 @@ def desert_path(player):
 
         choice = input("Enter the number relating to your chosen action: ")
 
-        handle_desert_choice(player, choice)
-
-        if choice == '6':
-            if quit_game(player):
-                break
-
-        if choice == '4':
+        if choice == '1':
+            if not player.oasis_completed:
+                search_for_oasis(player)
+        elif choice == '2':
+            if not player.sand_dunes_completed:
+                navigate_sand_dunes(player)
+        elif choice == '3':
+            if not player.shade_completed:
+                rest_in_shade(player)
+        elif choice == '4':
             player.check_backpack()
         elif choice == '5':
             print(f"Your current score is: {player.health}")
             input("Press Enter to continue...")
-        elif choice.isdigit() and choice in ['1', '2', '3']:
-            if choice == '1' and player.oasis_completed:
-                print("You have already searched for an oasis. Choose another option.")
-            elif choice == '2' and player.sand_dunes_completed:
-                print(
-                    "You have already navigated the sand dunes. Choose another option.")
-            elif choice == '3' and player.shade_completed:
-                print(
-                    "You have already rested in the shade of a rock. Choose another option.")
-            else:
-                pass
-        else:
-            print("Invalid choice. Please enter a valid number (1, 2, 3, 4, 5, or 6).")
+        elif choice == '6':
+            if quit_game(player):
+                break
 
-
-def handle_desert_choice(player, choice):
-    """
-    Handles the player's choices in the desert, updating the game state accordingly.
-    """
-    if choice == '1':
-        if not player.oasis_completed:
-            search_for_oasis(player)
-    elif choice == '2':
-        if not player.sand_dunes_completed:
-            navigate_sand_dunes(player)
-    elif choice == '3':
-        if not player.shade_completed:
-            rest_in_shade(player)
-    elif choice == '4':
-        player.check_backpack()
-    elif choice == '5':
-        print(f"Your current score is: {player.health}")
-        input("Press Enter to continue...")
-    elif choice == '6':
-        if quit_game(player):
+        if player.sand_dunes_completed and choice == '2':
+            print("The Sand Dunes option is no longer available.")
             return
 
-    if player.sand_dunes_completed and choice == '2':
-        print("The Sand Dunes option is no longer available.")
-        return
+        if player.oasis_completed and choice == '1':
+            print("The Search for an Oasis option is now disabled.")
+            return
 
-    if player.oasis_completed and choice == '1':
-        print("The Search for an Oasis option is now disabled.")
-        return
-
-    if player.oasis_completed and player.sand_dunes_completed and player.shade_completed:
-        print("You have completed all paths in the desert.")
-        print("You decide to return to the crossroads.")
-        player.desert_completed = True
-        crossroads(player)
+        if player.oasis_completed and player.sand_dunes_completed and player.shade_completed:
+            print("You have completed all paths in the desert.")
+            print("You decide to return to the crossroads.")
+            player.desert_completed = True
+            crossroads(player)
 
 
 def search_for_oasis(player):
