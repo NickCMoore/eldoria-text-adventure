@@ -1,7 +1,4 @@
-"""
-Imported dependencies
-"""
-
+# External libraries
 import os
 import sys
 import time
@@ -16,18 +13,20 @@ from images import main_title
 
 colorama.init(autoreset=True)
 
-
+# Google Sheets API integration
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
 ]
 
+# Google credentials 
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('eldoria-text-adventure')
 
+# Google Sheets worksheets
 LEADERBOARD = GSPREAD_CLIENT.open(
     'eldoria-text-adventure').worksheet('leaderboard')
 NUMBER_PUZZLE = GSPREAD_CLIENT.open(
@@ -35,13 +34,12 @@ NUMBER_PUZZLE = GSPREAD_CLIENT.open(
 WORD_PUZZLE = GSPREAD_CLIENT.open(
     'eldoria-text-adventure').worksheet('word_puzzle')
 
-# Game items
 
-
+# Custom code for items and game logic
 class Item:
     def __init__(self, name, description):
         """
-        Initialize an item.
+        Initialise items
         """
         self.name = name
         self.description = description
@@ -60,7 +58,7 @@ class Sword(Item):
 
     def __init__(self):
         """
-        Initialize sword item.
+        Initialise sword item.
         """
         super().__init__(name="sword", description="A magnificent sword")
 
@@ -72,7 +70,7 @@ class Backpack:
 
     def __init__(self):
         """
-        Initialize backpack.
+        Initialise backpack.
         """
         self.items = []
 
@@ -103,7 +101,7 @@ class Player:
 
     def __init__(self, name, difficulty):
         """
-        Initialize a player.
+        Initialise a player.
         """
         self.name = name
         self.difficulty = difficulty
@@ -270,7 +268,8 @@ def crossroads(player):
             elif choice.isdigit() and choice in ['1', '2', '3']:
                 handle_path_choice(player, choice)
             else:
-                print("Invalid choice. Please enter a valid number (1, 2, 3, 4, 5, or 6).")
+                print(
+                    "Invalid choice. Please enter a valid number (1, 2, 3, 4, 5, or 6).")
                 continue
 
             if player.forest_completed and player.town_completed and player.desert_completed:
@@ -450,7 +449,6 @@ def talk_to_mysterious_merchant(player):
     player.mysterious_merchant_completed = True
 
 
-
 def check_number_puzzle(nums, target, player_input):
     """
     Checks if the player's input is correct for the number puzzle.
@@ -482,7 +480,6 @@ def handle_path_choice(player, choice):
         clear_screen()
         print(f"{player.name}, you enter the scorching desert.")
         desert_path(player)
-
 
 
 def desert_path(player):
@@ -538,9 +535,11 @@ def desert_path(player):
             if choice == '1' and player.oasis_completed:
                 print("You have already searched for an oasis. Choose another option.")
             elif choice == '2' and player.sand_dunes_completed:
-                print("You have already navigated the sand dunes. Choose another option.")
+                print(
+                    "You have already navigated the sand dunes. Choose another option.")
             elif choice == '3' and player.shade_completed:
-                print("You have already rested in the shade of a rock. Choose another option.")
+                print(
+                    "You have already rested in the shade of a rock. Choose another option.")
             else:
                 pass
         else:
@@ -582,7 +581,6 @@ def handle_desert_choice(player, choice):
         print("You decide to return to the crossroads.")
         player.desert_completed = True
         crossroads(player)
-
 
 
 def search_for_oasis(player):
@@ -627,7 +625,7 @@ def navigate_sand_dunes(player):
         for word_puzzle in word_puzzles:
             print(
                 f"Unscramble the letters to form a word: {word_puzzle['Scrambled Word']}")
-            
+
             while True:
                 player_input = input("Your answer: ").lower()
 
@@ -635,7 +633,7 @@ def navigate_sand_dunes(player):
                     print(
                         "Congratulations! You solved the word puzzle and gained +10 health")
                     player.health += 10
-                    break 
+                    break
                 else:
                     print(
                         "Sorry, that's not the right answer. Try again.")
@@ -644,12 +642,11 @@ def navigate_sand_dunes(player):
                     player.sand_dunes_completed = True
                     if player.sand_dunes_completed:
                         print("You successfully navigated the sand dunes.")
-                        break 
+                        break
 
         print("Congratulations! You successfully navigated the sand dunes.")
     else:
         print("You encounter a mirage and end up wasting time.")
-
 
 
 def rest_in_shade(player):
@@ -684,7 +681,7 @@ def fetch_word_puzzle():
 
 def game_intro():
     """
-    Initializes the game, prompts the user for their name and difficulty level, and starts the game.
+    Initialises the game, prompts the user for their name and difficulty level, and starts the game.
     """
     print("Welcome to the Eldoria Text Adventure!\n")
 
@@ -695,7 +692,7 @@ def game_intro():
             break
         else:
             print("Invalid name. Please enter a valid name without numbers.")
-    
+
     difficulty = choose_difficulty()
     player = Player(player_name, difficulty)
     print(f"{player_name}, you chose difficulty level {player.difficulty}.")
@@ -703,7 +700,6 @@ def game_intro():
     crossroads(player)
 
     return player
-
 
 
 def forest_riddle(player):
@@ -723,7 +719,8 @@ def forest_riddle(player):
             try:
                 player_answer = input("Enter your answer: ").lower()
                 if not player_answer:
-                    raise ValueError("Please enter a word (not a number or blank).")
+                    raise ValueError(
+                        "Please enter a word (not a number or blank).")
                 break
             except ValueError as e:
                 print(f"Error: {e}")
@@ -742,7 +739,8 @@ def forest_riddle(player):
             if attempt < max_attempts:
                 print("The wise old tree offers a clue:")
                 print("I am a sound that repeats. What am I?")
-                print(f"You have {max_attempts - attempt} {'attempts' if max_attempts - attempt > 1 else 'attempt'} left.")
+                print(
+                    f"You have {max_attempts - attempt} {'attempts' if max_attempts - attempt > 1 else 'attempt'} left.")
             else:
                 print(f"{player.name}, unfortunate...")
                 print("You failed to answer the riddle correctly three times.")
