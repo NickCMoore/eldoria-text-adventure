@@ -62,6 +62,10 @@ class Sword(Item):
         super().__init__(name="sword", description="A magnificent sword")
 
 
+class Shield(Item):
+    def __init__(self):
+        super().__init__(name="shield", description="A protective shield")
+
 class Backpack:
     def __init__(self):
         self._items = []
@@ -488,8 +492,7 @@ def talk_to_mysterious_merchant(player):
     data = NUMBER_PUZZLE.get_all_values()
     nums = [int(num) for num in random.choice(data)]
 
-    target = random.randint(1, 1000)
-
+    target = sum(nums)
     print("The Mysterious Merchant presents you with a challenge:")
     print(f"Find two numbers in the list {nums} that add up to {target}.")
 
@@ -540,8 +543,6 @@ def check_number_puzzle(nums, target, player_input):
         return False
 
 # Desert Path functions
-
-
 def desert_path(player):
     """
     Player has to traverse a scorching desert
@@ -662,14 +663,11 @@ def navigate_sand_dunes(player):
                 player_input = input("Your answer: ").lower()
 
                 if player_input == word_puzzle['Word']:
-                    print(
-                        "Congratulations! You solved the word puzzle and gained +10 health")
-                    player.health += 10
-                    break
+                    print("Congratulations! You solved the number puzzle.")
+                    add_shield_to_backpack(player)
+                    return
                 else:
-                    print(
-                        "Sorry, that's not the right answer. Try again.")
-
+                    print("Incorrect. Try again.")
                     player.deduct_health(15)
                     player.sand_dunes_completed = True
                     if player.sand_dunes_completed:
@@ -679,6 +677,11 @@ def navigate_sand_dunes(player):
         print("Congratulations! You successfully navigated the sand dunes.")
     else:
         print("You encounter a mirage and end up wasting time.")
+
+def add_shield_to_backpack(player):
+    shield = Shield()
+    player.inventory.add_item(shield)
+    print(f"A {shield._name} has been added to your backpack.")
 
 
 def rest_in_shade(player):
