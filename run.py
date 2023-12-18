@@ -282,7 +282,7 @@ def crossroads(player):
                 time.sleep(2)
                 sys.exit()
 
-            break  
+            break
 
 
 def quit_game(player):
@@ -311,7 +311,6 @@ def quit_game(player):
             print("Invalid choice. Please enter 'yes' or 'no'.")
 
 
-
 def town_encounter(player):
     """
     Simulates an encounter in the town, allowing the player to make choices and progress in the game.
@@ -321,6 +320,8 @@ def town_encounter(player):
     print("As you explore, you come across a mysterious merchant offering you a choice.")
 
     while True:
+        time.sleep(4)
+        clear_screen()
         print("What will you do in the town?")
         print("1. Visit the Potion Shop")
         print("2. Explore the Market Square")
@@ -359,7 +360,6 @@ def handle_town_choice(player, choice):
         input("Press Enter to return to the crossroads...")
         player.town_completed = True
         crossroads(player)
-
 
 
 def visit_potion_shop(player):
@@ -490,6 +490,8 @@ def desert_path(player):
     Player has to traverse a scorching desert
     """
     while True:
+        time.sleep(4)
+        clear_screen()
         print("What will you do in the desert?")
 
         if player.oasis_completed:
