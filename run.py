@@ -23,11 +23,13 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
 ]
 
+# Google credentials 
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('eldoria-text-adventure')
 
+# Google Sheets worksheets
 LEADERBOARD = GSPREAD_CLIENT.open(
     'eldoria-text-adventure').worksheet('leaderboard')
 NUMBER_PUZZLE = GSPREAD_CLIENT.open(
@@ -35,13 +37,12 @@ NUMBER_PUZZLE = GSPREAD_CLIENT.open(
 WORD_PUZZLE = GSPREAD_CLIENT.open(
     'eldoria-text-adventure').worksheet('word_puzzle')
 
+
 # Game items
-
-
 class Item:
     def __init__(self, name, description):
         """
-        Initialize an item.
+        Initialise items
         """
         self.name = name
         self.description = description
@@ -60,7 +61,7 @@ class Sword(Item):
 
     def __init__(self):
         """
-        Initialize sword item.
+        Initialise sword item.
         """
         super().__init__(name="sword", description="A magnificent sword")
 
@@ -72,7 +73,7 @@ class Backpack:
 
     def __init__(self):
         """
-        Initialize backpack.
+        Initialise backpack.
         """
         self.items = []
 
@@ -103,7 +104,7 @@ class Player:
 
     def __init__(self, name, difficulty):
         """
-        Initialize a player.
+        Initialise a player.
         """
         self.name = name
         self.difficulty = difficulty
@@ -683,7 +684,7 @@ def fetch_word_puzzle():
 
 def game_intro():
     """
-    Initializes the game, prompts the user for their name and difficulty level, and starts the game.
+    Initialises the game, prompts the user for their name and difficulty level, and starts the game.
     """
     print("Welcome to the Eldoria Text Adventure!\n")
 
