@@ -2,6 +2,12 @@
 
 Eldoria Text Adventure is an interactive and mythical journey where the player takes on the role of an adventurer exploring the enchanting realms of Eldoria. This text-based game combines storytelling, puzzle-solving, and decision-making.
 
+Upon entering their name and selecting a difficulty level, players are transported to a crossroads, initiating the game with an element of player choice. Here, they must decide between three distinct paths: Forest, Town, and Desert, each presenting unique challenges and opportunities.
+
+Opting for the Forest Path involves solving the wise old tree's riddle, while exploring the bustling town introduces encounters with shops, mysterious merchants, and engaging puzzles. Navigating the scorching desert presents decisions impacting the character's health and word puzzles to solve.
+
+Players can track their progress with marked completed paths and a visible health score, aiming to achieve the highest possible score. The game concludes with the final score recorded on the leaderboard, providing a competitive element for players to compare their achievements. 
+
 ![Responsive design](assets/images/screen-mockup.png)
 
 ### Project purpose
