@@ -6,6 +6,7 @@ import random
 
 import gspread
 from google.oauth2.service_account import Credentials
+import sympy
 import colorama
 from colorama import Fore, Style
 from images import main_title
@@ -33,7 +34,7 @@ def authorise_gspread():
         GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
         return GSPREAD_CLIENT
     except Exception as e:
-        print(f"Error authorizing Google Sheets API: {e}")
+        print(f"Error authorising Google Sheets API: {e}")
         return None
 
 
@@ -55,7 +56,7 @@ class Item:
 
     def __str__(self):
         return f"{self._name}\n=====\n{self._description}\n"
-
+    
 
 class Sword(Item):
     def __init__(self):
@@ -151,26 +152,6 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def choose_difficulty():
-    """
-    Prompts the user to choose a difficulty level and returns the selected level as an integer.
-    """
-    print("Choose your difficulty:")
-    print("1. Easy")
-    print("2. Medium")
-    print("3. Hard")
-
-    while True:
-        choice = input("Which level do you choose?\n")
-        if choice.isdigit() and choice in ['1', '2', '3']:
-            return int(choice)
-        else:
-            if not choice:
-                print("Please enter a value.")
-            else:
-                print("Invalid choice. Please enter a valid number (1, 2, or 3)")
-
-
 def game_intro(gspread_client):
     """
     Initialises the game, prompts the user for their name and difficulty level, and starts the game.
@@ -187,17 +168,40 @@ def game_intro(gspread_client):
 
     difficulty = choose_difficulty()
     player = Player(player_name, difficulty, gspread_client)
+    print(f"\nYou chose your difficulty level {player.difficulty}.")
+    print(f"Your starting health is {player.health}.")
+    time.sleep(3)
+    clear_screen()
     print(
         f"\nWelcome, {player.name}! You are about to embark on an epic adventure in the mystical realm of Eldoria.")
     print("Your goal is to explore different paths, solve challenges, and earn points.")
     print("Be cautious! Your health is crucial.")
     print("Incorrect choices may lead to deductions...")
-    print(f"\nYou chose your difficulty level {player.difficulty}.")
-    print(f"Your starting health is {player.health}.")
+
     input("Press Enter to begin your journey...\n")
     crossroads(player)
 
     return player
+
+
+def choose_difficulty():
+    """
+    Prompts the user to choose a difficulty level and returns the selected level as an integer.
+    """
+    print("Choose your difficulty:")
+    print("1. Easy")
+    print("2. Medium")
+    print("3. Hard")
+
+    while True:
+        choice = input("Which level do you choose (1, 2 or 3) ?\n")
+        if choice.isdigit() and choice in ['1', '2', '3']:
+            return int(choice)
+        else:
+            if not choice:
+                print("Please enter a value.")
+            else:
+                print("Invalid choice. Please enter a valid number (1, 2, or 3)")
 
 
 def crossroads(player):
@@ -230,10 +234,11 @@ def crossroads(player):
         print("6. Quit")
 
         while True:
-            choice = input("Enter the number relating to your chosen path: ")
+            choice = input("Enter the number relating to your chosen path (1, 2 or 3): ")
 
             if choice == '1' and player.forest_completed:
                 print("The Forest Path is already completed. Choose another option.")
+                time.sleep(2)
             elif choice == '2' and player.town_completed:
                 print("The Town Path is already completed. Choose another option.")
             elif choice == '3' and player.desert_completed:
@@ -360,11 +365,11 @@ def forest_riddle(player):
     print("The tree speaks in a whisper, presenting you with a riddle:")
 
     riddles = [
-    ("What has keys but can't open locks?", "piano"),
-    ("I'm tall when I'm young and short when I'm old. What am I?", "candle"),
-    ("I have a heart that doesn't beat. What am I?", "artichoke"),
-    ("I fly without wings. I cry without eyes. Wherever I go, darkness follows me. What am I?", "cloud"),
-    ("The more you take, the more you leave behind. What am I?", "footsteps")
+    (Fore.BLUE + "What has keys but can't open locks?", "piano"),
+    (Fore.BLUE + "I'm tall when I'm young and short when I'm old. What am I?", "candle"),
+    (Fore.BLUE + "I have a heart that doesn't beat. What am I?", "artichoke"),
+    (Fore.BLUE + "I fly without wings. I cry without eyes. Wherever I go, darkness follows me. What am I?", "cloud"),
+    (Fore.BLUE + "The more you take, the more you leave behind. What am I?", "footsteps")
 ]
 
     max_attempts = 3
@@ -397,7 +402,7 @@ def forest_riddle(player):
                     print(f"{player.name}, unfortunate...")
                     print("You failed to answer the riddle correctly three times.")
                     print("The Forest Path is now disabled (completed).")
-
+                    player.forest_completed = True
                     time.sleep(2)
                     input("Press Enter to return to the crossroads.")
                     return
@@ -485,39 +490,52 @@ def explore_market_square(player):
 
 def talk_to_mysterious_merchant(player):
     """
-    Simulates the player talking to the Mysterious Merchant in the town, presenting a puzzle and offering a helmet as a bonus for solving it.
+    Simulates the player talking to the Mysterious Merchant in the town, presenting a puzzle with 8 numbers, including 2 prime numbers.
     """
     if player.mysterious_merchant_completed:
         print("You have already talked to the Mysterious Merchant.")
         return
 
+    clear_screen()
     print(f"{player.name}, you approach the Mysterious Merchant.")
     print("They offer you a puzzle and a chance to gain a bonus.")
 
     data = NUMBER_PUZZLE.get_all_values()
-    nums = [int(num) for num in random.choice(data)]
+    
+    all_numbers = [int(num) for num in filter(None, [item for sublist in data for item in sublist])]
 
-    target = sum(nums)
-    print("The Mysterious Merchant presents you with a challenge:")
-    print(f"Find two numbers in the list {nums} that add up to {target}.")
+    if len(all_numbers) < 8:
+        print("There are not enough numbers for the puzzle.")
+        return
+
+    selected_numbers = random.sample(all_numbers, 8)
+
+    prime_numbers = list(sympy.primerange(2, max(selected_numbers)))
+
+    random_indices = random.sample(range(8), 2)
+    for idx in random_indices:
+        selected_numbers[idx] = prime_numbers.pop()
+
+    print(f"The Mysterious Merchant presents you with a challenge:")
+    print(Fore.BLUE + f"Find two prime numbers in the list {selected_numbers}.")
 
     attempts_left = 3
 
     while attempts_left > 0:
         player_input = input(
-            "Enter your answer as two space-separated numbers (e.g., '3 7'): ")
+            "Enter your answer as two space-separated prime numbers (e.g., '3 7'): ")
 
         try:
             num1, num2 = map(int, player_input.split())
-            result = check_number_puzzle(nums, target, player_input)
+            result = check_prime_puzzle(selected_numbers, num1, num2)
 
             if result:
                 print(
                     f"Congratulations, {player.name}! You found the correct pair. You receive a helmet as a bonus!")
-                # Add a helmet to the player's inventory
                 helmet = Helmet()
                 player.inventory.add_item(helmet)
                 print(f"A {helmet._name} has been added to your backpack.")
+                player.mysterious_merchant_completed = True
                 break
             else:
                 print("Sorry, that's not the correct pair. Try again.")
@@ -538,19 +556,12 @@ def talk_to_mysterious_merchant(player):
     player.mysterious_merchant_completed = True
 
 
-def check_number_puzzle(nums, target, player_input):
+def check_prime_puzzle(numbers, num1, num2):
     """
-    Checks if the player's input is correct for the number puzzle.
+    Checks if the player's input is correct for the prime number puzzle.
     """
-    try:
-        num1, num2 = map(int, player_input.split())
-    except ValueError:
-        return False
+    return sympy.isprime(num1) and sympy.isprime(num2) and num1 != num2 and num1 in numbers and num2 in numbers
 
-    if num1 in nums and num2 in nums and num1 + num2 == target:
-        return True
-    else:
-        return False
 
 # Desert Path functions
 def desert_path(player):
