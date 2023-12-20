@@ -11,6 +11,7 @@ import colorama
 from colorama import Fore, Style
 from images import main_title
 
+
 def authorise_gspread():
     """
     Exception raised in event Google Sheets cannot be accessed.
@@ -22,6 +23,7 @@ def authorise_gspread():
     except Exception as e:
         print(f"Error authorising Google Sheets API: {e}")
         return None
+
 
 colorama.init(autoreset=True)
 
@@ -37,9 +39,12 @@ CREDS = Credentials.from_service_account_file('creds.json')
 
 # Google Sheets worksheets
 GSPREAD_CLIENT = authorise_gspread()
-LEADERBOARD = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('leaderboard')
-NUMBER_PUZZLE = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('number_puzzle')
-WORD_PUZZLE = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('word_puzzle')
+LEADERBOARD = GSPREAD_CLIENT.open(
+    'eldoria-text-adventure').worksheet('leaderboard')
+NUMBER_PUZZLE = GSPREAD_CLIENT.open(
+    'eldoria-text-adventure').worksheet('number_puzzle')
+WORD_PUZZLE = GSPREAD_CLIENT.open(
+    'eldoria-text-adventure').worksheet('word_puzzle')
 
 
 def main():
@@ -153,6 +158,7 @@ class Backpack:
             print("Items in your backpack:")
             for item in self._items:
                 print(item)
+
 
 class Player:
     """
@@ -345,6 +351,8 @@ def quit_game(player, gspread_client):
             print("Invalid choice. Please enter 'yes' or 'no'.")
 
 # Path functions
+
+
 def handle_path_choice(player, choice):
     """
     Handles the player's choice of paths (forest, town, desert) and progresses the game accordingly.
@@ -415,6 +423,8 @@ def forest_riddle(player):
                     return
 
 # Town Path
+
+
 def town_encounter(player):
     """
     Simulates an encounter in the town, allowing the player to make choices and progress in the game.
@@ -603,6 +613,7 @@ def desert_path(player):
             print("Congratulations! You have completed all paths in the desert.")
             print("You decide to return to the crossroads.")
             player.desert_completed = True
+            time.sleep(2)
             crossroads(player)
             input("Press Enter to continue...")
             time.sleep(4)
@@ -618,7 +629,6 @@ def desert_path(player):
                     break
         else:
             print("Invalid choice. Please enter a number from 1 to 6.")
-
 
 
 def search_for_oasis(player):
@@ -676,7 +686,7 @@ def navigate_sand_dunes(player):
         for word_puzzle in word_puzzles:
             print(
                 f"Unscramble the letters to form a word: {word_puzzle['Scrambled Word']}")
-            
+
             attempts_left = 3
 
             while attempts_left > 0:
@@ -696,7 +706,8 @@ def navigate_sand_dunes(player):
                             f"You have {attempts_left} {'attempts' if attempts_left > 1 else 'attempt'} left.")
                     else:
                         print("You've used all your attempts.")
-                        print("The correct answer was not found. Better luck next time!")
+                        print(
+                            "The correct answer was not found. Better luck next time!")
                         player.sand_dunes_completed = True
                         return
 
@@ -711,7 +722,6 @@ def navigate_sand_dunes(player):
 
     time.sleep(4)
     input("Press Enter to continue...")
-
 
 
 def add_shield_to_backpack(player):
