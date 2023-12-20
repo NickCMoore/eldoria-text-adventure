@@ -56,7 +56,7 @@ class Item:
 
     def __str__(self):
         return f"{self._name}\n=====\n{self._description}\n"
-    
+
 
 class Sword(Item):
     def __init__(self):
@@ -71,6 +71,7 @@ class Helmet(Item):
 class Shield(Item):
     def __init__(self):
         super().__init__(name="shield", description="A protective shield")
+
 
 class Backpack:
     def __init__(self):
@@ -234,7 +235,8 @@ def crossroads(player):
         print("6. Quit")
 
         while True:
-            choice = input("Enter the number relating to your chosen path (1, 2 or 3): ")
+            choice = input(
+                "Enter the number relating to your chosen path (1, 2 or 3): ")
 
             if choice == '1' and player.forest_completed:
                 print("The Forest Path is already completed. Choose another option.")
@@ -338,6 +340,8 @@ def quit_game(player, gspread_client):
             print("Invalid choice. Please enter 'yes' or 'no'.")
 
 # Path functions
+
+
 def handle_path_choice(player, choice):
     """
     Handles the player's choice of paths (forest, town, desert) and progresses the game accordingly.
@@ -365,12 +369,12 @@ def forest_riddle(player):
     print("The tree speaks in a whisper, presenting you with a riddle:")
 
     riddles = [
-    (Fore.BLUE + "What has keys but can't open locks?", "piano"),
-    (Fore.BLUE + "I'm tall when I'm young and short when I'm old. What am I?", "candle"),
-    (Fore.BLUE + "I have a heart that doesn't beat. What am I?", "artichoke"),
-    (Fore.BLUE + "I fly without wings. I cry without eyes. Wherever I go, darkness follows me. What am I?", "cloud"),
-    (Fore.BLUE + "The more you take, the more you leave behind. What am I?", "footsteps")
-]
+        (Fore.BLUE + "What has keys but can't open locks?", "piano"),
+        (Fore.BLUE + "I'm tall when I'm young and short when I'm old. What am I?", "candle"),
+        (Fore.BLUE + "I have a heart that doesn't beat. What am I?", "artichoke"),
+        (Fore.BLUE + "I fly without wings. I cry without eyes. Wherever I go, darkness follows me. What am I?", "cloud"),
+        (Fore.BLUE + "The more you take, the more you leave behind. What am I?", "footsteps")
+    ]
 
     max_attempts = 3
     attempts = 0
@@ -501,8 +505,9 @@ def talk_to_mysterious_merchant(player):
     print("They offer you a puzzle and a chance to gain a bonus.")
 
     data = NUMBER_PUZZLE.get_all_values()
-    
-    all_numbers = [int(num) for num in filter(None, [item for sublist in data for item in sublist])]
+
+    all_numbers = [int(num) for num in filter(
+        None, [item for sublist in data for item in sublist])]
 
     if len(all_numbers) < 8:
         print("There are not enough numbers for the puzzle.")
@@ -517,7 +522,8 @@ def talk_to_mysterious_merchant(player):
         selected_numbers[idx] = prime_numbers.pop()
 
     print(f"The Mysterious Merchant presents you with a challenge:")
-    print(Fore.BLUE + f"Find two prime numbers in the list {selected_numbers}.")
+    print(Fore.BLUE +
+          f"Find two prime numbers in the list {selected_numbers}.")
 
     attempts_left = 3
 
@@ -568,27 +574,34 @@ def desert_path(player):
     """
     Player has to traverse a scorching desert
     """
+    oasis_completed = player.oasis_completed
+    sand_dunes_completed = player.sand_dunes_completed
+    shade_completed = player.shade_completed
+
+    def quit_option():
+        if quit_game(player):
+            return True
+        else:
+            return False
+
     while True:
         time.sleep(4)
         clear_screen()
         print("What will you do in the desert?")
 
-        if player.oasis_completed:
-            print("1. Search for an oasis (Completed)")
-        else:
-            print("1. Search for an oasis")
+        options = {
+            '1': ("Search for an oasis (Completed)" if oasis_completed else "Search for an oasis", search_for_oasis),
+            '2': ("Navigate the sand dunes (Completed)" if sand_dunes_completed else "Navigate the sand dunes", navigate_sand_dunes),
+            '3': ("Rest in the shade of a rock (Completed)" if shade_completed else "Rest in the shade of a rock", rest_in_shade),
+            '4': ("Check Backpack", player.check_backpack),
+            '5': ("Check Score", lambda: print(f"Your current score is: {player.health}\nPress Enter to continue...") or input()),
+            '6': ("Quit", quit_option),
+        }
 
-        if player.sand_dunes_completed:
-            print("2. Navigate the sand dunes (Completed)")
-        else:
-            print("2. Navigate the sand dunes")
+        for key, (option_text, action) in options.items():
+            print(f"{key}. {option_text}")
 
-        if player.shade_completed:
-            print("3. Rest in the shade of a rock (Completed)")
-        else:
-            print("3. Rest in the shade of a rock")
-
-        if player.oasis_completed and player.sand_dunes_completed and player.shade_completed:
+        if all((oasis_completed, sand_dunes_completed, shade_completed)):
             print("Congratulations! You have completed all paths in the desert.")
             print("You decide to return to the crossroads.")
             player.desert_completed = True
@@ -597,44 +610,16 @@ def desert_path(player):
             time.sleep(4)
             break
 
-        print("4. Check Backpack")
-        print("5. Check Score")
-        print("6. Quit")
-
         choice = input("Enter the number relating to your chosen action: ")
 
-        if choice == '1':
-            if not player.oasis_completed:
-                search_for_oasis(player)
-        elif choice == '2':
-            if not player.sand_dunes_completed:
-                navigate_sand_dunes(player)
-        elif choice == '3':
-            if not player.shade_completed:
-                rest_in_shade(player)
-        elif choice == '4':
-            player.check_backpack()
-        elif choice == '5':
-            print(f"Your current score is: {player.health}")
-            input("Press Enter to continue...")
-        elif choice == '6':
-            if quit_game(player):
-                break
-
-        if player.sand_dunes_completed and choice == '2':
-            print("The Sand Dunes option is no longer available.")
-            return
-
-        if player.oasis_completed and choice == '1':
-            print("The Search for an Oasis option is now disabled.")
-            return
-
-        if player.oasis_completed and player.sand_dunes_completed and player.shade_completed:
-            print("You have completed all paths in the desert.")
-            print("You decide to return to the crossroads.")
-            player.desert_completed = True
-            crossroads(player)
-            break
+        if choice in options:
+            _, selected_action = options[choice]
+            if not oasis_completed or not sand_dunes_completed or not shade_completed:
+                result = selected_action(player)
+                if result is True:
+                    break
+        else:
+            print("Invalid choice. Please enter a number from 1 to 6.")
 
 
 def search_for_oasis(player):
@@ -656,6 +641,7 @@ def search_for_oasis(player):
         player.deduct_health(15)
         player.oasis_completed = True
 
+    time.sleep(4)
 
 def navigate_sand_dunes(player):
     """
@@ -696,8 +682,10 @@ def navigate_sand_dunes(player):
                         break
 
         print("Congratulations! You successfully navigated the sand dunes.")
+        player.sand_dunes_completed = True
     else:
         print("You encounter a mirage and end up wasting time.")
+
 
 def add_shield_to_backpack(player):
     shield = Shield()
