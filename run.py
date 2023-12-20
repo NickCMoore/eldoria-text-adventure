@@ -11,6 +11,17 @@ import colorama
 from colorama import Fore, Style
 from images import main_title
 
+def authorise_gspread():
+    """
+    Exception raised in event Google Sheets cannot be accessed.
+    """
+    try:
+        SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+        GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+        return GSPREAD_CLIENT
+    except Exception as e:
+        print(f"Error authorising Google Sheets API: {e}")
+        return None
 
 colorama.init(autoreset=True)
 
@@ -26,27 +37,20 @@ CREDS = Credentials.from_service_account_file('creds.json')
 
 # Google Sheets worksheets
 GSPREAD_CLIENT = authorise_gspread()
-# Google Sheets worksheets
-LEADERBOARD = GSPREAD_CLIENT.open(
-    'eldoria-text-adventure').worksheet('leaderboard')
-NUMBER_PUZZLE = GSPREAD_CLIENT.open(
-    'eldoria-text-adventure').worksheet('number_puzzle')
-WORD_PUZZLE = GSPREAD_CLIENT.open(
-    'eldoria-text-adventure').worksheet('word_puzzle')
+LEADERBOARD = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('leaderboard')
+NUMBER_PUZZLE = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('number_puzzle')
+WORD_PUZZLE = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet('word_puzzle')
 
-# Game load and setup
-def authorise_gspread():
-    """
-    Exception raised in event Google Sheets cannot be accessed.
-    """
-    try:
-        SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-        GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-        return GSPREAD_CLIENT
-    except Exception as e:
-        print(f"Error authorising Google Sheets API: {e}")
-        return None
 
+def main():
+    clear_screen()
+    main_title()
+    gspread_client = authorise_gspread()
+    if gspread_client is None:
+        print("Exiting the game due to authorisation error.")
+        sys.exit()
+
+    player = game_intro(gspread_client)
 
 
 def clear_screen():
@@ -747,17 +751,6 @@ def fetch_word_puzzle():
     random_word_puzzle = random.choice(data_without_header)
 
     return {'Scrambled Word': random_word_puzzle[0], 'Word': random_word_puzzle[1]}
-
-
-def main():
-    clear_screen()
-    main_title()
-    gspread_client = authorise_gspread()
-    if gspread_client is None:
-        print("Exiting the game due to authorisation error.")
-        sys.exit()
-
-    player = game_intro(gspread_client)
 
 
 if __name__ == "__main__":
