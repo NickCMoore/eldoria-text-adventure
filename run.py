@@ -24,7 +24,17 @@ SCOPE = [
 # Google credentials
 CREDS = Credentials.from_service_account_file('creds.json')
 
+# Google Sheets worksheets
+GSPREAD_CLIENT = authorise_gspread()
+# Google Sheets worksheets
+LEADERBOARD = GSPREAD_CLIENT.open(
+    'eldoria-text-adventure').worksheet('leaderboard')
+NUMBER_PUZZLE = GSPREAD_CLIENT.open(
+    'eldoria-text-adventure').worksheet('number_puzzle')
+WORD_PUZZLE = GSPREAD_CLIENT.open(
+    'eldoria-text-adventure').worksheet('word_puzzle')
 
+# Game load and setup
 def authorise_gspread():
     """
     Exception raised in event Google Sheets cannot be accessed.
@@ -37,113 +47,6 @@ def authorise_gspread():
         print(f"Error authorising Google Sheets API: {e}")
         return None
 
-
-GSPREAD_CLIENT = authorise_gspread()
-# Google Sheets worksheets
-LEADERBOARD = GSPREAD_CLIENT.open(
-    'eldoria-text-adventure').worksheet('leaderboard')
-NUMBER_PUZZLE = GSPREAD_CLIENT.open(
-    'eldoria-text-adventure').worksheet('number_puzzle')
-WORD_PUZZLE = GSPREAD_CLIENT.open(
-    'eldoria-text-adventure').worksheet('word_puzzle')
-
-
-# Custom code for items and game logic
-class Item:
-    def __init__(self, name, description):
-        self._name = name
-        self._description = description
-
-    def __str__(self):
-        return f"{self._name}\n=====\n{self._description}\n"
-
-
-class Sword(Item):
-    def __init__(self):
-        super().__init__(name="sword", description="A magnificent sword")
-
-
-class Helmet(Item):
-    def __init__(self):
-        super().__init__(name="helmet", description="A sturdy helmet for protection")
-
-
-class Shield(Item):
-    def __init__(self):
-        super().__init__(name="shield", description="A protective shield")
-
-
-class Backpack:
-    def __init__(self):
-        self._items = []
-
-    def add_item(self, item):
-        self._items.append(item)
-        print(
-            f"Excellent work!\nA {item._name} has been added to your backpack.")
-
-    def display_inventory(self):
-        if not self._items:
-            print("Your backpack is empty.")
-        else:
-            print("Items in your backpack:")
-            for item in self._items:
-                print(item)
-
-
-class Player:
-    """
-    Class representing a player.
-    """
-
-    def __init__(self, name, difficulty, gspread_client):
-        """
-        Initialise a player.
-        """
-        self.name = name
-        self.difficulty = difficulty
-        self.health = self.set_starting_health()
-        self.incorrect_guesses = 0
-        self.inventory = Backpack()
-        self.initialise_paths()
-
-    def set_starting_health(self):
-        """
-        Set initial health levels for the player based on difficulty.
-        """
-        if self.difficulty == 1:
-            return 100
-        elif self.difficulty == 2:
-            return 75
-        elif self.difficulty == 3:
-            return 50
-
-    def initialise_paths(self):
-        self.forest_completed = False
-        self.town_completed = False
-        self.potion_shop_completed = False
-        self.market_square_completed = False
-        self.mysterious_merchant_completed = False
-        self.oasis_completed = False
-        self.shade_completed = False
-        self.sand_dunes_completed = False
-        self.desert_completed = False
-
-    def deduct_health(self, amount):
-        """
-        Deduct health from the player if they get it wrong.
-        """
-        self.health -= amount
-        print(f"{self.name}, you lost {amount} health.")
-        print(f"Your remaining health is {self.health}.")
-
-    def check_backpack(self):
-        """
-        Enable the player to check their backpack.
-        """
-        print("Checking your backpack:")
-        self.inventory.display_inventory()
-        time.sleep(2)
 
 
 def clear_screen():
@@ -205,6 +108,104 @@ def choose_difficulty():
                 print("Invalid choice. Please enter a valid number (1, 2, or 3)")
 
 
+# Player class and custom code
+class Item:
+    def __init__(self, name, description):
+        self._name = name
+        self._description = description
+
+    def __str__(self):
+        return f"{self._name}\n=====\n{self._description}\n"
+
+
+class Sword(Item):
+    def __init__(self):
+        super().__init__(name="sword", description="A magnificent sword")
+
+
+class Helmet(Item):
+    def __init__(self):
+        super().__init__(name="helmet", description="A sturdy helmet for protection")
+
+
+class Shield(Item):
+    def __init__(self):
+        super().__init__(name="shield", description="A protective shield")
+
+
+class Backpack:
+    def __init__(self):
+        self._items = []
+
+    def add_item(self, item):
+        self._items.append(item)
+        print(
+            f"Excellent work!\nA {item._name} has been added to your backpack.")
+
+    def display_inventory(self):
+        if not self._items:
+            print("Your backpack is empty.")
+        else:
+            print("Items in your backpack:")
+            for item in self._items:
+                print(item)
+
+class Player:
+    """
+    Class representing a player.
+    """
+
+    def __init__(self, name, difficulty, gspread_client):
+        """
+        Initialise a player.
+        """
+        self.name = name
+        self.difficulty = difficulty
+        self.health = self.set_starting_health()
+        self.incorrect_guesses = 0
+        self.inventory = Backpack()
+        self.initialise_paths()
+
+    def set_starting_health(self):
+        """
+        Set initial health levels for the player based on difficulty.
+        """
+        if self.difficulty == 1:
+            return 100
+        elif self.difficulty == 2:
+            return 75
+        elif self.difficulty == 3:
+            return 50
+
+    def initialise_paths(self):
+        self.forest_completed = False
+        self.town_completed = False
+        self.potion_shop_completed = False
+        self.market_square_completed = False
+        self.mysterious_merchant_completed = False
+        self.oasis_completed = False
+        self.shade_completed = False
+        self.sand_dunes_completed = False
+        self.desert_completed = False
+
+    def deduct_health(self, amount):
+        """
+        Deduct health from the player if they get it wrong.
+        """
+        self.health -= amount
+        print(f"{self.name}, you lost {amount} health.")
+        print(f"Your remaining health is {self.health}.")
+
+    def check_backpack(self):
+        """
+        Enable the player to check their backpack.
+        """
+        print("Checking your backpack:")
+        self.inventory.display_inventory()
+        time.sleep(2)
+
+
+# Initial decision-making and Leaderboard
 def crossroads(player):
     """
     Manages the player's choices at the crossroads, allowing them to choose paths, check the backpack, check the score, or quit the game.
@@ -340,8 +341,6 @@ def quit_game(player, gspread_client):
             print("Invalid choice. Please enter 'yes' or 'no'.")
 
 # Path functions
-
-
 def handle_path_choice(player, choice):
     """
     Handles the player's choice of paths (forest, town, desert) and progresses the game accordingly.
@@ -411,9 +410,7 @@ def forest_riddle(player):
                     input("Press Enter to return to the crossroads.")
                     return
 
-# Town Path functions
-
-
+# Town Path
 def town_encounter(player):
     """
     Simulates an encounter in the town, allowing the player to make choices and progress in the game.
@@ -569,7 +566,7 @@ def check_prime_puzzle(numbers, num1, num2):
     return sympy.isprime(num1) and sympy.isprime(num2) and num1 != num2 and num1 in numbers and num2 in numbers
 
 
-# Desert Path functions
+# Desert Path
 def desert_path(player):
     oasis_completed = player.oasis_completed
     sand_dunes_completed = player.sand_dunes_completed
@@ -701,6 +698,10 @@ def navigate_sand_dunes(player):
 
         print("Congratulations! You successfully navigated the sand dunes.")
         player.sand_dunes_completed = True
+
+        shield = Shield()
+        player.inventory.add_item(shield)
+        print(f"A {shield._name} has been added to your backpack.")
     else:
         print("You encounter a mirage and end up wasting time.")
 
