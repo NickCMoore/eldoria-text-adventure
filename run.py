@@ -626,6 +626,11 @@ def search_for_oasis(player):
     """
     Player searches for an oasis in the desert.
     """
+    if player.oasis_completed:
+        print("You have already searched for an oasis.")
+        input("Press Enter to continue...")
+        return
+
     print("You decide to search for an oasis to quench your thirst.")
     oasis_chance = random.randint(1, 10)
 
@@ -642,11 +647,18 @@ def search_for_oasis(player):
         player.oasis_completed = True
 
     time.sleep(4)
+    input("Press Enter to continue...")
+
 
 def navigate_sand_dunes(player):
     """
     Recreates the player going on their journey through the sand dunes
     """
+    if player.sand_dunes_completed:
+        print("You have already navigated the sand dunes.")
+        input("Press Enter to continue...")
+        return
+
     print("You choose to navigate the arduous sand dunes")
     obstacle_chance = random.randint(1, 10)
 
@@ -672,11 +684,12 @@ def navigate_sand_dunes(player):
                 if player_input == word_puzzle['Word']:
                     print("Congratulations! You solved the number puzzle.")
                     add_shield_to_backpack(player)
+                    player.sand_dunes_completed = True
                     return
                 else:
                     print("Incorrect. Try again.")
                     player.deduct_health(15)
-                    player.sand_dunes_completed = True
+
                     if player.sand_dunes_completed:
                         print("You successfully navigated the sand dunes.")
                         break
@@ -685,6 +698,9 @@ def navigate_sand_dunes(player):
         player.sand_dunes_completed = True
     else:
         print("You encounter a mirage and end up wasting time.")
+
+    time.sleep(4)
+    input("Press Enter to continue...")
 
 
 def add_shield_to_backpack(player):
@@ -697,15 +713,18 @@ def rest_in_shade(player):
     """
     Simulates the player resting in the shade to regain health.
     """
+    if player.shade_completed:
+        print("You have already rested in the shade.")
+        input("Press Enter to continue...")
+        return
+
     print("You find a comfortable spot in the shade and rest for a while.")
     print("The cool shade revitalizes you, and you regain 15 health.")
 
     player.health += 15
-
-    print(f"Your total health is now {player.health}.")
-
     player.shade_completed = True
 
+    print(f"Your total health is now {player.health}.")
     input("Press Enter to continue...")
 
 
