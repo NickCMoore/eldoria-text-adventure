@@ -571,9 +571,6 @@ def check_prime_puzzle(numbers, num1, num2):
 
 # Desert Path functions
 def desert_path(player):
-    """
-    Player has to traverse a scorching desert
-    """
     oasis_completed = player.oasis_completed
     sand_dunes_completed = player.sand_dunes_completed
     shade_completed = player.shade_completed
@@ -620,6 +617,7 @@ def desert_path(player):
                     break
         else:
             print("Invalid choice. Please enter a number from 1 to 6.")
+
 
 
 def search_for_oasis(player):
@@ -677,8 +675,10 @@ def navigate_sand_dunes(player):
         for word_puzzle in word_puzzles:
             print(
                 f"Unscramble the letters to form a word: {word_puzzle['Scrambled Word']}")
+            
+            attempts_left = 3
 
-            while True:
+            while attempts_left > 0:
                 player_input = input("Your answer: ").lower()
 
                 if player_input == word_puzzle['Word']:
@@ -688,11 +688,16 @@ def navigate_sand_dunes(player):
                     return
                 else:
                     print("Incorrect. Try again.")
-                    player.deduct_health(15)
+                    attempts_left -= 1
 
-                    if player.sand_dunes_completed:
-                        print("You successfully navigated the sand dunes.")
-                        break
+                    if attempts_left > 0:
+                        print(
+                            f"You have {attempts_left} {'attempts' if attempts_left > 1 else 'attempt'} left.")
+                    else:
+                        print("You've used all your attempts.")
+                        print("The correct answer was not found. Better luck next time!")
+                        player.sand_dunes_completed = True
+                        return
 
         print("Congratulations! You successfully navigated the sand dunes.")
         player.sand_dunes_completed = True
@@ -701,6 +706,7 @@ def navigate_sand_dunes(player):
 
     time.sleep(4)
     input("Press Enter to continue...")
+
 
 
 def add_shield_to_backpack(player):
