@@ -166,7 +166,7 @@ def sand_anagrams(player):
         print("You have already navigated the sand dunes.")
         input("Press Enter to continue...")
         return
-
+    clear_screen()
     print("You choose to navigate the arduous sand dunes")
     obstacle_chance = random.randint(1, 10)
 
@@ -193,7 +193,7 @@ def sand_anagrams(player):
 
                 if player_input == word_puzzle['Word']:
                     print("Congratulations! You solved the number puzzle.")
-                    player.add_shield_to_backpack(player)
+                    player.add_shield_to_backpack()
                     player.sand_dunes_completed = True
                     return
                 else:

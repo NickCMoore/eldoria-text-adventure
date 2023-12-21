@@ -86,15 +86,15 @@ def handle_path_choice(player, choice):
     from puzzles import word_puzzle
     if choice == '1' and not player.forest_completed:
         clear_screen()
-        print(f"{player.name}, you venture into the mystical forest.")
+        print(f"{player.name}, you venture into the mystical forest...")
         word_puzzle(player)
     elif choice == '2':
         clear_screen()
-        print(f"{player.name}, you head into town.")
+        print(f"{player.name}, you head into town...")
         town_encounter(player)
     elif choice == '3':
         clear_screen()
-        print(f"{player.name}, you enter the scorching desert.")
+        print(f"{player.name}, you enter the scorching desert...")
         desert_path(player)
 
 
@@ -177,7 +177,6 @@ def explore_market_square(player):
     print("The pickpocket escapes, but you managed to retain most of your belongings.")
 
     player.market_square_completed = True
-    player.mysterious_merchant_completed = True
 
 
 # Desert Path
@@ -198,39 +197,34 @@ def desert_path(player):
         time.sleep(4)
         clear_screen()
         print("What will you do in the desert?")
+        print("1. Search for an oasis")
+        print("2. Navigate the sand dunes")
+        print("3. Rest in the shade of a rock")
+        print("4. Check Backpack")
 
-        options = {
-            '1': ("Search for an oasis (Completed)" if oasis_completed else "Search for an oasis", search_for_oasis),
-            '2': ("Navigate the sand dunes (Completed)" if sand_dunes_completed else "Navigate the sand dunes", sand_anagrams),
-            '3': ("Rest in the shade of a rock (Completed)" if shade_completed else "Rest in the shade of a rock", rest_in_shade),
-            '4': ("Check Backpack", player.check_backpack),
-            '5': ("Check Score", lambda: print(f"Your current score is: {player.health}\nPress Enter to continue...") or input()),
-            '6': ("Quit", quit_option),
-        }
+        choice = input("Enter the number relating to your choice: ")
 
-        for key, (option_text, action) in options.items():
-            print(f"{key}. {option_text}")
-
-        if all((oasis_completed, sand_dunes_completed, shade_completed)):
-            print("Congratulations! You have completed all paths in the desert.")
-            print("You decide to return to the crossroads.")
-            player.desert_completed = True
-            time.sleep(2)
-            crossroads(player)
-            input("Press Enter to continue...")
-            time.sleep(4)
-            break
-
-        choice = input("Enter the number relating to your chosen action: ")
-
-        if choice in options:
-            _, selected_action = options[choice]
-            if not oasis_completed or not sand_dunes_completed or not shade_completed:
-                result = selected_action(player)
-                if result is True:
-                    break
+        if choice.isdigit() and choice in ['1', '2', '3', '4']:
+            if choice == '1':
+                search_for_oasis(player)
+                player.oasis_completed = True
+            elif choice == '2':
+                sand_anagrams(player)
+                player.sand_dunes_completed = True
+            elif choice == '3':
+                rest_in_shade(player)
+                player.shade_completed = True
+            elif choice == '4':
+                player.check_backpack()
         else:
-            print("Invalid choice. Please enter a number from 1 to 6.")
+            print("Invalid choice. Please enter a valid number (1, 2, 3, or 4).")
+
+        if player.oasis_completed and player.sand_dunes_completed and player.shade_completed:
+            print("You have visited everywhere in the desert!")
+            input("Press Enter to return to the crossroads...")
+            player.desert_completed = True
+            crossroads(player)
+            break
 
 
 def search_for_oasis(player):
@@ -239,13 +233,12 @@ def search_for_oasis(player):
     """
     if player.oasis_completed:
         print("You have already searched for an oasis.")
-        input("Press Enter to continue...")
         return
 
     print("You decide to search for an oasis to quench your thirst.")
     oasis_chance = random.randint(1, 10)
 
-    if oasis_chance <= 7:
+    if oasis_chance <= 5:
         print("You discover a hidden oasis and replenish your water supply.")
         print("You feel refreshed.")
         player.health += 10
