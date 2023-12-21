@@ -5,11 +5,8 @@ import gspread
 
 from colorama import Fore
 from run import authorise_gspread
-from models import Player
 from utils import clear_screen
 from models import Helmet, Player
-
-
 
 GSPREAD_CLIENT = authorise_gspread()
 WORD_PUZZLE = GSPREAD_CLIENT.open(
@@ -19,7 +16,7 @@ NUMBER_PUZZLE = GSPREAD_CLIENT.open(
 
 def word_puzzle(player):
     """
-    Simulates the player attempting to solve the riddle presented in the enchanted forest.
+    Simulates the player attempting to solve a series of riddles presented in the enchanted forest.
     """
     print("As you venture deeper into the mystical forest, you encounter a wise old tree.")
     print("The tree speaks in a whisper, presenting you with a riddle:")
@@ -33,40 +30,48 @@ def word_puzzle(player):
     ]
 
     max_attempts = 3
-    attempts = 0
+    correct_answers = 0
 
-    for riddle, answer in riddles:
-        print(riddle)
+    while correct_answers < 3:
+        current_riddle, answer = random.choice(riddles)
+        print(current_riddle)
 
-        while attempts < max_attempts:
-            player_answer = input("Enter your answer: ").lower()
+        player_answer = input("Enter your answer: ").lower()
 
-            if player_answer == answer:
-                print("The wise old tree nods in approval.")
-                print("Congratulations! You have answered the riddle correctly.")
-                player.forest_completed = True
-                player.health += 10
-                print(
-                    f"You earned 10 points. Your total score is now {player.health}.")
-                return
+        if player_answer == answer:
+            print("The wise old tree nods in approval.")
+            print("Congratulations! You have answered the riddle correctly.")
+            player.forest_completed = True
+            player.health += 10
+            correct_answers += 1
+            print(f"You earned 10 points. Your total score is now {player.health}.")
+
+            if correct_answers < 3:
+                print("The wise old tree presents you with another riddle.")
             else:
-                print("The wise old tree shakes its branches.")
-                print("Incorrect. The forest path remains a mystery.")
-                player.deduct_health(10)
+                print("You've successfully answered three riddles!")
+                print("You decide to return to the crossroads.")
+                time.sleep(3)
+                input("Press Enter to return to the crossroads.")
+                return
+        else:
+            print("The wise old tree shakes its branches.")
+            print("Incorrect. The forest path remains a mystery.")
+            player.deduct_health(10)
 
-                attempts += 1
-                if attempts < max_attempts:
-                    print(
-                        f"You have {max_attempts - attempts} {'attempts' if max_attempts - attempts > 1 else 'attempt'} left.")
-                else:
-                    print(f"{player.name}, unfortunate...")
-                    print("You failed to answer the riddle correctly three times.")
-                    print("The Forest Path is now disabled (completed).")
-                    player.forest_completed = True
-                    time.sleep(2)
-                    input("Press Enter to return to the crossroads.")
-                    return
-                
+            max_attempts -= 1
+            if max_attempts > 0:
+                print(f"You have {max_attempts} {'attempts' if max_attempts > 1 else 'attempt'} left.")
+            else:
+                print(f"{player.name}, unfortunate...")
+                print("You failed to answer the riddle correctly three times.")
+                print("The Forest Path is now disabled (completed).")
+                player.forest_completed = True
+                time.sleep(3)
+                input("Press Enter to return to the crossroads.")
+                return
+
+
 
 def fetch_word_puzzle():
     """
