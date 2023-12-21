@@ -3,6 +3,8 @@ import sys
 import time
 import colorama
 from colorama import Fore, Style
+from models import Player
+from leaderboard import update_leaderboard, show_leaderboard
 
 
 def clear_screen():
@@ -16,9 +18,9 @@ def restart_game(gspread_client):
     """
     Restarts the game by clearing the screen and calling the game_intro function.
     """
+    from run import game_intro
     print("Restarting the game...\n")
     clear_screen()
-    from run import game_intro
     game_intro(gspread_client)
 
 
@@ -26,8 +28,7 @@ def quit_game(player, gspread_client):
     """
     Quits the game and updates the leaderboard if the player has completed at least two paths.
     """
-    from models import Player
-    from leaderboard import update_leaderboard, show_leaderboard
+
 
     if not (player.forest_completed and player.town_completed) or \
             (not player.forest_completed and not player.town_completed):

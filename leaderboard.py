@@ -4,6 +4,7 @@ import time
 
 
 from colorama import Fore, Style
+from models import Player
 
 CREDS = Credentials.from_service_account_file('creds.json')
 
@@ -32,13 +33,10 @@ LEADERBOARD = GSPREAD_CLIENT.open(
     'eldoria-text-adventure').worksheet('leaderboard')
 
 
-
 def update_leaderboard(player):
     """
     Adds the player's score to the leaderboard.
     """
-    from models import Player
-    from run import authorise_gspread
     LEADERBOARD.append_row([player.name, str(player.health)])
 
 
@@ -46,9 +44,6 @@ def show_leaderboard(player):
     """
     Displays the leaderboard with the top 10 scores.
     """
-    from models import Player
-    from utils import clear_screen
-    clear_screen()
     print("\nLEADERBOARD")
     print("============")
 

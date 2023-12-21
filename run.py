@@ -10,7 +10,9 @@ import sympy
 import colorama
 from colorama import Fore, Style
 from images import main_title
-
+from models import Player
+from locations import crossroads
+from utils import clear_screen, restart_game
 
 def authorise_gspread():
     """
@@ -42,8 +44,6 @@ GSPREAD_CLIENT = authorise_gspread()
 
 
 def main():
-    from utils import clear_screen, restart_game
-    from models import Player
     clear_screen()
     main_title()
     if GSPREAD_CLIENT is None:
@@ -57,9 +57,6 @@ def game_intro(gspread_client):
     """
     Initialises the game, prompts the user for their name and difficulty level, and starts the game.
     """
-    from models import Player
-    from locations import crossroads
-    from utils import clear_screen, restart_game
     print("Welcome to the Eldoria Text Adventure!\n")
 
     while True:
@@ -109,8 +106,6 @@ def choose_difficulty():
 
 
 if __name__ == "__main__":
-    from locations import crossroads
-    from utils import clear_screen, restart_game
     main()
     restart_game()
 

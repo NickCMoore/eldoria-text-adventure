@@ -5,6 +5,9 @@ import gspread
 
 from colorama import Fore
 from run import authorise_gspread
+from models import Player
+from utils import clear_screen
+from models import Helmet, Player
 
 
 
@@ -18,7 +21,6 @@ def word_puzzle(player):
     """
     Simulates the player attempting to solve the riddle presented in the enchanted forest.
     """
-    from models import Player
     print("As you venture deeper into the mystical forest, you encounter a wise old tree.")
     print("The tree speaks in a whisper, presenting you with a riddle:")
 
@@ -70,13 +72,9 @@ def fetch_word_puzzle():
     """
     Fetches a word puzzle from the 'word_puzzle' worksheet in Google Sheets.
     """
-
     data = WORD_PUZZLE.get_all_values()
-
     data_without_header = data[1:]
-
     random_word_puzzle = random.choice(data_without_header)
-
     return {'Scrambled Word': random_word_puzzle[0], 'Word': random_word_puzzle[1]}
 
 
@@ -84,8 +82,6 @@ def mysterious_merchant_puzzle(player):
     """
     Simulates the player talking to the Mysterious Merchant in the town, presenting a puzzle with 8 numbers, including 2 prime numbers.
     """
-    from utils import clear_screen
-    from models import Helmet, Player
     if player.mysterious_merchant_completed:
         print("You have already talked to the Mysterious Merchant.")
         return

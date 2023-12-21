@@ -5,8 +5,9 @@ import random
 import sympy
 
 from colorama import Fore, Style
-
-
+from models import Player, Item, Shield
+from leaderboard import update_leaderboard, show_leaderboard
+from utils import clear_screen, quit_game
 
 
 # Initial decision-making
@@ -16,9 +17,6 @@ def crossroads(player):
     """
     Manages the player's choices at the crossroads, allowing them to choose paths, check the backpack, check the score, or quit the game.
     """
-    from models import Player
-    from leaderboard import update_leaderboard, show_leaderboard
-    from utils import clear_screen, quit_game
     clear_screen()
     while True:
         clear_screen()
@@ -48,7 +46,6 @@ def crossroads(player):
         while True:
             choice = input(
                 "Enter the number relating to your chosen path (1, 2 or 3): ")
-
             if choice == '1' and player.forest_completed:
                 print("The Forest Path is already completed. Choose another option.")
                 time.sleep(2)
@@ -87,9 +84,7 @@ def handle_path_choice(player, choice):
     """
     Handles the player's choice of paths (forest, town, desert) and progresses the game accordingly.
     """
-    from models import Player
-    from puzzles import word_puzzle, check_prime_puzzle, fetch_word_puzzle, mysterious_merchant_puzzle
-    from utils import clear_screen
+    from puzzles import word_puzzle
     if choice == '1' and not player.forest_completed:
         clear_screen()
         print(f"{player.name}, you venture into the mystical forest.")
@@ -108,9 +103,7 @@ def town_encounter(player):
     """
     Simulates an encounter in the town, allowing the player to make choices and progress in the game.
     """
-    from models import Player
-    from utils import clear_screen
-    from puzzles import word_puzzle, check_prime_puzzle, fetch_word_puzzle, mysterious_merchant_puzzle
+    from puzzles import mysterious_merchant_puzzle
     print("You enter the bustling town of Eldoria.")
     print("People are going about their daily lives, and various shops line the streets.")
 
@@ -152,7 +145,6 @@ def visit_potion_shop(player):
     """
     Simulates the player visiting the Potion Shop in the town, providing a health potion as a gift.
     """
-    from models import Item, Player
     if player.potion_shop_completed:
         print("You have already visited the Potion Shop.")
         return
@@ -173,7 +165,6 @@ def explore_market_square(player):
     """
     Simulates the player exploring the Market Square in the town and encountering a pickpocket.
     """
-    from models import Player
     if player.market_square_completed:
         print("You have already explored the Market Square.")
         return
@@ -190,8 +181,6 @@ def explore_market_square(player):
 
 # Desert Path
 def desert_path(player):
-    from models import Player
-    from utils import quit_game, clear_screen
     oasis_completed = player.oasis_completed
     sand_dunes_completed = player.sand_dunes_completed
     shade_completed = player.shade_completed
@@ -245,7 +234,6 @@ def search_for_oasis(player):
     """
     Player searches for an oasis in the desert.
     """
-    from models import Player
     if player.oasis_completed:
         print("You have already searched for an oasis.")
         input("Press Enter to continue...")
@@ -274,8 +262,7 @@ def navigate_sand_dunes(player):
     """
     Recreates the player going on their journey through the sand dunes
     """
-    from models import Item, Helmet, Shield, Player
-    from puzzles import word_puzzle, check_prime_puzzle, fetch_word_puzzle, mysterious_merchant_puzzle
+    from puzzles import word_puzzle, fetch_word_puzzle
     if player.sand_dunes_completed:
         print("You have already navigated the sand dunes.")
         input("Press Enter to continue...")
@@ -341,7 +328,6 @@ def rest_in_shade(player):
     """
     Simulates the player resting in the shade to regain health.
     """
-    from models import Player
     if player.shade_completed:
         print("You have already rested in the shade.")
         input("Press Enter to continue...")
