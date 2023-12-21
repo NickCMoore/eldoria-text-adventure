@@ -46,12 +46,11 @@ def main():
     from models import Player
     clear_screen()
     main_title()
-    gspread_client = authorise_gspread()
-    if gspread_client is None:
+    if GSPREAD_CLIENT is None:
         print("Exiting the game due to authorisation error.")
         sys.exit()
 
-    player = game_intro(gspread_client)
+    player = game_intro(GSPREAD_CLIENT)
 
 
 def game_intro(gspread_client):
@@ -113,7 +112,7 @@ if __name__ == "__main__":
     from locations import crossroads
     from utils import clear_screen, restart_game
     main()
-    restart_game(GSPREAD_CLIENT)
+    restart_game()
 
     while True:
         crossroads()
