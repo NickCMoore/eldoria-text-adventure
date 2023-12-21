@@ -6,7 +6,7 @@ import gspread
 from colorama import Fore
 from run import authorise_gspread
 from utils import clear_screen
-from models import Helmet, Player
+from models import Helmet, Shield, Player
 
 GSPREAD_CLIENT = authorise_gspread()
 WORD_PUZZLE = GSPREAD_CLIENT.open(
@@ -70,7 +70,6 @@ def word_puzzle(player):
                 time.sleep(3)
                 input("Press Enter to return to the crossroads.")
                 return
-
 
 
 def fetch_word_puzzle():
@@ -156,3 +155,69 @@ def check_prime_puzzle(numbers, num1, num2):
     Checks if the player's input is correct for the prime number puzzle.
     """
     return sympy.isprime(num1) and sympy.isprime(num2) and num1 != num2 and num1 in numbers and num2 in numbers
+
+
+def sand_anagrams(player):
+    """
+    Recreates the player going on their journey through the sand dunes
+    """
+    from puzzles import word_puzzle, fetch_word_puzzle
+    if player.sand_dunes_completed:
+        print("You have already navigated the sand dunes.")
+        input("Press Enter to continue...")
+        return
+
+    print("You choose to navigate the arduous sand dunes")
+    obstacle_chance = random.randint(1, 10)
+
+    if obstacle_chance <= 5:
+        print("You come across a mysterious inscription partially uncovered in the sand...")
+
+        difficulty_word_count = {
+            1: 3,
+            2: 5,
+            3: float('inf')
+        }
+
+        word_puzzles = [fetch_word_puzzle() for _ in range(
+            difficulty_word_count[player.difficulty])]
+
+        for word_puzzle in word_puzzles:
+            print(
+                f"Unscramble the letters to form a word: {word_puzzle['Scrambled Word']}")
+
+            attempts_left = 3
+
+            while attempts_left > 0:
+                player_input = input("Your answer: ").lower()
+
+                if player_input == word_puzzle['Word']:
+                    print("Congratulations! You solved the number puzzle.")
+                    player.add_shield_to_backpack(player)
+                    player.sand_dunes_completed = True
+                    return
+                else:
+                    print("Incorrect. Try again.")
+                    attempts_left -= 1
+
+                    if attempts_left > 0:
+                        print(
+                            f"You have {attempts_left} {'attempts' if attempts_left > 1 else 'attempt'} left.")
+                    else:
+                        print("You've used all your attempts.")
+                        print(
+                            "The correct answer was not found. Better luck next time!")
+                        player.sand_dunes_completed = True
+                        return
+
+        print("Congratulations! You successfully navigated the sand dunes.")
+        player.sand_dunes_completed = True
+
+        shield = Shield()
+        player.inventory.add_item(shield)
+        print(f"A {shield._name} has been added to your backpack.")
+    else:
+        print("You encounter a mirage and end up wasting time.")
+
+    time.sleep(4)
+    input("Press Enter to continue...")

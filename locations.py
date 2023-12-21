@@ -10,8 +10,7 @@ from leaderboard import update_leaderboard, show_leaderboard
 from utils import clear_screen, quit_game
 
 
-# Initial decision-making
-
+# Initial Path Choices
 
 def crossroads(player):
     """
@@ -99,6 +98,8 @@ def handle_path_choice(player, choice):
         desert_path(player)
 
 
+# Town Path
+
 def town_encounter(player):
     """
     Simulates an encounter in the town, allowing the player to make choices and progress in the game.
@@ -180,7 +181,9 @@ def explore_market_square(player):
 
 
 # Desert Path
+    
 def desert_path(player):
+    from puzzles import sand_anagrams
     oasis_completed = player.oasis_completed
     sand_dunes_completed = player.sand_dunes_completed
     shade_completed = player.shade_completed
@@ -198,7 +201,7 @@ def desert_path(player):
 
         options = {
             '1': ("Search for an oasis (Completed)" if oasis_completed else "Search for an oasis", search_for_oasis),
-            '2': ("Navigate the sand dunes (Completed)" if sand_dunes_completed else "Navigate the sand dunes", navigate_sand_dunes),
+            '2': ("Navigate the sand dunes (Completed)" if sand_dunes_completed else "Navigate the sand dunes", sand_anagrams),
             '3': ("Rest in the shade of a rock (Completed)" if shade_completed else "Rest in the shade of a rock", rest_in_shade),
             '4': ("Check Backpack", player.check_backpack),
             '5': ("Check Score", lambda: print(f"Your current score is: {player.health}\nPress Enter to continue...") or input()),
@@ -253,72 +256,6 @@ def search_for_oasis(player):
         print("Unfortunately, you couldn't find an oasis, and the scorching heat takes a toll on you.")
         player.deduct_health(15)
         player.oasis_completed = True
-
-    time.sleep(4)
-    input("Press Enter to continue...")
-
-
-def navigate_sand_dunes(player):
-    """
-    Recreates the player going on their journey through the sand dunes
-    """
-    from puzzles import word_puzzle, fetch_word_puzzle
-    if player.sand_dunes_completed:
-        print("You have already navigated the sand dunes.")
-        input("Press Enter to continue...")
-        return
-
-    print("You choose to navigate the arduous sand dunes")
-    obstacle_chance = random.randint(1, 10)
-
-    if obstacle_chance <= 5:
-        print("You come across a mysterious inscription partially uncovered in the sand...")
-
-        difficulty_word_count = {
-            1: 3,
-            2: 5,
-            3: float('inf')
-        }
-
-        word_puzzles = [fetch_word_puzzle() for _ in range(
-            difficulty_word_count[player.difficulty])]
-
-        for word_puzzle in word_puzzles:
-            print(
-                f"Unscramble the letters to form a word: {word_puzzle['Scrambled Word']}")
-
-            attempts_left = 3
-
-            while attempts_left > 0:
-                player_input = input("Your answer: ").lower()
-
-                if player_input == word_puzzle['Word']:
-                    print("Congratulations! You solved the number puzzle.")
-                    player.add_shield_to_backpack(player)
-                    player.sand_dunes_completed = True
-                    return
-                else:
-                    print("Incorrect. Try again.")
-                    attempts_left -= 1
-
-                    if attempts_left > 0:
-                        print(
-                            f"You have {attempts_left} {'attempts' if attempts_left > 1 else 'attempt'} left.")
-                    else:
-                        print("You've used all your attempts.")
-                        print(
-                            "The correct answer was not found. Better luck next time!")
-                        player.sand_dunes_completed = True
-                        return
-
-        print("Congratulations! You successfully navigated the sand dunes.")
-        player.sand_dunes_completed = True
-
-        shield = Shield()
-        player.inventory.add_item(shield)
-        print(f"A {shield._name} has been added to your backpack.")
-    else:
-        print("You encounter a mirage and end up wasting time.")
 
     time.sleep(4)
     input("Press Enter to continue...")
