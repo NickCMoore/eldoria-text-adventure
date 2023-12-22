@@ -6,6 +6,9 @@ from colorama import Fore, Style
 
 
 def main_title():
+    """
+    Styling and content for introduction page
+    """
     title_font = "slant"
     title_text = "Eldoria Text Adventure"
     f = pyfiglet.Figlet(font=title_font, width=80, justify='center')

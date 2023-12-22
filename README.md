@@ -73,6 +73,10 @@ Welcome to <a href="https://eldoria-text-adventure-b67c4e715670.herokuapp.com/" 
 
 The game's flowchart serves as a visual representation of the player's journey through Eldoria. Starting with the opening screen where players input their name and select a difficulty level, the flowchart branches into three distinct paths – Forest, Town, and Desert. Each path is strategically designed to present unique challenges and encounters, creating a dynamic and varied gameplay experience. There are decisions at critical junctures, representing moments where players must make choices that impact the storyline and their character's health.
 
+Below is a simplified flowchart that illustrates the input validation process in the game. Input validation was crucial to ensure that the player's choices and entries were within the expected parameters, preventing errors and enhancing the overall gaming experience.
+
+![Validation Flowchart](assets/images/validation_flowchart.png)
+
 ## Colour Scheme
 
 As the app was developed for the terminal environment, extensive design elements or colour schemes were not relevant. However, Colorama was utilised strategically to introduce subtle color enhancements to certain aspects of the game. This was done to ensure that crucial information or specific sections of the application would stand out and be easily distinguishable for the user within the terminal interface.
