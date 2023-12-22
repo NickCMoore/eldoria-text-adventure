@@ -5,7 +5,6 @@ import gspread
 
 from colorama import Fore
 from run import authorise_gspread
-from utils import clear_screen
 from models import Helmet, Shield, Player
 
 GSPREAD_CLIENT = authorise_gspread()
@@ -145,7 +144,8 @@ def mysterious_merchant_puzzle(player):
                 player.mysterious_merchant_completed = True
                 break
             else:
-                print(Fore.RED + "Sorry, that's not the correct pair. Try again.")
+                player.deduct_health(10)
+                print("Please try again.")
                 attempts_left -= 1
 
                 if attempts_left > 0:
@@ -215,7 +215,8 @@ def sand_anagrams(player):
                     player.sand_dunes_completed = True
                     return
                 else:
-                    print(Fore.RED + "Incorrect. Try again.")
+                    player.deduct_health(10)
+                    print("Please try again.")
                     attempts_left -= 1
 
                     if attempts_left > 0:

@@ -7,8 +7,7 @@ import sympy
 from colorama import Fore, Style
 from models import Player, Item, Shield
 from leaderboard import update_leaderboard, show_leaderboard
-from utils import clear_screen, quit_game
-
+from run import clear_screen, restart_game, quit_game
 
 # Initial Path Choices
 
@@ -67,14 +66,16 @@ def crossroads(player):
                     "Invalid choice. Please enter a valid number (1, 2, 3, 4, 5, or 6).")
                 continue
 
-            if player.forest_completed and player.town_completed and player.desert_completed:
-                print("Congratulations! You have completed all paths.")
-                update_leaderboard(player)
-                show_leaderboard(player)
-                print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
-                print(f"{player.name}, your final score was {player.health}")
-                time.sleep(2)
-                sys.exit()
+            break
+
+        if player.forest_completed and player.town_completed and player.desert_completed:
+            print("Congratulations! You have completed all paths.")
+            update_leaderboard(player)
+            show_leaderboard(player)
+            print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
+            print(f"{player.name}, your final score was {player.health}")
+            time.sleep(2)
+            sys.exit()
 
             break
 
@@ -96,6 +97,15 @@ def handle_path_choice(player, choice):
         clear_screen()
         print(f"{player.name}, you enter the scorching desert...")
         desert_path(player)
+
+    if player.forest_completed and player.town_completed and player.desert_completed:
+        print("Congratulations! You have completed all paths.")
+        update_leaderboard(player)
+        show_leaderboard(player)
+        print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
+        print(f"{player.name}, your final score was {player.health}")
+        time.sleep(2)
+        sys.exit()
 
 
 # Town Path
@@ -240,13 +250,15 @@ def search_for_oasis(player):
     oasis_chance = random.randint(1, 10)
 
     if oasis_chance <= 5:
+        clear_screen()
         print("You discover a hidden oasis and replenish your water supply.")
         print("You feel refreshed.")
         player.health += 10
         player.oasis_completed = True
-        print(
+        print(Fore.GREEN + 
             f"Your health has increased by 10. Your total health is now {player.health}.")
     else:
+        clear_screen()
         print(Fore.RED + "Unfortunately, you couldn't find an oasis, and the scorching heat takes a toll on you.")
         player.deduct_health(15)
         player.oasis_completed = True
@@ -263,7 +275,7 @@ def rest_in_shade(player):
         print("You have already rested in the shade.")
         input("Press Enter to continue...")
         return
-
+    clear_screen()
     print("You find a comfortable spot in the shade and rest for a while.")
     print(Fore.GREEN + "The cool shade revitalizes you, and you regain 15 health.")
 

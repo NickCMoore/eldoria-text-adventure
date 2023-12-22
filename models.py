@@ -43,7 +43,7 @@ class Player:
         Deduct health from the player if they get it wrong.
         """
         self.health -= amount
-        print(f"{self.name}, you lost {amount} health.")
+        print(Fore.RED + f"{self.name}, you lost {amount} health.")
         print(f"Your remaining health is {self.health}.")
 
     def check_backpack(self):
