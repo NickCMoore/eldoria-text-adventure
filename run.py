@@ -221,7 +221,6 @@ def crossroads(player):
             break
 
 
-
 def handle_path_choice(player, choice):
     """
     Handles the player's choice of paths (forest, town, desert) and progresses the game accordingly.
@@ -241,6 +240,7 @@ def handle_path_choice(player, choice):
         desert_path(player)
 
 # Town Path
+
 
 def town_encounter(player):
     """
@@ -426,4 +426,3 @@ if __name__ == "__main__":
     while True:
         crossroads(player)
         restart_game(gspread_client)
-

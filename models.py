@@ -4,10 +4,12 @@ import time
 # Third party library imports
 from colorama import Fore
 
+
 class Player:
     """
     Class representing a player.
     """
+
     def __init__(self, name, difficulty, gspread_client):
         """
         Initialise a player.
@@ -60,7 +62,8 @@ class Player:
     def add_shield_to_backpack(self):
         shield = Shield()
         self.inventory.add_item(shield)
-        print(Fore.GREEN + f"A {shield._name} has been added to your backpack.")
+        print(Fore.GREEN +
+              f"A {shield._name} has been added to your backpack.")
 
 
 # Player class and custom code
@@ -95,7 +98,7 @@ class Backpack:
     def add_item(self, item):
         self._items.append(item)
         print(Fore.GREEN +
-            f"A {item._name} has been added to your backpack.")
+              f"A {item._name} has been added to your backpack.")
 
     def display_inventory(self):
         if not self._items:

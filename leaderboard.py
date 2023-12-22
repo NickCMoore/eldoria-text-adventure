@@ -15,6 +15,7 @@ SCOPE = [
 
 CREDS = Credentials.from_service_account_file('creds.json')
 
+
 def authorise_gspread():
     """
     Exception raised in event Google Sheets cannot be accessed.
