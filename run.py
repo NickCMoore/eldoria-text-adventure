@@ -6,7 +6,6 @@ import random
 
 import gspread
 from google.oauth2.service_account import Credentials
-import sympy
 import colorama
 from colorama import Fore, Style
 from images import main_title

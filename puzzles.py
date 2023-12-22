@@ -1,11 +1,10 @@
 import time
 import sympy
 import random
-import gspread
 
 from colorama import Fore
 from run import authorise_gspread, clear_screen
-from models import Helmet, Shield, Player
+from models import Helmet, Shield
 
 # Constants for worksheet names
 WORD_PUZZLE_WORKSHEET = 'word_puzzle'
