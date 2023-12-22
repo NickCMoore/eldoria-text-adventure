@@ -1,10 +1,10 @@
-import gspread
-from google.oauth2.service_account import Credentials
+# Standard library imports
 import time
 
+# Third party library imports
+import gspread
+from google.oauth2.service_account import Credentials
 from colorama import Fore, Style
-
-CREDS = Credentials.from_service_account_file('creds.json')
 
 # Google Sheets API integration
 SCOPE = [
@@ -12,6 +12,8 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
 ]
+
+CREDS = Credentials.from_service_account_file('creds.json')
 
 def authorise_gspread():
     """

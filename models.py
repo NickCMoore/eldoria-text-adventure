@@ -1,4 +1,7 @@
+# Standard library imports
 import time
+
+# Third party library imports
 from colorama import Fore
 
 class Player:

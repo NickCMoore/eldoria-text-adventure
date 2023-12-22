@@ -1,8 +1,12 @@
+# Standard library imports
 import time
 import sympy
 import random
 
+# Third party library imports
 from colorama import Fore
+
+# Module imports
 from run import authorise_gspread, clear_screen
 from models import Helmet, Shield
 

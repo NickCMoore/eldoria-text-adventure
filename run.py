@@ -1,18 +1,21 @@
-# External libraries
+# Standard library imports
 import os
 import sys
 import time
 import random
 
+# Third party library imports
 import gspread
 from google.oauth2.service_account import Credentials
 import colorama
 from colorama import Fore, Style
+
+# Module imports
 from images import main_title
 from models import Player, Item
 from leaderboard import update_leaderboard, show_leaderboard
 
-# Google Sheets Constants
+# Constants and configs
 GOOGLE_SHEETS_SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -20,6 +23,7 @@ GOOGLE_SHEETS_SCOPE = [
 ]
 
 CREDENTIALS_FILE_PATH = 'creds.json'
+CREDS = Credentials.from_service_account_file(CREDENTIALS_FILE_PATH)
 
 colorama.init(autoreset=True)
 
@@ -35,9 +39,6 @@ DESERT_PATH = '3'
 
 # Game Messages
 INVALID_CHOICE_MESSAGE = "Invalid choice. Please enter a valid number."
-
-# Google Sheets API integration
-CREDS = Credentials.from_service_account_file(CREDENTIALS_FILE_PATH)
 
 
 def authorise_gspread():

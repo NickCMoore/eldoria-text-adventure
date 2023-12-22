@@ -1,5 +1,7 @@
-# External libraries
+# Standard library imports
 import pyfiglet
+
+# Third party library imports
 from colorama import Fore, Style
 
 
