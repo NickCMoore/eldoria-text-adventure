@@ -52,7 +52,8 @@ def authorise_gspread():
     except Exception as e:
         print(f"Error authorising Google Sheets API: {e}")
         return None
-    
+
+
 # Google Sheets worksheets
 GSPREAD_CLIENT = authorise_gspread()
 
@@ -135,7 +136,7 @@ def restart_game(gspread_client):
     game_intro(gspread_client)
 
 
-def quit_game(player, gspread_client):
+def quit_game(player):
     """
     Quits the game and updates the leaderboard if the player has completed at least two paths.
     """
@@ -148,17 +149,7 @@ def quit_game(player, gspread_client):
         show_leaderboard(player)
         print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
         print(f"{player.name}, your final score was {player.health}")
-        time.sleep(2)
-
-    while True:
-        continue_playing = input(
-            "Do you want to continue playing? (yes/no): ").lower()
-        if continue_playing == "yes":
-            restart_game(gspread_client)
-        elif continue_playing == "no":
-            sys.exit()
-        else:
-            print("Invalid choice. Please enter 'yes' or 'no.'")
+        sys.exit()
 
 
 # Initial Path Choices
@@ -168,8 +159,17 @@ def crossroads(player):
     Manages the player's choices at the crossroads, allowing them to choose paths, check the backpack, check the score, or quit the game.
     """
     clear_screen()
+
     while True:
-        clear_screen()
+        if player.forest_completed and player.town_completed and player.desert_completed:
+            print("Congratulations! You have completed all paths.")
+            update_leaderboard(player)
+            show_leaderboard(player)
+            print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
+            print(f"{player.name}, your final score was {player.health}")
+            time.sleep(2)
+            sys.exit()
+
         print("The eternal mists clear...")
         print("You find yourself at a crossroads.")
         print("There are three paths diverging in front of you.")
@@ -195,7 +195,7 @@ def crossroads(player):
 
         while True:
             choice = input(
-                "Enter the number relating to your chosen path (1, 2 or 3): ")
+                "Enter the number relating to your chosen path (1, 2, 3, 4, 5, or 6): ")
             if choice == '1' and player.forest_completed:
                 print("The Forest Path is already completed. Choose another option.")
                 time.sleep(2)
@@ -220,16 +220,6 @@ def crossroads(player):
 
             break
 
-        if player.forest_completed and player.town_completed and player.desert_completed:
-            print("Congratulations! You have completed all paths.")
-            update_leaderboard(player)
-            show_leaderboard(player)
-            print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
-            print(f"{player.name}, your final score was {player.health}")
-            time.sleep(2)
-            sys.exit()
-
-            break
 
 
 def handle_path_choice(player, choice):
@@ -249,16 +239,6 @@ def handle_path_choice(player, choice):
         clear_screen()
         print(f"{player.name}, you enter the scorching desert...")
         desert_path(player)
-
-    if player.forest_completed and player.town_completed and player.desert_completed:
-        print("Congratulations! You have completed all paths.")
-        update_leaderboard(player)
-        show_leaderboard(player)
-        print(f"\n{Fore.RED}GAME OVER!{Style.RESET_ALL}")
-        print(f"{player.name}, your final score was {player.health}")
-        time.sleep(2)
-        sys.exit()
-
 
 # Town Path
 
@@ -316,7 +296,8 @@ def visit_potion_shop(player):
     print("They offer you a health potion as a gift.")
 
     player.health += 20
-    print(Fore.GREEN + f"You gained 20 health. Your total health is now {player.health}.")
+    print(Fore.GREEN +
+          f"You gained 20 health. Your total health is now {player.health}.")
 
     player.inventory.add_item(
         Item(name="Health Potion", description="A magical potion that restores health."))
@@ -343,7 +324,7 @@ def explore_market_square(player):
 
 
 # Desert Path
-    
+
 def desert_path(player):
     from puzzles import sand_anagrams
     oasis_completed = player.oasis_completed
@@ -407,8 +388,8 @@ def search_for_oasis(player):
         print("You feel refreshed.")
         player.health += 10
         player.oasis_completed = True
-        print(Fore.GREEN + 
-            f"Your health has increased by 10. Your total health is now {player.health}.")
+        print(Fore.GREEN +
+              f"Your health has increased by 10. Your total health is now {player.health}.")
     else:
         clear_screen()
         print(Fore.RED + "Unfortunately, you couldn't find an oasis, and the scorching heat takes a toll on you.")
@@ -438,10 +419,11 @@ def rest_in_shade(player):
     input("Press Enter to continue...")
 
 
-
 if __name__ == "__main__":
-    main()
-    restart_game()
+    gspread_client = authorise_gspread()
+    player = main()
 
     while True:
-        crossroads()
+        crossroads(player)
+        restart_game(gspread_client)
+

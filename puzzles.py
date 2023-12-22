@@ -8,8 +8,8 @@ from run import authorise_gspread, clear_screen
 from models import Helmet, Shield, Player
 
 # Constants for worksheet names
-WORD_PUZZLE_WORKSHEET_NAME = 'word_puzzle'
-NUMBER_PUZZLE_WORKSHEET_NAME = 'number_puzzle'
+WORD_PUZZLE_WORKSHEET = 'word_puzzle'
+NUMBER_PUZZLE_WORKSHEET = 'number_puzzle'
 
 # Constants for health-related values
 HEALTH_BONUS = 10
@@ -19,8 +19,10 @@ MAX_ATTEMPTS_PRIME_PUZZLE = 3
 HEALTH_LOSS_MIRAGE = 20
 
 GSPREAD_CLIENT = authorise_gspread()
-WORD_PUZZLE = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet(WORD_PUZZLE_WORKSHEET_NAME)
-NUMBER_PUZZLE = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet(NUMBER_PUZZLE_WORKSHEET_NAME)
+WORD_PUZZLE = GSPREAD_CLIENT.open(
+    'eldoria-text-adventure').worksheet(WORD_PUZZLE_WORKSHEET)
+NUMBER_PUZZLE = GSPREAD_CLIENT.open(
+    'eldoria-text-adventure').worksheet(NUMBER_PUZZLE_WORKSHEET)
 
 
 def word_puzzle(player):
@@ -242,9 +244,9 @@ def sand_anagrams(player):
         player.sand_dunes_completed = True
 
     else:
-        print(Fore.RED + f"You encounter a mirage and end up losing {HEALTH_LOSS_MIRAGE} health.")
+        print(
+            Fore.RED + f"You encounter a mirage and end up losing {HEALTH_LOSS_MIRAGE} health.")
         player.deduct_health(HEALTH_LOSS_MIRAGE)
 
     time.sleep(4)
     input("Press Enter to continue...")
-
