@@ -8,7 +8,7 @@ Opting for the Forest Path involves solving the wise old tree's riddle, while ex
 
 Players can track their progress with marked completed paths and a visible health score, aiming to achieve the highest possible score. The game concludes with the final score recorded on the leaderboard, providing a competitive element for players to compare their achievements. 
 
-![Responsive design](assets/images/screen-mockup.png)
+![Responsive](assets/images/responsive.png)
 
 ### Project purpose
 
