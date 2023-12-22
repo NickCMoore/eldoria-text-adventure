@@ -182,7 +182,7 @@ def sand_anagrams(player):
     print("You choose to navigate the arduous sand dunes")
     obstacle_chance = random.randint(1, 10)
 
-    if obstacle_chance <= 5:
+    if obstacle_chance <= 8:
         print("You come across a mysterious inscription partially uncovered in the sand...")
 
         difficulty_word_count = {
@@ -193,6 +193,8 @@ def sand_anagrams(player):
 
         word_puzzles = [fetch_word_puzzle() for _ in range(
             difficulty_word_count[player.difficulty])]
+        
+        shield_added = False
 
         for word_puzzle in word_puzzles:
             print(
@@ -205,12 +207,15 @@ def sand_anagrams(player):
 
                 if player_input == word_puzzle['Word']:
                     print(Fore.GREEN +
-                          "Congratulations! You solved the number puzzle.")
-                    player.add_shield_to_backpack()
+                          "Congratulations! You solved the anagram.")
+                    if not shield_added:
+                        shield = Shield()
+                        player.inventory.add_item(shield)
+                        shield_added = True
                     player.sand_dunes_completed = True
                     return
                 else:
-                    print("Incorrect. Try again.")
+                    print(Fore.RED + "Incorrect. Try again.")
                     attempts_left -= 1
 
                     if attempts_left > 0:
@@ -226,12 +231,9 @@ def sand_anagrams(player):
         print("Congratulations! You successfully navigated the sand dunes.")
         player.sand_dunes_completed = True
 
-        shield = Shield()
-        player.inventory.add_item(shield)
-        print(Fore.GREEN +
-              f"A {shield._name} has been added to your backpack.")
     else:
-        print("You encounter a mirage and end up wasting time.")
+        print(Fore.RED + "You encounter a mirage and end up losing 20 health.")
+        player.deduct_health(20)
 
     time.sleep(4)
     input("Press Enter to continue...")

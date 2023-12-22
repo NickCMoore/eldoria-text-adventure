@@ -1,4 +1,5 @@
 import time
+from colorama import Fore
 
 class Player:
     """
@@ -49,14 +50,14 @@ class Player:
         """
         Enable the player to check their backpack.
         """
-        print("Checking your backpack:")
+        print("Checking your backpack...")
         self.inventory.display_inventory()
         time.sleep(2)
 
     def add_shield_to_backpack(self):
         shield = Shield()
         self.inventory.add_item(shield)
-        print(f"A {shield._name} has been added to your backpack.")
+        print(Fore.GREEN + f"A {shield._name} has been added to your backpack.")
 
 
 # Player class and custom code
@@ -90,8 +91,8 @@ class Backpack:
 
     def add_item(self, item):
         self._items.append(item)
-        print(
-            f"Excellent work!\nA {item._name} has been added to your backpack.")
+        print(Fore.GREEN +
+            f"A {item._name} has been added to your backpack.")
 
     def display_inventory(self):
         if not self._items:

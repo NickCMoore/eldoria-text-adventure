@@ -247,7 +247,7 @@ def search_for_oasis(player):
         print(
             f"Your health has increased by 10. Your total health is now {player.health}.")
     else:
-        print("Unfortunately, you couldn't find an oasis, and the scorching heat takes a toll on you.")
+        print(Fore.RED + "Unfortunately, you couldn't find an oasis, and the scorching heat takes a toll on you.")
         player.deduct_health(15)
         player.oasis_completed = True
 
@@ -265,7 +265,7 @@ def rest_in_shade(player):
         return
 
     print("You find a comfortable spot in the shade and rest for a while.")
-    print("The cool shade revitalizes you, and you regain 15 health.")
+    print(Fore.GREEN + "The cool shade revitalizes you, and you regain 15 health.")
 
     player.health += 15
     player.shade_completed = True
