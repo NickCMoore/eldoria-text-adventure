@@ -4,7 +4,7 @@ import random
 import gspread
 
 from colorama import Fore
-from run import authorise_gspread
+from run import authorise_gspread, clear_screen
 from models import Helmet, Shield, Player
 
 GSPREAD_CLIENT = authorise_gspread()
