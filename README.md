@@ -225,9 +225,17 @@ The frontend terminal should now be connected and deployed to Heroku.
 
 # Credits
 
-## Content
+## Code
 
-## Media
+- Code to create clear_screen function taken from <a href="https://www.geeksforgeeks.org/clear-screen-python/" target="_blank" rel="noopener">GeeksforGeeks</a>
+- Code to create Player class learned from <a href="https://realpython.com/python3-object-oriented-programming/" target="_blank" rel="noopener">Real Python</a>
+- Code to update leaderboard taken from <a href="https://stackoverflow.com/questions/50938274/sort-a-spread-sheet-via-gspread" target="_blank" rel="noopener">Stack Overflow</a>
+- Code to display leaderboard in columns taken from <a href="https://stackoverflow.com/questions/61285626/print-list-of-lists-in-neat-columns-table" target="_blank" rel="noopener">Stack Overflow</a>
+
+## Design
+
+- Flowchart was made using <a href="https://stackoverflow.com/questions/61285626/print-list-of-lists-in-neat-columns-table" target="_blank" rel="noopener">Lucidchart</a>
+
 
 # Acknowledgements
 
