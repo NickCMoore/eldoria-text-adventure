@@ -7,11 +7,20 @@ from colorama import Fore
 from run import authorise_gspread, clear_screen
 from models import Helmet, Shield, Player
 
+# Constants for worksheet names
+WORD_PUZZLE_WORKSHEET_NAME = 'word_puzzle'
+NUMBER_PUZZLE_WORKSHEET_NAME = 'number_puzzle'
+
+# Constants for health-related values
+HEALTH_BONUS = 10
+HEALTH_PENALTY = 10
+MAX_ATTEMPTS_WORD_PUZZLE = 3
+MAX_ATTEMPTS_PRIME_PUZZLE = 3
+HEALTH_LOSS_MIRAGE = 20
+
 GSPREAD_CLIENT = authorise_gspread()
-WORD_PUZZLE = GSPREAD_CLIENT.open(
-    'eldoria-text-adventure').worksheet('word_puzzle')
-NUMBER_PUZZLE = GSPREAD_CLIENT.open(
-    'eldoria-text-adventure').worksheet('number_puzzle')
+WORD_PUZZLE = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet(WORD_PUZZLE_WORKSHEET_NAME)
+NUMBER_PUZZLE = GSPREAD_CLIENT.open('eldoria-text-adventure').worksheet(NUMBER_PUZZLE_WORKSHEET_NAME)
 
 
 def word_puzzle(player):
@@ -29,7 +38,7 @@ def word_puzzle(player):
         (Fore.BLUE + "The more you take, the more you leave behind. What am I?", "footsteps")
     ]
 
-    max_attempts = 3
+    max_attempts = MAX_ATTEMPTS_WORD_PUZZLE
     correct_answers = 0
 
     used_riddles = set()
@@ -50,10 +59,10 @@ def word_puzzle(player):
             print("The wise old tree nods in approval.")
             print("Congratulations! You have answered the riddle correctly.")
             player.forest_completed = True
-            player.health += 10
+            player.health += HEALTH_BONUS
             correct_answers += 1
             print(
-                Fore.GREEN + f"You earned 10 health. Your total score is now {player.health}.")
+                Fore.GREEN + f"You earned {HEALTH_BONUS} health. Your total score is now {player.health}.")
 
             if correct_answers < 3:
                 print("The wise old tree presents you with another riddle.")
@@ -66,8 +75,8 @@ def word_puzzle(player):
         else:
             print("The wise old tree shakes its branches.")
             print(
-                Fore.RED + "Incorrect. You lost 10 health. The forest path remains a mystery.")
-            player.deduct_health(10)
+                Fore.RED + f"Incorrect. You lost {HEALTH_PENALTY} health. The forest path remains a mystery.")
+            player.deduct_health(HEALTH_PENALTY)
 
             max_attempts -= 1
             if max_attempts > 0:
@@ -126,7 +135,7 @@ def mysterious_merchant_puzzle(player):
     print(Fore.BLUE +
           f"Find two prime numbers in the list {selected_numbers}.")
 
-    attempts_left = 3
+    attempts_left = MAX_ATTEMPTS_PRIME_PUZZLE
 
     while attempts_left > 0:
         player_input = input(
@@ -144,7 +153,7 @@ def mysterious_merchant_puzzle(player):
                 player.mysterious_merchant_completed = True
                 break
             else:
-                player.deduct_health(10)
+                player.deduct_health(HEALTH_PENALTY)
                 print("Please try again.")
                 attempts_left -= 1
 
@@ -193,14 +202,14 @@ def sand_anagrams(player):
 
         word_puzzles = [fetch_word_puzzle() for _ in range(
             difficulty_word_count[player.difficulty])]
-        
+
         shield_added = False
 
         for word_puzzle in word_puzzles:
             print(
                 f"Unscramble the letters to form a word: {word_puzzle['Scrambled Word']}")
 
-            attempts_left = 3
+            attempts_left = MAX_ATTEMPTS_WORD_PUZZLE
 
             while attempts_left > 0:
                 player_input = input("Your answer: ").lower()
@@ -215,7 +224,7 @@ def sand_anagrams(player):
                     player.sand_dunes_completed = True
                     return
                 else:
-                    player.deduct_health(10)
+                    player.deduct_health(HEALTH_PENALTY)
                     print("Please try again.")
                     attempts_left -= 1
 
@@ -233,8 +242,9 @@ def sand_anagrams(player):
         player.sand_dunes_completed = True
 
     else:
-        print(Fore.RED + "You encounter a mirage and end up losing 20 health.")
-        player.deduct_health(20)
+        print(Fore.RED + f"You encounter a mirage and end up losing {HEALTH_LOSS_MIRAGE} health.")
+        player.deduct_health(HEALTH_LOSS_MIRAGE)
 
     time.sleep(4)
     input("Press Enter to continue...")
+

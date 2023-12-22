@@ -10,7 +10,7 @@ import sympy
 import colorama
 from colorama import Fore, Style
 from images import main_title
-from models import Player
+from models import Player, Item
 from leaderboard import update_leaderboard, show_leaderboard
 
 # Google Sheets Constants
