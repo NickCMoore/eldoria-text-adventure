@@ -79,7 +79,7 @@ Below is a simplified flowchart that illustrates the input validation process in
 
 ## Colour Scheme
 
-As the app was developed for the terminal environment, extensive design elements or colour schemes were not relevant. However, Colorama was utilised strategically to introduce subtle color enhancements to certain aspects of the game. This was done to ensure that crucial information or specific sections of the application would stand out and be easily distinguishable for the user within the terminal interface.
+As the app was developed for the terminal environment, extensive design elements or colour schemes were not relevant. However, Colorama was utilised strategically to introduce subtle color enhancements to certain aspects of the game. This was done to ensure that crucial information or specific sections of the application (such as green/red for positive/negative events) would stand out and be easily distinguishable for the user within the terminal interface.
 
 # Current Features
 
@@ -91,6 +91,8 @@ User Interaction: Prompts users to enter their name and choose a difficulty leve
 
 Purpose: Sets the stage for the adventure and gathers initial player input.
 
+![Title Page](assets/images/title_page.png)
+
 ## Crossroads
 
 Description: Presents players with the crossroads, allowing them to choose different paths.
@@ -98,6 +100,18 @@ Description: Presents players with the crossroads, allowing them to choose diffe
 User Interaction: Players can choose paths, check their backpack, view their score, or quit the game.
 
 Purpose: Serves as a central hub for navigation and decision-making, linking to various game elements.
+
+![Crossroads](assets/images/crossroads.png)
+
+## Forest Path
+
+Description: Creates an environment where the player interacts with a tree to answer a riddle
+
+User Interaction: Players has multiple efforts to try and answer the riddles presented to them
+
+Purpose: Serves as a gentle introduction to the game mechanics with one set path in this area.
+
+![Forest Path](assets/images/forest.png)
 
 ## Town Path
 
@@ -110,6 +124,8 @@ User Interaction: Offers choices to visit the following areas:
 
 Purpose: Introduces town-specific encounters, decisions, and puzzles.
 
+![Town Path](assets/images/town.png)
+
 ## Desert Path
 
 Description: Simulates the player's journey through the scorching desert.
@@ -121,19 +137,15 @@ User Interaction: Allows the player to choose actions such:
 
 Purpose: Presents a unique environment with distinct challenges and decisions.
 
-## Game Over
-
-Description: Displays when the player completes all paths or decides to quit the game.
-
-User Interaction: Prompts the player to decide whether to continue playing or exit the game.
-
-Purpose: Wraps up the game, showcases the final score, and potentially updates the leaderboard.
+![Desert Path](assets/images/desert.png)
 
 ## Leaderboard
 
 Description: Displays the leaderboard with the top 10 scores.
 User Interaction: Allows players to view their final score and compare it with other players.
 Purpose: Recognises player achievements and provides a competitive aspect to the game.
+
+![Leaderboard](assets/images/leaderboard.png)
 
 # Future Features
 
