@@ -6,12 +6,39 @@ import random
 
 import gspread
 from google.oauth2.service_account import Credentials
-
+import sympy
 import colorama
 from colorama import Fore, Style
 from images import main_title
-from models import Player, Item
+from models import Player
 from leaderboard import update_leaderboard, show_leaderboard
+
+# Google Sheets Constants
+GOOGLE_SHEETS_SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+]
+
+CREDENTIALS_FILE_PATH = 'creds.json'
+
+colorama.init(autoreset=True)
+
+# Difficulty Levels
+EASY = 1
+MEDIUM = 2
+HARD = 3
+
+# Game Paths
+FOREST_PATH = '1'
+TOWN_PATH = '2'
+DESERT_PATH = '3'
+
+# Game Messages
+INVALID_CHOICE_MESSAGE = "Invalid choice. Please enter a valid number."
+
+# Google Sheets API integration
+CREDS = Credentials.from_service_account_file(CREDENTIALS_FILE_PATH)
 
 
 def authorise_gspread():
@@ -19,26 +46,13 @@ def authorise_gspread():
     Exception raised in event Google Sheets cannot be accessed.
     """
     try:
-        SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+        SCOPED_CREDS = CREDS.with_scopes(GOOGLE_SHEETS_SCOPE)
         GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
         return GSPREAD_CLIENT
     except Exception as e:
         print(f"Error authorising Google Sheets API: {e}")
         return None
-
-
-colorama.init(autoreset=True)
-
-# Google Sheets API integration
-SCOPE = [
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive.file",
-    "https://www.googleapis.com/auth/drive"
-]
-
-# Google credentials
-CREDS = Credentials.from_service_account_file('creds.json')
-
+    
 # Google Sheets worksheets
 GSPREAD_CLIENT = authorise_gspread()
 
@@ -90,19 +104,19 @@ def choose_difficulty():
     Prompts the user to choose a difficulty level and returns the selected level as an integer.
     """
     print("Choose your difficulty:")
-    print("1. Easy")
-    print("2. Medium")
-    print("3. Hard")
+    print(f"{EASY}. Easy")
+    print(f"{MEDIUM}. Medium")
+    print(f"{HARD}. Hard")
 
     while True:
-        choice = input("Which level do you choose (1, 2 or 3) ?\n")
-        if choice.isdigit() and choice in ['1', '2', '3']:
+        choice = input("Which level do you choose (1, 2, or 3)?\n")
+        if choice.isdigit() and choice in [str(EASY), str(MEDIUM), str(HARD)]:
             return int(choice)
         else:
             if not choice:
                 print("Please enter a value.")
             else:
-                print("Invalid choice. Please enter a valid number (1, 2, or 3)")
+                print(INVALID_CHOICE_MESSAGE)
 
 
 def clear_screen():
@@ -116,7 +130,6 @@ def restart_game(gspread_client):
     """
     Restarts the game by clearing the screen and calling the game_intro function.
     """
-    from run import game_intro
     print("Restarting the game...\n")
     clear_screen()
     game_intro(gspread_client)
@@ -145,7 +158,7 @@ def quit_game(player, gspread_client):
         elif continue_playing == "no":
             sys.exit()
         else:
-            print("Invalid choice. Please enter 'yes' or 'no'.")
+            print("Invalid choice. Please enter 'yes' or 'no.'")
 
 
 # Initial Path Choices
