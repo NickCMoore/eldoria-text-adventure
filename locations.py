@@ -149,12 +149,12 @@ def visit_potion_shop(player):
     if player.potion_shop_completed:
         print("You have already visited the Potion Shop.")
         return
-
+    clear_screen()
     print("You enter the Potion Shop and meet the friendly shopkeeper.")
     print("They offer you a health potion as a gift.")
 
     player.health += 20
-    print(f"You gained 20 health. Your total health is now {player.health}.")
+    print(Fore.GREEN + f"You gained 20 health. Your total health is now {player.health}.")
 
     player.inventory.add_item(
         Item(name="Health Potion", description="A magical potion that restores health."))
@@ -169,12 +169,13 @@ def explore_market_square(player):
     if player.market_square_completed:
         print("You have already explored the Market Square.")
         return
+    clear_screen()
     print("You explore the Market Square and find various goods.")
     print("While browsing, you encounter a pickpocket!")
 
     player.deduct_health(15)
 
-    print("The pickpocket escapes, but you managed to retain most of your belongings.")
+    print(Fore.RED + "The pickpocket escapes, you lose 15 health, but manage to retain most of your belongings.")
 
     player.market_square_completed = True
 

@@ -44,7 +44,7 @@ def word_puzzle(player):
             player.forest_completed = True
             player.health += 10
             correct_answers += 1
-            print(f"You earned 10 points. Your total score is now {player.health}.")
+            print(Fore.GREEN + f"You earned 10 health. Your total score is now {player.health}.")
 
             if correct_answers < 3:
                 print("The wise old tree presents you with another riddle.")
@@ -56,7 +56,7 @@ def word_puzzle(player):
                 return
         else:
             print("The wise old tree shakes its branches.")
-            print("Incorrect. The forest path remains a mystery.")
+            print(Fore.RED + "Incorrect. You lost 10 health. The forest path remains a mystery.")
             player.deduct_health(10)
 
             max_attempts -= 1
@@ -126,8 +126,7 @@ def mysterious_merchant_puzzle(player):
             result = check_prime_puzzle(selected_numbers, num1, num2)
 
             if result:
-                print(
-                    f"Congratulations, {player.name}! You found the correct pair. You receive a helmet as a bonus!")
+                print(Fore.GREEN + f"Congratulations, {player.name}! You found the correct pair. You receive a helmet as a bonus!")
                 helmet = Helmet()
                 player.inventory.add_item(helmet)
                 print(f"A {helmet._name} has been added to your backpack.")
@@ -142,7 +141,7 @@ def mysterious_merchant_puzzle(player):
                         f"You have {attempts_left} {'attempts' if attempts_left > 1 else 'attempt'} left.")
                 else:
                     print(f"{player.name}, you've used all your attempts.")
-                    print("The correct answer was not found. Better luck next time!")
+                    print(Fore.RED + "The correct answer was not found. Better luck next time!")
                     player.mysterious_merchant_completed = True
                     return
         except ValueError:
@@ -192,7 +191,7 @@ def sand_anagrams(player):
                 player_input = input("Your answer: ").lower()
 
                 if player_input == word_puzzle['Word']:
-                    print("Congratulations! You solved the number puzzle.")
+                    print(Fore.GREEN + "Congratulations! You solved the number puzzle.")
                     player.add_shield_to_backpack()
                     player.sand_dunes_completed = True
                     return
@@ -215,7 +214,7 @@ def sand_anagrams(player):
 
         shield = Shield()
         player.inventory.add_item(shield)
-        print(f"A {shield._name} has been added to your backpack.")
+        print(Fore.GREEN + f"A {shield._name} has been added to your backpack.")
     else:
         print("You encounter a mirage and end up wasting time.")
 
