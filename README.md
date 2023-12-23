@@ -81,6 +81,29 @@ Below is a simplified flowchart that illustrates the input validation process in
 
 As the app was developed for the terminal environment, extensive design elements or colour schemes were not relevant. However, Colorama was utilised strategically to introduce subtle color enhancements to certain aspects of the game. This was done to ensure that crucial information or specific sections of the application (such as green/red for positive/negative events) would stand out and be easily distinguishable for the user within the terminal interface.
 
+## Libraries
+
+### Colorama
+
+I used Colorama as I felt it enhances the user experience. Any addition of colour to the terminal output makes the game more visually appealing appeal and helps users to quickly identify important information.
+
+### Google Sheets API with gspread
+
+Implementing Google Sheets as a data source allowed me to easily modify game elements without changing the code.
+
+### Heroku
+
+A requirement for the project from Code Institute, that made it east to host and share the game online.
+
+### Python libraries
+
+- os: Useful for clearing the terminal screen. This helped to present a clean display, preventing the accumulation of text.
+- sys: Within this suite of functions, providing the user with the ability to exit the game was particularly useful.
+- time:  Provided time-related functions, such as introducing time delays so all text was visible when needed.
+- random: Allowed me to generate random numbers, creating an element of luck within the game.
+
+
+
 # Current Features
 
 ## Game Introduction
@@ -142,7 +165,9 @@ Purpose: Presents a unique environment with distinct challenges and decisions.
 ## Leaderboard
 
 Description: Displays the leaderboard with the top 10 scores.
+
 User Interaction: Allows players to view their final score and compare it with other players.
+
 Purpose: Recognises player achievements and provides a competitive aspect to the game.
 
 ![Leaderboard](assets/images/leaderboard.png)
