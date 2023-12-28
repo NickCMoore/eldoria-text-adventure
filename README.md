@@ -266,6 +266,10 @@ The frontend terminal should now be connected and deployed to Heroku.
 - Code to create Player class learned from <a href="https://realpython.com/python3-object-oriented-programming/" target="_blank" rel="noopener">Real Python</a>
 - Code to update leaderboard taken from <a href="https://stackoverflow.com/questions/50938274/sort-a-spread-sheet-via-gspread" target="_blank" rel="noopener">Stack Overflow</a>
 - Code to display leaderboard in columns taken from <a href="https://stackoverflow.com/questions/61285626/print-list-of-lists-in-neat-columns-table" target="_blank" rel="noopener">Stack Overflow</a>
+- Ideas for how to design a Python Adventure Game: 
+<a href="https://www.youtube.com/watch?v=DEcFCn2ubSg target="_blank rel="noopener">Python Adventure Game</a>
+<a href="https://www.thecoderpedia.com/blog/text-based-adventure-game-in-python/" target="_blank" rel="noopener">Text-Based Adventure Game in Python (Complete Guide)</a>
+<a href="https://www.askpython.com/python/text-based-adventure-game" target="_blank" rel="noopener">How to create a text-based adventure game in Python?</a>
 
 ## Design
 

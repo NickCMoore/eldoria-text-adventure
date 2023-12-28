@@ -1,6 +1,6 @@
 # Code Validation
 
-Throughout the project, I conducted manual testing for code validation using PEP8 Validators. This involved actively checking the adherence of the Eldoria Text Adventure Game code to the PEP8 style guidelines. Understanding PEP8 Guidelines:
+Throughout the project, I conducted manual testing for code validation using PEP8 Validators. This involved actively checking the adherence of the Eldoria Text Adventure Game code to the PEP8 style guidelines.
 
 I familiarised myself with the PEP8 style guidelines to ensure I had a clear understanding of the guidelines
 
@@ -16,7 +16,7 @@ After implementing fixes, I reran the PEP8 validation tools again to verify that
 
 # Bugs & Fixes
 
-Aside from regularly documenting smaller bugs and fixes (such as for error validation) through GitHub's commit process, I also used GitHub's issue tracker to monitor and address many of the bugs identified during the development and testing phases of my program. As of now, there are no open bugs, and you can review the historical record of addressed bugs and their various fixes in throughout the GitHub commit history and also through GitHub's[Issues](https://github.com/NickCMoore/eldoria-text-adventure/issues?q=is%3Aissue+is%3Aclosed)
+Aside from regularly documenting smaller bugs and fixes (such as for error validation) through GitHub's commit process, I also used GitHub's issue tracker to monitor and address many of the bugs identified during the development and testing phases of my program. As of now, there are no open bugs, and you can review the historical record of addressed bugs and their various fixes in throughout the GitHub commit history and also through GitHub's [Issues](https://github.com/NickCMoore/eldoria-text-adventure/issues?q=is%3Aissue+is%3Aclosed)
 
 ![Bugs](assets/images/bugs.png)
 
