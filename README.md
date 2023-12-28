@@ -203,6 +203,12 @@ The following technologies were used in the development of the app:
 - Diagrams.net: Employed to design the game layout and create a comprehensive flowchart.
 - Visual Studio Code (VSCode): Used as the primary integrated development environment (IDE) for coding and project management.
 
+# Bugs
+
+Throughout the process, I used GitHub's issue tracker to monitor and address many of the bugs identified during the development and testing phases of my program. As of now, there are no open bugs, and you can review the historical record of addressed bugs <a href="https://github.com/NickCMoore/eldoria-text-adventure/issues?q=is%3Aissue+is%3Aclosed" target="_blank" rel="noopener">here</a>
+
+![Bugs](assets/images/bugs.png)
+
 # Testing
 
 # Deployment
