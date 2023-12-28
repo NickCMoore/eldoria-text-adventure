@@ -211,6 +211,8 @@ Aside from regularly documenting smaller bugs through GitHub's commit process, I
 
 # Testing
 
+To view the testing file, please click ![here](https://github.com/NickCMoore/eldoria-text-adventure/blob/main/TESTING.md).
+
 # Deployment
 
 Code Institute supplied a template for showcasing the terminal view of this backend application in web browser. This enhancement aims to make the project more accessible to a wider audience.
