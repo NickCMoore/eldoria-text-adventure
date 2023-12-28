@@ -1,32 +1,22 @@
 # Code Validation
 
-Throughout the project, I conducted internal PEP8 validation tests on the Eldoria Text Adventure Game code using the internal PEP8 validation tool installed in VSCode. This enabled me to continuously check to see whether the code was meeting these guidelines.
+Throughout the project, I conducted manual testing for code validation using PEP8 Validators. This involved actively checking the adherence of the Eldoria Text Adventure Game code to the PEP8 style guidelines. Understanding PEP8 Guidelines:
 
-To install this, I followed the below instructions:
+I familiarised myself with the PEP8 style guidelines to ensure I had a clear understanding of the guidelines
 
-**Install Python Extension:**
-Install the "Python" extension in VSCode.
+I manually reviewed the code, section by section, to identify potential violations of PEP8 standards. This included checking indentation, whitespace usage, line lengths and other relevant style considerations.
 
-**Install autopep8:**
-Run pip install autopep8 in the terminal.
+I utilised PEP8 validation tools, such as autopep8, to perform specific checks on the code. These tools were run through the terminal.
 
-**Configure autopep8 in VSCode:**
-Set the path for autopep8 in VSCode settings.
+For further information on the use of this extension, please refer to the following site - [PEP8](https://pypi.org/project/autopep8/)
 
-**Enable and Run autopep8:**
-Turn on linting in the Status Bar.
-Save your file to automatically run autopep8 and highlight PEP8 violations.
+For each error identified during the manual review and validation process, I implemented necessary fixes to bring the code in line with PEP8 guidelines.
 
-**View autopep8 Output:**
-Check detailed output in the VSCode Output view.
-
-For further information on this extension, please refer to the following site - <a href="https://eldoria-text-adventure-b67c4e715670.herokuapp.com/" target="_blank" rel="noopener">PEP8</a>
-
-Any issues were usually autocorrected or highlighted in the 'Problem' tab within VSCode.
+After implementing fixes, I reran the PEP8 validation tools again to verify that the identified issues were successfully addressed.
 
 # Bugs & Fixes
 
-Aside from regularly documenting smaller bugs and fixes (such as for error validation) through GitHub's commit process, I also used GitHub's issue tracker to monitor and address many of the bugs identified during the development and testing phases of my program. As of now, there are no open bugs, and you can review the historical record of addressed bugs and their various fixes in throughout the GitHub commit history and also <a href="https://github.com/NickCMoore/eldoria-text-adventure/issues?q=is%3Aissue+is%3Aclosed" target="_blank" rel="noopener">here</a>
+Aside from regularly documenting smaller bugs and fixes (such as for error validation) through GitHub's commit process, I also used GitHub's issue tracker to monitor and address many of the bugs identified during the development and testing phases of my program. As of now, there are no open bugs, and you can review the historical record of addressed bugs and their various fixes in throughout the GitHub commit history and also through GitHub's[Issues](https://github.com/NickCMoore/eldoria-text-adventure/issues?q=is%3Aissue+is%3Aclosed)
 
 ![Bugs](assets/images/bugs.png)
 
@@ -62,6 +52,8 @@ Outcome:
 ![Game Initialisation](assets/images/initialisation.png)
 
 Result: Pass
+
+
 
 **2. Player Input**
 
@@ -104,6 +96,8 @@ Outcome:
 
 Result: Pass
 
+
+
 **3. Crossroads Choices**
 
 Scenario 1: Crossroads
@@ -133,6 +127,8 @@ Outcome:
 
 Result: Pass
 
+
+
 **4. Town Encounters**
 
 Scenario 1: Potion Shop Visit
@@ -160,6 +156,8 @@ Outcome:
 ![Market Square](assets/images/market.png)
 
 Result: Pass
+
+
 
 **5. Desert Path**
 

@@ -37,7 +37,7 @@ Goal - Enhance the educational value of the game with puzzles, riddles, and chal
 It is built using Python and runs through the Code institute mock terminal on Heroku.
 
 
-Welcome to <a href="https://eldoria-text-adventure-b67c4e715670.herokuapp.com/" target="_blank" rel="noopener">Eldoria Text Adventure</a>
+Welcome to [Eldoria Text Adventure](https://eldoria-text-adventure-b67c4e715670.herokuapp.com/)
 
 
 # Contents
@@ -205,7 +205,7 @@ The following technologies were used in the development of the app:
 
 # Bugs
 
-Aside from regularly documenting smaller bugs through GitHub's commit process, I also used GitHub's issue tracker to monitor and address many of the bugs identified during the development and testing phases of my program. As of now, there are no open bugs, and you can review the historical record of addressed bugs <a href="https://github.com/NickCMoore/eldoria-text-adventure/issues?q=is%3Aissue+is%3Aclosed" target="_blank" rel="noopener">here</a>
+Aside from regularly documenting smaller bugs through GitHub's commit process, I also used GitHub's issue tracker to monitor and address many of the bugs identified during the development and testing phases of my program. As of now, there are no open bugs, and you can review the historical record of addressed bugs here on GitHub [Issues](https://github.com/NickCMoore/eldoria-text-adventure/issues?q=is%3Aissue+is%3Aclosed)
 
 ![Bugs](assets/images/bugs.png)
 
@@ -215,7 +215,7 @@ Aside from regularly documenting smaller bugs through GitHub's commit process, I
 
 Code Institute supplied a template for showcasing the terminal view of this backend application in web browser. This enhancement aims to make the project more accessible to a wider audience.
 
-You can access the live deployed application at <a href="https://eldoria-text-adventure-b67c4e715670.herokuapp.com/" target="_blank" rel="noopener">Eldoria Text Adventure</a>
+You can access the live deployed application at [Eldoria Text Adventure](https://eldoria-text-adventure-b67c4e715670.herokuapp.com/)
 
 ## Local Deployment
 
