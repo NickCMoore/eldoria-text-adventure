@@ -185,7 +185,7 @@ def check_prime_puzzle(numbers, num1, num2):
 
 def sand_anagrams(player):
     """
-    Recreates the player going on their journey through the sand dunes
+    Recreates the player going on their journey through the sand dunes and solving anagrams on the way.
     """
     from puzzles import word_puzzle, fetch_word_puzzle
     if player.sand_dunes_completed:
