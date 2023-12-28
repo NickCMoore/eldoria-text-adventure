@@ -59,7 +59,8 @@ My testing strategy involved validating the core functionalities of the game, en
     - The game starts without any errors.
 
     Outcome:
-    ![Game Initialisation](assets/images/initialisation.png)
+![Game Initialisation](assets/images/initialisation.png)
+
     Result: Pass
 
 **2. Player Input**
@@ -73,7 +74,7 @@ My testing strategy involved validating the core functionalities of the game, en
     - The game proceeds without errors.
 
     Outcome:
-    ![Valid Name](assets/images/valid_name.png)
+![Valid Name](assets/images/valid_name.png)
 
     Result: Pass
 
@@ -86,7 +87,7 @@ My testing strategy involved validating the core functionalities of the game, en
     - The game provides an error message and prompts for a valid name.
 
     Outcome:
-    ![Invalid Name](assets/images/invalid_name.png)
+![Invalid Name](assets/images/invalid_name.png)
 
     Result: Pass
 
@@ -99,7 +100,7 @@ My testing strategy involved validating the core functionalities of the game, en
     - The game provides an error message and prompts for a valid number.
 
     Outcome:
-    ![Invalid Difficulty](assets/images/invalid_difficulty.png)
+![Invalid Difficulty](assets/images/invalid_difficulty.png)
 
     Result: Pass
 
@@ -114,8 +115,8 @@ My testing strategy involved validating the core functionalities of the game, en
     - The Forest Path events and puzzles are triggered without errors.
 
     Outcome:
-    ![Forest Path Selection 1](assets/images/forest_path_selection1.png)
-    ![Forest Path Selection 2](assets/images/forest_path_selection2.png)
+![Forest Path Selection 1](assets/images/forest_path_selection1.png)
+![Forest Path Selection 2](assets/images/forest_path_selection2.png)
 
     Result: Pass
 
@@ -128,7 +129,7 @@ My testing strategy involved validating the core functionalities of the game, en
     - Town events and encounters proceed without errors.
 
     Outcome:
-    ![Town Path](assets/images/town_path.png)
+![Town Path](assets/images/town_path.png)
 
     Result: Pass
 
@@ -143,7 +144,7 @@ My testing strategy involved validating the core functionalities of the game, en
     - Player gains health, and the potion shop events complete without errors.
 
     Outcome:
-    ![Potion Shop](assets/images/potion_shop.png)
+![Potion Shop](assets/images/potion_shop.png)
 
     Result: Pass
 
@@ -156,7 +157,7 @@ My testing strategy involved validating the core functionalities of the game, en
     - Market Square events and encounters proceed without errors.
 
     Outcome:
-    ![Market Square](assets/images/market.png)
+![Market Square](assets/images/market.png)
 
     Result: Pass
 
@@ -171,7 +172,7 @@ My testing strategy involved validating the core functionalities of the game, en
     - Oasis events and outcomes proceed without errors.
 
     Outcome:
-    ![Oasis](assets/images/oasis.png)
+![Oasis](assets/images/oasis.png)
 
     Result: Pass
 
@@ -184,7 +185,7 @@ My testing strategy involved validating the core functionalities of the game, en
     - Sand dunes events and puzzles proceed without errors.
 
     Outcome:
-    ![Sand Dunes](assets/images/dunes.png)
+![Sand Dunes](assets/images/dunes.png)
 
     Result: Pass
 
@@ -194,10 +195,10 @@ Upon deploying the application on Heroku, I thoroughly tested it on Chrome, Brav
 
 **Chrome**
 
-    ![Chrome](assets/images/chrome.png)
+![Chrome](assets/images/chrome.png)
 
 **Brave**
-    ![Brave](assets/images/brave.png)
+![Brave](assets/images/brave.png)
 
 **Edge**
-    ![Edge](assets/images/edge.png)
+![Edge](assets/images/edge.png)
