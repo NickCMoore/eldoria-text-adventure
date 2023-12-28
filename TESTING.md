@@ -42,7 +42,7 @@ My testing strategy involved validating the core functionalities of the game, en
 
 ## Test Cases
 
-1. Game Initialisation
+**1. Game Initialisation**
 
     Scenario 1: Successful Initialisation
 
@@ -57,7 +57,7 @@ My testing strategy involved validating the core functionalities of the game, en
     ![Game Initialisation](assets/images/initialisation.png)
     Result: Pass
 
-2. Player Input
+**2. Player Input**
 
     Scenario 1: Valid Player Name Input
 
@@ -98,7 +98,7 @@ My testing strategy involved validating the core functionalities of the game, en
 
     Result: Pass
 
-3. Crossroads Choices
+**3. Crossroads Choices**
 
     Scenario 1: Crossroads
 
@@ -127,7 +127,7 @@ My testing strategy involved validating the core functionalities of the game, en
 
     Result: Pass
 
-4. Town Encounters
+**4. Town Encounters**
 
     Scenario 1: Potion Shop Visit
 
@@ -155,7 +155,7 @@ My testing strategy involved validating the core functionalities of the game, en
 
     Result: Pass
 
-5. Desert Path
+**5. Desert Path**
 
     Scenario 1: Search for Oasis
 
@@ -180,5 +180,19 @@ My testing strategy involved validating the core functionalities of the game, en
 
     Outcome:
     ![Sand Dunes](assets/images/dunes.png)
-    
+
     Result: Pass
+
+# Browser Testing
+
+Upon deploying the application on Heroku, I thoroughly tested it on Chrome, Brave, and Edge. The program seamlessly loaded without any issues and functioned as expected across all browsers.
+
+**Chrome**
+
+    ![Chrome](assets/images/chrome.png)
+
+**Brave**
+    ![Brave](assets/images/brave.png)
+
+**Edge**
+    ![Edge](assets/images/edge.png)
