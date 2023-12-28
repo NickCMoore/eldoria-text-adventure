@@ -205,7 +205,7 @@ The following technologies were used in the development of the app:
 
 # Bugs
 
-Throughout the process, I used GitHub's issue tracker to monitor and address many of the bugs identified during the development and testing phases of my program. As of now, there are no open bugs, and you can review the historical record of addressed bugs <a href="https://github.com/NickCMoore/eldoria-text-adventure/issues?q=is%3Aissue+is%3Aclosed" target="_blank" rel="noopener">here</a>
+Aside from regularly documenting smaller bugs through GitHub's commit process, I also used GitHub's issue tracker to monitor and address many of the bugs identified during the development and testing phases of my program. As of now, there are no open bugs, and you can review the historical record of addressed bugs <a href="https://github.com/NickCMoore/eldoria-text-adventure/issues?q=is%3Aissue+is%3Aclosed" target="_blank" rel="noopener">here</a>
 
 ![Bugs](assets/images/bugs.png)
 
