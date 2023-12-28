@@ -24,11 +24,16 @@ For further information on this extension, please refer to the following site - 
 
 Any issues were usually autocorrected or highlighted in the 'Problem' tab within VSCode.
 
-# Bugs
+# Bugs & Fixes
 
-Aside from regularly documenting smaller bugs through GitHub's commit process, I also used GitHub's issue tracker to monitor and address many of the bugs identified during the development and testing phases of my program. As of now, there are no open bugs, and you can review the historical record of addressed bugs <a href="https://github.com/NickCMoore/eldoria-text-adventure/issues?q=is%3Aissue+is%3Aclosed" target="_blank" rel="noopener">here</a>
+Aside from regularly documenting smaller bugs and fixes (such as for error validation) through GitHub's commit process, I also used GitHub's issue tracker to monitor and address many of the bugs identified during the development and testing phases of my program. As of now, there are no open bugs, and you can review the historical record of addressed bugs and their various fixes in throughout the GitHub commit history and also <a href="https://github.com/NickCMoore/eldoria-text-adventure/issues?q=is%3Aissue+is%3Aclosed" target="_blank" rel="noopener">here</a>
 
 ![Bugs](assets/images/bugs.png)
+
+Examples of fixes created to address errors in validation can be seen below in examples of the commit history:
+
+![Validation Errors 1](assets/images/validation_improvement1.png)
+![Validation Errors 2](assets/images/validation_improvement2.png)
 
 # Game Validation Testing
 
