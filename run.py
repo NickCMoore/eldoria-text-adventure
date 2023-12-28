@@ -70,7 +70,7 @@ def main():
 
 def game_intro(gspread_client):
     """
-    Initialises the game, prompts the user for their name and difficulty level, and starts the game.
+    Initialises the game, prompts the user for their name and difficulty level and starts the game.
     """
     print("Welcome to the Eldoria Text Adventure!\n")
 
