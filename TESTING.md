@@ -25,6 +25,10 @@ For each error identified during the manual review and validation process, I imp
 
 After implementing fixes, I reran the PEP8 validation tools again to verify that the identified issues were successfully addressed.
 
+An exception to PEP8 guidelines was made for some print statements that exceed the 79-character limit. In the context of a text-based adventure game in a terminal environment, I felt that maintaining print statements within the 79-character limit could compromise the clarity of displayed text. It helped to have longer descriptive messages in order deepen the player's understanding of the game content.
+
+All other aspects of the code, such as variable naming, indentation, and overall structure, strictly adhere to PEP8 recommendations.
+
 # Bugs & Fixes
 
 Aside from regularly documenting smaller bugs and fixes (such as for error validation) through GitHub's commit process, I also used GitHub's issue tracker to monitor and address many of the bugs identified during the development and testing phases of my program. As of now, there are no open bugs, and you can review the historical record of addressed bugs and their various fixes in throughout the GitHub commit history and also through GitHub's [Issues](https://github.com/NickCMoore/eldoria-text-adventure/issues?q=is%3Aissue+is%3Aclosed)
