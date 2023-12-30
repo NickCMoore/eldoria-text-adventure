@@ -36,6 +36,8 @@ Examples of fixes created to address errors in validation can be seen below in e
 ![Validation Errors 1](assets/images/validation_improvement1.png)
 ![Validation Errors 2](assets/images/validation_improvement2.png)
 
+In terms of unresolved validation errors, when the player is inputting an answer in the forest riddle and they incorrectly enter a number or symbol instead of a text string, they should be told that this is an invalid input rather than the answer is simply incorrect. This leaves the user unsure whether they genuinely got the answer wrong or they created an invalid input. This bug is due to be resolved in the next iteration o the game!
+
 # Game Validation Testing
 
 My testing strategy involved validating the core functionalities of the game, ensuring that different paths, encounters, and game mechanics worked as intended. The following areas were tested as a set of test cases:
