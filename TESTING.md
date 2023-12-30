@@ -202,3 +202,6 @@ Upon deploying the application on Heroku, I thoroughly tested it on Chrome, Brav
 **Edge**
 
 ![Edge](assets/images/edge.png)
+
+
+The testing process aimed to cover all critical aspects of the game, ensuring stability and functionality in areas such as game initialisation, player input, and various in-game scenarios. Browser testing further confirmed cross-browser compatibility. This process helped to ensure the reliability of the current version of the game but also established a foundation for potential future iterations and enhancements of the game.
