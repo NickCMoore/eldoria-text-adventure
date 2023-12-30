@@ -1,3 +1,14 @@
+# Table of Contents - Testing
+
+* [**Code Validation**](<#code-validation>)
+* [**Bugs & Fixes**](<#bugs--fixes>)
+* [**Game Validation Testing**](<#game-validation-testing>)
+* [**Code Validation**](<#code-validation>)
+    * [Test Cases](<#test-cases>)
+* [**Browser Testing**](<#browser-testing>)
+* [**Conclusion**](<#conclusion>)
+
+
 # Code Validation
 
 Throughout the project, I conducted manual testing for code validation using PEP8 Validators. This involved actively checking the adherence of the Eldoria Text Adventure Game code to the PEP8 style guidelines.
@@ -202,6 +213,8 @@ Upon deploying the application on Heroku, I thoroughly tested it on Chrome, Brav
 **Edge**
 
 ![Edge](assets/images/edge.png)
+
+# Conclusion
 
 
 The testing process aimed to cover all critical aspects of the game, ensuring stability and functionality in areas such as game initialisation, player input, and various in-game scenarios. Browser testing further confirmed cross-browser compatibility. This process helped to ensure the reliability of the current version of the game but also established a foundation for potential future iterations and enhancements of the game.

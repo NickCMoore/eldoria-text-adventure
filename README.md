@@ -40,19 +40,20 @@ It is built using Python and runs through the Code institute mock terminal on He
 Welcome to [Eldoria Text Adventure](https://eldoria-text-adventure-b67c4e715670.herokuapp.com/)
 
 
-# Contents
+# Table of Contents - Readme
 
 * [**User Experience UX**](<#user-experience-ux>)
     * [User Stories](<#user-stories>)
-    * [Game Design](<#gamedesign>)
+    * [Game Design](<#game-design>)
 * [**Current Features**](<#current-features>)
 * [**Future Features**](<#future-features>)
 * [**Technologies Used**](<#technologies-used>)
+* [**Bugs**](<#bugs>)
 * [**Testing**](<#testing>)
 * [**Deployment**](<#deployment>)
 * [**Credits**](<#credits>)
-    * [**Content**](<#content>)
-    * [**Media**](<#media>)
+    * [**Code**](<#code>)
+    * [**Design**](<#design>)
 *  [**Acknowledgements**](<#acknowledgements>)
 
 
