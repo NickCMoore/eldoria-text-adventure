@@ -211,7 +211,7 @@ Aside from regularly documenting smaller bugs through GitHub's commit process, I
 
 # Testing
 
-To view the testing file, please click ![here](https://github.com/NickCMoore/eldoria-text-adventure/blob/main/TESTING.md).
+To view the testing file, please click [here](https://github.com/NickCMoore/eldoria-text-adventure/blob/main/TESTING.md).
 
 # Deployment
 
@@ -265,7 +265,9 @@ The frontend terminal should now be connected and deployed to Heroku.
 - Code to create clear_screen function taken from <a href="https://www.geeksforgeeks.org/clear-screen-python/" target="_blank" rel="noopener">GeeksforGeeks</a>
 - Code to create Player class learned from <a href="https://realpython.com/python3-object-oriented-programming/" target="_blank" rel="noopener">Real Python</a>
 - Code to update leaderboard taken from <a href="https://stackoverflow.com/questions/50938274/sort-a-spread-sheet-via-gspread" target="_blank" rel="noopener">Stack Overflow</a>
+- Further guidance on creating objects for an adventure game taken from <a href="https://letstalkdata.com/2014/08/how-to-write-a-text-adventure-in-python-part-1-items-and-enemies/" target="_blank" rel="noopener">How to Write a Text Adventure in Python</a>
 - Code to display leaderboard in columns taken from <a href="https://stackoverflow.com/questions/61285626/print-list-of-lists-in-neat-columns-table" target="_blank" rel="noopener">Stack Overflow</a>
+- Guidance on how to insert ASCII art into a terminal-based program taken from <a href="https://www.patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20" target="_blank" rel="noopener">Test to ASCII Art Generator</a>
 - Initial ideas for how to design a Python Adventure Game:
 
     - <a href="https://www.youtube.com/watch?v=DEcFCn2ubSg" target="_blank" rel="noopener">Python Adventure Game</a>
